@@ -27,13 +27,13 @@ const FLOATING_CARDS = [
  */
 export function Chapter1Arrival() {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-bg-primary pt-24 md:pt-32">
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-bg-primary pt-20 md:pt-32">
       <div className="absolute inset-0 bg-grid opacity-40" />
       <div className="absolute inset-0 bg-aurora" />
 
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-7">
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-7">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -47,14 +47,14 @@ export function Chapter1Arrival() {
               text="Engineering Tomorrow's Technology, TODAY."
               emphasize="TODAY."
               delay={0.6}
-              className="mt-6 text-5xl font-extrabold leading-[1.05] text-ink sm:text-6xl lg:text-7xl"
+              className="mt-5 text-3xl font-extrabold leading-[1.05] text-ink sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             />
 
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-7 max-w-xl text-lg leading-relaxed text-ink-muted"
+              className="mt-6 max-w-xl text-sm leading-relaxed text-ink-muted sm:text-base md:text-lg"
             >
               We help organizations leverage technology to solve operational challenges,
               modernize infrastructure, and stay ahead in an increasingly connected world —
@@ -79,7 +79,7 @@ export function Chapter1Arrival() {
             </motion.div>
           </div>
 
-          <div className="relative hidden lg:col-span-5 lg:block">
+          <div className="relative hidden md:col-span-5 md:block lg:col-span-5">
             <div className="relative mx-auto aspect-square w-full max-w-[360px] sm:max-w-[440px] lg:max-w-[500px]">
               <HeroGlobeCanvas className="absolute inset-0 h-full w-full opacity-90" />
 

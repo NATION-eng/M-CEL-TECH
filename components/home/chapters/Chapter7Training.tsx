@@ -39,7 +39,7 @@ export function Chapter7Training() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-bg-primary py-28 md:py-36">
+    <section className="relative overflow-hidden bg-bg-primary py-16 md:py-28 lg:py-36">
       <div
         className="absolute inset-0 opacity-70"
         style={{
@@ -57,7 +57,7 @@ export function Chapter7Training() {
           text="Build the Skills That Build the Future."
           as="h2"
           emphasize="Future."
-          className="mx-auto mt-5 max-w-3xl text-center text-4xl font-bold leading-tight text-ink md:text-5xl"
+          className="mx-auto mt-5 max-w-3xl text-center text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
         />
 
         <Reveal delay={0.15}>
@@ -147,9 +147,9 @@ export function Chapter7Training() {
         </Reveal>
 
         <Reveal delay={0.25}>
-          <div className="glass-panel mx-auto mt-8 flex max-w-xl flex-col items-center gap-4 p-8 sm:p-10 text-center shadow-glow-violet border border-white/15 rounded-3xl">
-            <span className="text-base font-semibold text-slate-300">{TRAINING_DETAILS.title}</span>
-            <span className="font-mono text-4xl sm:text-5xl font-black text-gradient-electric">
+          <div className="glass-panel mx-auto mt-8 flex max-w-xl flex-col items-center gap-4 p-6 sm:p-10 text-center shadow-glow-violet border border-white/15 rounded-3xl">
+            <span className="text-sm font-semibold text-slate-300 sm:text-base">{TRAINING_DETAILS.title}</span>
+            <span className="font-mono text-3xl sm:text-4xl md:text-5xl font-black text-gradient-electric">
               {formatNaira(TRAINING_DETAILS.price)}
             </span>
             <span className="text-sm font-medium text-slate-400">{TRAINING_DETAILS.cohortNote} · {TRAINING_DETAILS.perks.join(" · ")}</span>

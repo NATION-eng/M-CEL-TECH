@@ -15,9 +15,9 @@ export function Footer() {
       <ConstellationCanvas density={90} />
       <div className="pointer-events-none absolute inset-0 bg-aurora opacity-60" />
 
-      <Container className="relative py-16">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="max-w-xs">
+      <Container className="relative py-12 md:py-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sm:col-span-2 lg:col-span-1 lg:max-w-xs">
             <div className="drop-shadow-[0_0_24px_rgba(37,99,235,0.35)]">
               <Logo size="lg" />
             </div>

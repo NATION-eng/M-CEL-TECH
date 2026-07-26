@@ -40,7 +40,7 @@ export function Chapter2Future() {
           text="Engineering the Digital Future."
           emphasize="Future."
           as="h2"
-          className="mx-auto mt-5 max-w-3xl text-center text-4xl font-bold leading-tight text-ink md:text-5xl"
+          className="mx-auto mt-5 max-w-3xl text-center text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
         />
 
         <Reveal delay={0.15}>
@@ -50,7 +50,7 @@ export function Chapter2Future() {
           </p>
         </Reveal>
 
-        <div className="relative mx-auto mt-20 h-[520px] max-w-3xl md:h-[580px]">
+        <div className="relative mx-auto mt-12 h-[360px] max-w-3xl sm:h-[440px] md:mt-20 md:h-[520px] lg:h-[580px]">
           <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="ch2-line" x1="0" y1="0" x2="1" y2="1">
@@ -118,7 +118,7 @@ export function Chapter2Future() {
                   y: { duration: 4.5 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 },
                 }}
                 style={{ top: `${word.top}%`, left: `${word.left}%` }}
-                className={`glass absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-ink transition-shadow duration-300 ${
+                className={`glass absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[10px] font-medium text-ink transition-shadow duration-300 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${
                   isActive ? "shadow-glow-cyan" : ""
                 }`}
               >

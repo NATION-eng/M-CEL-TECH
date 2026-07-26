@@ -11,7 +11,7 @@ import { DEFAULT_WHATSAPP_MESSAGE, getWhatsAppLink } from "@/constants/site";
 /** Chapter 9 — Final Invitation: the constellation that carries into the Footer begins here, so the two blend into one closing scene. */
 export function Chapter9FinalInvitation() {
   return (
-    <section className="relative overflow-hidden bg-bg-primary py-32 md:py-44">
+    <section className="relative overflow-hidden bg-bg-primary py-20 md:py-32 lg:py-44">
       <ConstellationCanvas density={110} />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-bg-primary/40 to-bg-primary" />
 
@@ -20,7 +20,7 @@ export function Chapter9FinalInvitation() {
           text="Let's Engineer the Future Together."
           as="h2"
           emphasize="Together."
-          className="mx-auto max-w-3xl text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-6xl"
+          className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl lg:text-6xl"
         />
 
         <Reveal delay={0.3}>

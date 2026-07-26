@@ -28,7 +28,7 @@ const METRICS = [
 /** Chapter 3 — Who We Are: mission/vision/values as glass panels rather than paragraphs, with counters that animate into view. */
 export function Chapter3WhoWeAre() {
   return (
-    <section className="relative bg-bg-primary py-28 md:py-36">
+    <section className="relative bg-bg-primary py-16 md:py-28 lg:py-36">
       <Container>
         <Reveal>
           <span className="section-eyebrow">Strategic Partner</span>
@@ -38,7 +38,7 @@ export function Chapter3WhoWeAre() {
           text="Who We Are."
           as="h2"
           emphasize="Are."
-          className="mt-5 text-4xl font-bold leading-tight text-ink md:text-5xl"
+          className="mt-5 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
         />
 
         <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3">

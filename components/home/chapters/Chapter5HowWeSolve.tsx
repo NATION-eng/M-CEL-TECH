@@ -23,13 +23,13 @@ export function Chapter5HowWeSolve() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section className="bg-bg-primary py-28 md:py-36">
+    <section className="bg-bg-primary py-16 md:py-28 lg:py-36">
       <Container>
         <WordReveal
           text="How We Solve Problems."
           as="h2"
           emphasize="Problems."
-          className="text-4xl font-bold leading-tight text-ink md:text-5xl"
+          className="text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
         />
 
         <div ref={ref} className="relative mt-20 max-w-2xl">

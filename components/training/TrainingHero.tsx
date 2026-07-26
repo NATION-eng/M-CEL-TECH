@@ -27,7 +27,7 @@ export function TrainingHero({ title, price }: { title: string; price: number })
         >
           <span className="section-eyebrow">M-CEL TECH Bootcamp</span>
 
-          <h1 className="mt-5 text-3xl font-extrabold leading-tight text-ink sm:text-4xl lg:text-5xl">
+          <h1 className="mt-5 text-2xl font-extrabold leading-tight text-ink sm:text-3xl md:text-4xl lg:text-5xl">
             {title}
           </h1>
 

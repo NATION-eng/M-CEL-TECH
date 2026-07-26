@@ -17,7 +17,7 @@ export function Chapter6Industries() {
   const ActiveIcon = activeIndustry.icon;
 
   return (
-    <section id="industries" className="relative overflow-hidden bg-bg-secondary py-24 md:py-36">
+    <section id="industries" className="relative overflow-hidden bg-bg-secondary py-16 md:py-24 lg:py-36">
       {/* Background glow effects */}
       <div className="absolute inset-0 bg-aurora opacity-30 pointer-events-none" />
       <div className="absolute top-1/2 left-0 h-96 w-96 -translate-y-1/2 rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
@@ -30,7 +30,7 @@ export function Chapter6Industries() {
             text="Industries We Transform."
             as="h2"
             emphasize="Transform."
-            className="mt-4 text-4xl font-extrabold leading-tight text-ink sm:text-5xl md:text-6xl"
+            className="mt-4 text-3xl font-extrabold leading-tight text-ink sm:text-4xl md:text-5xl lg:text-6xl"
           />
           <p className="mt-5 text-base md:text-lg text-slate-300 leading-relaxed">
             Hover or select an industry to discover how M-CEL TECH engineers custom digital solutions, modernizes infrastructure, and automates operations for your sector.
@@ -104,7 +104,7 @@ export function Chapter6Industries() {
                     <ActiveIcon className="h-8 w-8" />
                   </span>
                   <div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                    <h3 className="text-xl font-black text-white leading-tight sm:text-2xl md:text-3xl">
                       {activeIndustry.name} Transformation
                     </h3>
                     <p className="text-sm font-semibold text-cyan-300 mt-1">
@@ -117,7 +117,7 @@ export function Chapter6Industries() {
                   <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
                     How We Transform {activeIndustry.name}:
                   </h4>
-                  <p className="text-base sm:text-lg leading-relaxed text-slate-200 font-medium">
+                  <p className="text-sm leading-relaxed text-slate-200 font-medium sm:text-base md:text-lg">
                     {activeIndustry.summary}
                   </p>
                 </div>
@@ -141,7 +141,7 @@ export function Chapter6Industries() {
                 </div>
 
                 {/* Action CTA Button */}
-                <div className="mt-9 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center gap-4">
+                <div className="mt-9 pt-6 border-t border-white/10 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <Button
                     href={getWhatsAppLink(
                       `Hello M-CEL TECH, I'd like to speak with a specialist about your ${activeIndustry.name} technology solutions.`

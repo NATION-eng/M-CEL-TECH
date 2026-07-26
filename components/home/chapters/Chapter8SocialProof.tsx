@@ -29,13 +29,13 @@ const PILLARS = [
 
 export function Chapter8SocialProof() {
   return (
-    <section className="bg-bg-secondary py-28 md:py-36">
+    <section className="bg-bg-secondary py-16 md:py-28 lg:py-36">
       <Container>
         <WordReveal
           text="Built to Serve Organizations Across Nigeria."
           as="h2"
           emphasize="Nigeria."
-          className="mx-auto max-w-3xl text-center text-4xl font-bold leading-tight text-ink md:text-5xl"
+          className="mx-auto max-w-3xl text-center text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
         />
         <p className="mx-auto mt-5 max-w-xl text-center text-sm text-ink-muted">
           From enterprise IT to professional technology training, M-CEL TECH delivers
