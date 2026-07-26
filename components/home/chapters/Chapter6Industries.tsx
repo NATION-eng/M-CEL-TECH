@@ -151,7 +151,7 @@ export function Chapter6Industries() {
                     className="w-full sm:w-auto"
                   >
                     <MessageCircle className="h-5 w-5" />
-                    Consult {activeIndustry.name} Specialist
+                    Consult Specialist
                   </Button>
                 </div>
               </motion.div>
