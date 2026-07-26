@@ -3,89 +3,104 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Bot,
+  Cpu,
   Code2,
-  Network,
   Cloud,
   Shield,
-  Radio,
+  Server,
+  Terminal,
+  Database,
   Sparkles,
   Zap,
   CheckCircle2,
-  Activity,
+  Layers,
+  Radio,
+  Lock,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { WordReveal } from "@/components/home/WordReveal";
 import { Reveal } from "@/components/shared/Reveal";
 import { cn } from "@/lib/utils";
 
-const TECH_ECOSYSTEM = [
+const TECH_CATEGORIES = [
   {
-    id: "ai-ml",
-    label: "AI & Automation",
-    shortLabel: "AI & ML",
-    icon: Bot,
+    id: "ai-data",
+    category: "AI & Data Intelligence",
+    icon: Cpu,
     color: "from-cyan-500 to-blue-600",
-    tag: "Next-Gen Intelligence",
-    description: "Custom AI integrations, LLM workflows, and intelligent business automation to eliminate manual work.",
-    capabilities: ["LLM & Agent Workflows", "Predictive Analytics", "Document Automation"],
+    badgeColor: "bg-cyan-500/10 text-cyan-300 border-cyan-400/30",
+    headline: "Machine Learning & LLM Automation",
+    description:
+      "We build intelligent agentic workflows, custom RAG systems, and automated data processing tools powered by leading AI models.",
+    tools: [
+      { name: "Python", role: "AI & Backend Logic" },
+      { name: "OpenAI / LLMs", role: "Generative AI Integration" },
+      { name: "LangChain", role: "Agentic Automation" },
+      { name: "PyTorch", role: "Machine Learning" },
+      { name: "Pandas / NumPy", role: "Data Processing" },
+    ],
+    highlights: ["Custom AI Agent Workflows", "Automated Document Extraction", "Predictive Analytics Models"],
   },
   {
-    id: "software",
-    label: "Custom Software",
-    shortLabel: "Software",
+    id: "software-dev",
+    category: "Software & Web Development",
     icon: Code2,
     color: "from-blue-600 to-indigo-600",
-    tag: "High-Performance Systems",
-    description: "Scalable web apps, enterprise software, and mobile platforms engineered for speed and longevity.",
-    capabilities: ["Web & Mobile Apps", "Enterprise API Portals", "Legacy System Refactoring"],
+    badgeColor: "bg-blue-500/10 text-blue-300 border-blue-400/30",
+    headline: "Modern Full-Stack Engineering",
+    description:
+      "We craft fast, accessible, and high-performance software using production-tested web, mobile, and API technologies.",
+    tools: [
+      { name: "Next.js 15 / React", role: "Web Application Framework" },
+      { name: "TypeScript", role: "Type-Safe Enterprise Code" },
+      { name: "Node.js", role: "High-Concurrence APIs" },
+      { name: "PostgreSQL / Supabase", role: "Relational Database" },
+      { name: "TailwindCSS", role: "Responsive Styling" },
+    ],
+    highlights: ["Sub-second Page Loads & SEO", "Clean Microservice APIs", "Cross-Platform Compatibility"],
   },
   {
-    id: "networks",
-    label: "Network Infrastructure",
-    shortLabel: "Networks",
-    icon: Network,
-    color: "from-cyan-400 to-emerald-500",
-    tag: "Zero-Downtime Connectivity",
-    description: "Enterprise networking, structured cabling, routing, and high-speed multi-site interconnectivity.",
-    capabilities: ["Enterprise Fiber & Wireless", "SD-WAN Optimization", "VLAN & Network Segmentation"],
-  },
-  {
-    id: "cloud",
-    label: "Cloud Architecture",
-    shortLabel: "Cloud",
+    id: "cloud-devops",
+    category: "Cloud & DevOps Infrastructure",
     icon: Cloud,
     color: "from-sky-500 to-blue-700",
-    tag: "Resilient & Elastic",
-    description: "Cloud migration, hybrid cloud management, containerization, and cost-optimized server infrastructure.",
-    capabilities: ["AWS & Azure Setup", "DevOps & CI/CD", "Automated Backup & DR"],
+    badgeColor: "bg-sky-500/10 text-sky-300 border-sky-400/30",
+    headline: "Scalable Cloud Architectures",
+    description:
+      "We design zero-downtime deployment pipelines, containerized microservices, and resilient cloud environments.",
+    tools: [
+      { name: "Amazon Web Services (AWS)", role: "Cloud Hosting & Services" },
+      { name: "Microsoft Azure", role: "Enterprise Cloud" },
+      { name: "Docker & Containers", role: "Isolated Environment Packaging" },
+      { name: "Linux Systems", role: "Server Operating System" },
+      { name: "CI/CD Pipelines", role: "Automated Deployments" },
+    ],
+    highlights: ["99.9% Server Uptime", "Automated Nightly Backups", "Elastic Auto-Scaling"],
   },
   {
-    id: "cybersecurity",
-    label: "Cybersecurity & Risk",
-    shortLabel: "Cybersecurity",
+    id: "network-security",
+    category: "Networks, Cyber & Hardware",
     icon: Shield,
     color: "from-indigo-500 to-purple-600",
-    tag: "Enterprise Protection",
-    description: "Proactive threat management, vulnerability audits, firewall policy design, and security compliance.",
-    capabilities: ["Vulnerability Audits", "Firewall & Endpoint Shield", "Access Controls & SSO"],
-  },
-  {
-    id: "iot",
-    label: "IoT & Smart Systems",
-    shortLabel: "IoT",
-    icon: Radio,
-    color: "from-emerald-400 to-teal-600",
-    tag: "Real-Time Telemetry",
-    description: "Connected sensors, hardware integration, and telemetry monitoring for industrial and commercial environments.",
-    capabilities: ["Sensor Telemetry", "Industrial Hardware Integration", "Real-Time Alerts"],
+    badgeColor: "bg-purple-500/10 text-purple-300 border-purple-400/30",
+    headline: "Enterprise Connectivity & Defense",
+    description:
+      "We deploy physical network infrastructure, hardware firewalls, and IoT telemetry systems for industrial reliability.",
+    tools: [
+      { name: "Cisco & Mikrotik", role: "Enterprise Routing & Switching" },
+      { name: "Ubiquiti UniFi", role: "High-Density Wireless Systems" },
+      { name: "Fiber Optic Cabling", role: "High-Speed Backbone Connections" },
+      { name: "Enterprise Firewalls", role: "Perimeter Threat Defense" },
+      { name: "IoT Sensors & Telemetry", role: "Real-Time Telemetry Hardware" },
+    ],
+    highlights: ["Multi-Site Mesh Interconnects", "Proactive Endpoint Shielding", "Industrial IoT Telemetry"],
   },
 ];
 
 export function Chapter2Future() {
-  const [selectedId, setSelectedId] = useState<string>(TECH_ECOSYSTEM[0]!.id);
-  const activeTech = TECH_ECOSYSTEM.find((t) => t.id === selectedId) || TECH_ECOSYSTEM[0]!;
-  const ActiveIcon = activeTech.icon;
+  const [selectedId, setSelectedId] = useState<string>(TECH_CATEGORIES[0]!.id);
+  const activeCategory = TECH_CATEGORIES.find((c) => c.id === selectedId) || TECH_CATEGORIES[0]!;
+  const ActiveIcon = activeCategory.icon;
 
   return (
     <section className="relative overflow-hidden bg-bg-secondary py-20 md:py-32">
@@ -97,167 +112,150 @@ export function Chapter2Future() {
       <Container className="relative z-10">
         <Reveal className="text-center">
           <span className="section-eyebrow mx-auto flex w-fit">
-            <Activity className="h-3.5 w-3.5 text-cyan-400 animate-pulse" />
-            Our Connected Technology Stack
+            <Zap className="h-3.5 w-3.5 text-cyan-400" />
+            Our Engineering Tech Stack
           </span>
         </Reveal>
 
         <WordReveal
-          text="Engineering the Digital Future."
-          emphasize="Future."
+          text="Built With Modern, Enterprise-Grade Technology."
+          emphasize="Technology."
           as="h2"
-          className="mx-auto mt-4 max-w-3xl text-center text-3xl font-black leading-tight text-ink sm:text-4xl md:text-5xl lg:text-6xl"
+          className="mx-auto mt-4 max-w-4xl text-center text-3xl font-black leading-tight text-ink sm:text-4xl md:text-5xl lg:text-6xl"
         />
 
         <Reveal delay={0.15}>
-          <p className="mx-auto mt-4 max-w-xl text-center text-sm leading-relaxed text-slate-300 sm:text-base">
-            One engineering team bridging every layer of modern technology — connected disciplines operating as a unified ecosystem.
+          <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-slate-300 sm:text-base">
+            We leverage industry-standard frameworks, AI models, cloud infrastructure, and enterprise hardware to engineer robust, high-availability solutions.
           </p>
         </Reveal>
 
-        {/* Central Core & Matrix Explorer Layout */}
-        <div className="mt-12 lg:mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
-          
-          {/* Left Column: Tech Domain Navigation Grid */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
-            {TECH_ECOSYSTEM.map((tech) => {
-              const Icon = tech.icon;
-              const isSelected = tech.id === selectedId;
+        {/* Category Navigation Pills */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+          {TECH_CATEGORIES.map((cat) => {
+            const Icon = cat.icon;
+            const isSelected = cat.id === selectedId;
 
-              return (
-                <button
-                  key={tech.id}
-                  type="button"
-                  onClick={() => setSelectedId(tech.id)}
-                  onMouseEnter={() => setSelectedId(tech.id)}
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedId(cat.id)}
+                className={cn(
+                  "flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-extrabold transition-all duration-300 cursor-pointer border whitespace-nowrap",
+                  isSelected
+                    ? "bg-slate-800/90 border-cyan-400/80 shadow-[0_0_25px_rgba(34,211,238,0.3)] text-white scale-[1.02]"
+                    : "bg-slate-950/60 border-white/10 text-slate-300 hover:bg-slate-900/60 hover:border-cyan-400/40 hover:text-white"
+                )}
+              >
+                <span
                   className={cn(
-                    "group relative flex flex-col items-start justify-between rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer border text-left overflow-hidden min-h-[110px] sm:min-h-[125px]",
+                    "flex h-7 w-7 items-center justify-center rounded-lg transition-colors border",
                     isSelected
-                      ? "bg-slate-900/90 border-cyan-400/80 shadow-[0_0_30px_rgba(34,211,238,0.25)] scale-[1.02]"
-                      : "bg-slate-950/60 border-white/10 hover:bg-slate-900/60 hover:border-cyan-400/40"
+                      ? "bg-cyan-500/20 border-cyan-400 text-cyan-300"
+                      : "bg-white/5 border-white/10 text-slate-400"
                   )}
                 >
-                  {/* Subtle hover gradient behind card */}
-                  <div
-                    className={cn(
-                      "absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 pointer-events-none",
-                      tech.color,
-                      isSelected ? "opacity-15" : "group-hover:opacity-10"
-                    )}
-                  />
+                  <Icon className="h-4 w-4" />
+                </span>
+                <span>{cat.category}</span>
+              </button>
+            );
+          })}
+        </div>
 
-                  <div className="flex w-full items-center justify-between z-10">
-                    <span
-                      className={cn(
-                        "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 border",
-                        isSelected
-                          ? "bg-gradient-to-br from-blue-600 to-cyan-400 border-cyan-300 text-white shadow-lg shadow-cyan-500/30"
-                          : "bg-white/5 border-white/10 text-slate-400 group-hover:text-cyan-300 group-hover:border-cyan-400/40"
-                      )}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    {isSelected && (
-                      <span className="flex h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-ping" />
-                    )}
-                  </div>
-
-                  <div className="mt-3 z-10">
-                    <span
-                      className={cn(
-                        "block text-xs sm:text-sm font-extrabold tracking-wide transition-colors",
-                        isSelected ? "text-white" : "text-slate-300 group-hover:text-white"
-                      )}
-                    >
-                      {tech.label}
-                    </span>
-                    <span className="block text-[10px] font-semibold text-slate-400 mt-0.5">
-                      {tech.tag}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right Column: Dynamic Core Inspector Panel */}
-          <div className="lg:col-span-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTech.id}
-                initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="relative overflow-hidden rounded-3xl border border-cyan-500/40 bg-slate-900/95 p-6 sm:p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-              >
-                {/* Glowing status indicator ribbon */}
-                <div className="flex items-center justify-between border-b border-white/10 pb-5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="flex h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee]" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-300">
-                      M-CEL TECH CORE // {activeTech.shortLabel.toUpperCase()}
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-cyan-300">
-                    <Zap className="h-3 w-3 text-cyan-400" />
-                    Active Node
+        {/* Interactive Stack Details Display */}
+        <div className="mt-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory.id}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -15, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-slate-900/95 p-6 sm:p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+            >
+              {/* Top Category Badge */}
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-400 text-white shadow-[0_0_20px_rgba(34,211,238,0.4)] border border-white/20">
+                    <ActiveIcon className="h-6 w-6" />
                   </span>
-                </div>
-
-                {/* Domain Header */}
-                <div className="mt-6 flex items-start gap-4">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 text-white shadow-[0_0_25px_rgba(34,211,238,0.4)] border border-white/20">
-                    <ActiveIcon className="h-7 w-7" />
-                  </div>
                   <div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-                      {activeTech.label}
+                    <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">
+                      {activeCategory.category}
                     </h3>
-                    <p className="text-xs font-bold text-cyan-300 mt-1 uppercase tracking-wider">
-                      {activeTech.tag}
+                    <p className="text-xs font-bold text-cyan-300 mt-0.5">
+                      {activeCategory.headline}
                     </p>
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-200 font-medium">
-                  {activeTech.description}
-                </p>
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wide",
+                    activeCategory.badgeColor
+                  )}
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+                  Verified Stack
+                </span>
+              </div>
 
-                {/* Key Capability Badges */}
-                <div className="mt-6 pt-5 border-t border-white/10">
-                  <span className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-3">
-                    Core Engineering Focus:
-                  </span>
-                  <div className="space-y-2.5">
-                    {activeTech.capabilities.map((cap) => (
-                      <div
-                        key={cap}
-                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-100"
-                      >
+              {/* Category Overview */}
+              <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-200 font-medium">
+                {activeCategory.description}
+              </p>
+
+              {/* Tools & Frameworks Grid */}
+              <div className="mt-7 pt-6 border-t border-white/10">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-4">
+                  Technologies & Frameworks We Use:
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {activeCategory.tools.map((tool) => (
+                    <div
+                      key={tool.name}
+                      className="group flex flex-col justify-between rounded-xl border border-white/10 bg-slate-950/70 p-4 transition-all duration-300 hover:border-cyan-400/50 hover:bg-slate-900/90"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-extrabold text-white group-hover:text-cyan-300 transition-colors">
+                          {tool.name}
+                        </span>
                         <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" />
-                        <span>{cap}</span>
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-[11px] font-semibold text-slate-400 mt-2">
+                        {tool.role}
+                      </span>
+                    </div>
+                  ))}
                 </div>
+              </div>
 
-                {/* Bottom Bar Indicator */}
-                <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-                    Integrated into all M-CEL solutions
-                  </span>
-                  <span className="font-mono text-[10px] text-slate-500">SYS_VER // 2026.4</span>
+              {/* Key Deliverables Highlights */}
+              <div className="mt-7 pt-6 border-t border-white/10">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-cyan-400 mb-3">
+                  Engineering Benefits:
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {activeCategory.highlights.map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 p-3 text-xs font-bold text-slate-200"
+                    >
+                      <span className="flex h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              </div>
 
+            </motion.div>
+          </AnimatePresence>
         </div>
       </Container>
     </section>
   );
 }
+
 
