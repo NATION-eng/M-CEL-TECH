@@ -1,134 +1,263 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Bot, Code2, Network, Cpu, Cloud, Shield, Radio } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Bot,
+  Code2,
+  Network,
+  Cloud,
+  Shield,
+  Radio,
+  Sparkles,
+  Zap,
+  CheckCircle2,
+  Activity,
+} from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { WordReveal } from "@/components/home/WordReveal";
 import { Reveal } from "@/components/shared/Reveal";
+import { cn } from "@/lib/utils";
 
-// Positions are plain numbers (0-100) — used directly as SVG viewBox
-// coordinates AND formatted as percentages for the HTML chips, so the
-// connecting lines and the chips they connect to can never drift apart.
-// Spread wide and clear of the exact center so nothing crowds the hub.
-const TECH_WORDS = [
-  { label: "AI & Machine Learning", icon: Bot, top: 8, left: 50 },
-  { label: "Software", icon: Code2, top: 26, left: 15 },
-  { label: "Networks", icon: Network, top: 26, left: 85 },
-  { label: "Automation", icon: Cpu, top: 52, left: 5 },
-  { label: "Cloud", icon: Cloud, top: 52, left: 95 },
-  { label: "Cybersecurity", icon: Shield, top: 80, left: 22 },
-  { label: "IoT", icon: Radio, top: 80, left: 78 },
+const TECH_ECOSYSTEM = [
+  {
+    id: "ai-ml",
+    label: "AI & Automation",
+    shortLabel: "AI & ML",
+    icon: Bot,
+    color: "from-cyan-500 to-blue-600",
+    tag: "Next-Gen Intelligence",
+    description: "Custom AI integrations, LLM workflows, and intelligent business automation to eliminate manual work.",
+    capabilities: ["LLM & Agent Workflows", "Predictive Analytics", "Document Automation"],
+  },
+  {
+    id: "software",
+    label: "Custom Software",
+    shortLabel: "Software",
+    icon: Code2,
+    color: "from-blue-600 to-indigo-600",
+    tag: "High-Performance Systems",
+    description: "Scalable web apps, enterprise software, and mobile platforms engineered for speed and longevity.",
+    capabilities: ["Web & Mobile Apps", "Enterprise API Portals", "Legacy System Refactoring"],
+  },
+  {
+    id: "networks",
+    label: "Network Infrastructure",
+    shortLabel: "Networks",
+    icon: Network,
+    color: "from-cyan-400 to-emerald-500",
+    tag: "Zero-Downtime Connectivity",
+    description: "Enterprise networking, structured cabling, routing, and high-speed multi-site interconnectivity.",
+    capabilities: ["Enterprise Fiber & Wireless", "SD-WAN Optimization", "VLAN & Network Segmentation"],
+  },
+  {
+    id: "cloud",
+    label: "Cloud Architecture",
+    shortLabel: "Cloud",
+    icon: Cloud,
+    color: "from-sky-500 to-blue-700",
+    tag: "Resilient & Elastic",
+    description: "Cloud migration, hybrid cloud management, containerization, and cost-optimized server infrastructure.",
+    capabilities: ["AWS & Azure Setup", "DevOps & CI/CD", "Automated Backup & DR"],
+  },
+  {
+    id: "cybersecurity",
+    label: "Cybersecurity & Risk",
+    shortLabel: "Cybersecurity",
+    icon: Shield,
+    color: "from-indigo-500 to-purple-600",
+    tag: "Enterprise Protection",
+    description: "Proactive threat management, vulnerability audits, firewall policy design, and security compliance.",
+    capabilities: ["Vulnerability Audits", "Firewall & Endpoint Shield", "Access Controls & SSO"],
+  },
+  {
+    id: "iot",
+    label: "IoT & Smart Systems",
+    shortLabel: "IoT",
+    icon: Radio,
+    color: "from-emerald-400 to-teal-600",
+    tag: "Real-Time Telemetry",
+    description: "Connected sensors, hardware integration, and telemetry monitoring for industrial and commercial environments.",
+    capabilities: ["Sensor Telemetry", "Industrial Hardware Integration", "Real-Time Alerts"],
+  },
 ];
 
-const CENTER = { top: 50, left: 50 };
-
-/** Chapter 2 — The Future: individual technology words connect into a network around a central node, communicating breadth of capability. */
 export function Chapter2Future() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<string>(TECH_ECOSYSTEM[0]!.id);
+  const activeTech = TECH_ECOSYSTEM.find((t) => t.id === selectedId) || TECH_ECOSYSTEM[0]!;
+  const ActiveIcon = activeTech.icon;
 
   return (
-    <section className="relative overflow-hidden bg-bg-secondary py-28 md:py-36">
-      <div className="absolute inset-0 bg-aurora opacity-50" />
+    <section className="relative overflow-hidden bg-bg-secondary py-20 md:py-32">
+      {/* Background ambient lighting */}
+      <div className="absolute inset-0 bg-aurora opacity-40 pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none" />
 
-      <Container className="relative">
-        <Reveal>
-          <span className="section-eyebrow mx-auto flex w-fit">Our Tech Ecosystem</span>
+      <Container className="relative z-10">
+        <Reveal className="text-center">
+          <span className="section-eyebrow mx-auto flex w-fit">
+            <Activity className="h-3.5 w-3.5 text-cyan-400 animate-pulse" />
+            Our Connected Technology Stack
+          </span>
         </Reveal>
 
         <WordReveal
           text="Engineering the Digital Future."
           emphasize="Future."
           as="h2"
-          className="mx-auto mt-5 max-w-3xl text-center text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
+          className="mx-auto mt-4 max-w-3xl text-center text-3xl font-black leading-tight text-ink sm:text-4xl md:text-5xl lg:text-6xl"
         />
 
         <Reveal delay={0.15}>
-          <p className="mx-auto mt-5 max-w-xl text-center text-base leading-relaxed text-ink-muted">
-            One team, working across every layer of the technology stack — connected
-            disciplines, not disconnected services.
+          <p className="mx-auto mt-4 max-w-xl text-center text-sm leading-relaxed text-slate-300 sm:text-base">
+            One engineering team bridging every layer of modern technology — connected disciplines operating as a unified ecosystem.
           </p>
         </Reveal>
 
-        <div className="relative mx-auto mt-12 h-[360px] max-w-3xl sm:h-[440px] md:mt-20 md:h-[520px] lg:h-[580px]">
-          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="ch2-line" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#2563EB" />
-                <stop offset="100%" stopColor="#22D3EE" />
-              </linearGradient>
-            </defs>
-            {TECH_WORDS.map((word, i) => {
-              const isActive = hovered === i;
+        {/* Central Core & Matrix Explorer Layout */}
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+          
+          {/* Left Column: Tech Domain Navigation Grid */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
+            {TECH_ECOSYSTEM.map((tech) => {
+              const Icon = tech.icon;
+              const isSelected = tech.id === selectedId;
+
               return (
-                <motion.line
-                  key={word.label}
-                  x1={CENTER.left}
-                  y1={CENTER.top}
-                  x2={word.left}
-                  y2={word.top}
-                  vectorEffect="non-scaling-stroke"
-                  stroke={isActive ? "#22D3EE" : "url(#ch2-line)"}
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  animate={{ strokeWidth: isActive ? 2.5 : 1, strokeOpacity: isActive ? 0.9 : 0.35 }}
-                  transition={{
-                    pathLength: { duration: 1, delay: 0.3 + i * 0.1, ease: "easeOut" },
-                    strokeWidth: { duration: 0.3 },
-                    strokeOpacity: { duration: 0.3 },
-                  }}
-                />
+                <button
+                  key={tech.id}
+                  type="button"
+                  onClick={() => setSelectedId(tech.id)}
+                  onMouseEnter={() => setSelectedId(tech.id)}
+                  className={cn(
+                    "group relative flex flex-col items-start justify-between rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer border text-left overflow-hidden min-h-[110px] sm:min-h-[125px]",
+                    isSelected
+                      ? "bg-slate-900/90 border-cyan-400/80 shadow-[0_0_30px_rgba(34,211,238,0.25)] scale-[1.02]"
+                      : "bg-slate-950/60 border-white/10 hover:bg-slate-900/60 hover:border-cyan-400/40"
+                  )}
+                >
+                  {/* Subtle hover gradient behind card */}
+                  <div
+                    className={cn(
+                      "absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 pointer-events-none",
+                      tech.color,
+                      isSelected ? "opacity-15" : "group-hover:opacity-10"
+                    )}
+                  />
+
+                  <div className="flex w-full items-center justify-between z-10">
+                    <span
+                      className={cn(
+                        "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 border",
+                        isSelected
+                          ? "bg-gradient-to-br from-blue-600 to-cyan-400 border-cyan-300 text-white shadow-lg shadow-cyan-500/30"
+                          : "bg-white/5 border-white/10 text-slate-400 group-hover:text-cyan-300 group-hover:border-cyan-400/40"
+                      )}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    {isSelected && (
+                      <span className="flex h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-ping" />
+                    )}
+                  </div>
+
+                  <div className="mt-3 z-10">
+                    <span
+                      className={cn(
+                        "block text-xs sm:text-sm font-extrabold tracking-wide transition-colors",
+                        isSelected ? "text-white" : "text-slate-300 group-hover:text-white"
+                      )}
+                    >
+                      {tech.label}
+                    </span>
+                    <span className="block text-[10px] font-semibold text-slate-400 mt-0.5">
+                      {tech.tag}
+                    </span>
+                  </div>
+                </button>
               );
             })}
-          </svg>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.7 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            style={{ top: `${CENTER.top}%`, left: `${CENTER.left}%` }}
-            className="absolute -translate-x-1/2 -translate-y-1/2"
-          >
-            <motion.div
-              className="absolute inset-0 -z-10 rounded-full bg-accent-cyan/30 blur-lg"
-              animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
-              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <div className="glass flex h-16 w-16 items-center justify-center rounded-full text-xs font-bold text-ink shadow-glow-blue">
-              MCEL
-            </div>
-          </motion.div>
-
-          {TECH_WORDS.map((word, i) => {
-            const Icon = word.icon;
-            const isActive = hovered === i;
-            return (
+          {/* Right Column: Dynamic Core Inspector Panel */}
+          <div className="lg:col-span-6">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={word.label}
-                initial={{ opacity: 0, scale: 0.6 }}
-                whileInView={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
-                viewport={{ once: true }}
-                onMouseEnter={() => setHovered(i)}
-                onMouseLeave={() => setHovered(null)}
-                transition={{
-                  opacity: { duration: 0.5, delay: 0.5 + i * 0.1, ease: [0.16, 1, 0.3, 1] },
-                  scale: { duration: 0.5, delay: 0.5 + i * 0.1, ease: [0.16, 1, 0.3, 1] },
-                  y: { duration: 4.5 + i * 0.3, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 },
-                }}
-                style={{ top: `${word.top}%`, left: `${word.left}%` }}
-                className={`glass absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 text-[10px] font-medium text-ink transition-shadow duration-300 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm ${
-                  isActive ? "shadow-glow-cyan" : ""
-                }`}
+                key={activeTech.id}
+                initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="relative overflow-hidden rounded-3xl border border-cyan-500/40 bg-slate-900/95 p-6 sm:p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
               >
-                <Icon className={`h-4 w-4 ${isActive ? "text-accent-cyan" : "text-ink-muted"}`} />
-                {word.label}
+                {/* Glowing status indicator ribbon */}
+                <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee]" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-300">
+                      M-CEL TECH CORE // {activeTech.shortLabel.toUpperCase()}
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-cyan-300">
+                    <Zap className="h-3 w-3 text-cyan-400" />
+                    Active Node
+                  </span>
+                </div>
+
+                {/* Domain Header */}
+                <div className="mt-6 flex items-start gap-4">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 text-white shadow-[0_0_25px_rgba(34,211,238,0.4)] border border-white/20">
+                    <ActiveIcon className="h-7 w-7" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                      {activeTech.label}
+                    </h3>
+                    <p className="text-xs font-bold text-cyan-300 mt-1 uppercase tracking-wider">
+                      {activeTech.tag}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-200 font-medium">
+                  {activeTech.description}
+                </p>
+
+                {/* Key Capability Badges */}
+                <div className="mt-6 pt-5 border-t border-white/10">
+                  <span className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-3">
+                    Core Engineering Focus:
+                  </span>
+                  <div className="space-y-2.5">
+                    {activeTech.capabilities.map((cap) => (
+                      <div
+                        key={cap}
+                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-100"
+                      >
+                        <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" />
+                        <span>{cap}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Bar Indicator */}
+                <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                  <span className="flex items-center gap-1.5 font-medium">
+                    <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+                    Integrated into all M-CEL solutions
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-500">SYS_VER // 2026.4</span>
+                </div>
               </motion.div>
-            );
-          })}
+            </AnimatePresence>
+          </div>
+
         </div>
       </Container>
     </section>
   );
 }
+
