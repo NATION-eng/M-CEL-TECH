@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    background-color: #050816;
+    /* Lenis takes over scrolling; native smooth-scroll would double up. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-bg-primary text-ink font-body antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading tracking-tight text-ink;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.35);
+    color: #F8FAFC;
+  }
+
+  :focus-visible {
+    outline: 2px solid #22D3EE;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Custom cursor replaces the native one on fine-pointer devices only. */
+  @media (pointer: fine) {
+    body.custom-cursor-active {
+      cursor: none;
+    }
+    body.custom-cursor-active a,
+    body.custom-cursor-active button {
+      cursor: none;
+    }
+  }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #050816; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+    border: 2px solid #050816;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-container px-6 md:px-12 lg:px-24;
+  }
+
+  /* Section 2.7 — natural glass, not fake frost. */
+  .glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .glass:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .glass-panel {
+    @apply glass rounded-lg shadow-card;
+  }
+
+  .text-gradient-electric {
+    @apply bg-gradient-electric bg-clip-text text-transparent;
+  }
+
+  .text-gradient-spectrum {
+    @apply bg-gradient-spectrum bg-clip-text text-transparent;
+  }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan;
+    border-radius: 999px;
+  }
+
+  /* Aurora mesh background — Gradient Four, used behind dark storytelling sections. */
+  .bg-aurora {
+    background-color: #050816;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 20%, rgba(37,99,235,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 30%, rgba(139,92,246,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 70% at 50% 90%, rgba(34,211,238,0.15) 0%, transparent 60%);
+  }
+
+  /* Faint animated technical grid — Chapter 1 arrival backdrop. */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(248,250,252,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248,250,252,0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Hides the scrollbar on the native horizontal-scroll fallback (mobile / reduced-motion) without disabling scroll itself. */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  body.custom-cursor-active { cursor: auto; }
+}
