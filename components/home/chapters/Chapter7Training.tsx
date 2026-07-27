@@ -165,30 +165,30 @@ export function Chapter7Training() {
                 <ArrowRight className="h-5 w-5" />
               </Button>
 
-              {/* Secondary Icon-First Action Pair */}
-              <div className="flex w-full items-center gap-3">
+              {/* Secondary Icon-Only on Mobile, Icon + Text on Desktop */}
+              <div className="flex w-full items-center justify-center gap-3">
                 <Button
                   href="/training"
                   variant="outline"
                   size="lg"
-                  className="flex-1 h-12 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_15px_rgba(34,211,238,0.15)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex-1 h-12 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.15)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   title="View Full Curriculum"
                   aria-label="View Full Curriculum"
                 >
-                  <BookOpen className="h-4.5 w-4.5 text-cyan-400 shrink-0" />
-                  <span className="truncate">Curriculum</span>
+                  <BookOpen className="h-5 w-5 text-cyan-400 shrink-0" />
+                  <span className="hidden sm:inline text-xs font-extrabold uppercase tracking-wider">Curriculum</span>
                 </Button>
 
                 <Button
                   href={getWhatsAppLink(BOOTCAMP_WHATSAPP_MESSAGE)}
                   variant="secondary"
                   size="lg"
-                  className="flex-1 h-12 bg-emerald-500/15 border border-emerald-400/50 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex-1 h-12 bg-emerald-500/15 border border-emerald-400/50 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.15)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   title="Talk to an Expert on WhatsApp"
                   aria-label="Talk to an Expert on WhatsApp"
                 >
-                  <MessageCircle className="h-4.5 w-4.5 text-emerald-400 shrink-0" />
-                  <span className="truncate">Talk to Expert</span>
+                  <MessageCircle className="h-5 w-5 text-emerald-400 shrink-0" />
+                  <span className="hidden sm:inline text-xs font-extrabold uppercase tracking-wider">Expert Chat</span>
                 </Button>
               </div>
             </div>
