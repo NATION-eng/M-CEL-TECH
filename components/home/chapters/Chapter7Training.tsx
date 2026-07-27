@@ -154,7 +154,8 @@ export function Chapter7Training() {
             </span>
             <span className="text-sm font-medium text-slate-400">{TRAINING_DETAILS.cohortNote} · {TRAINING_DETAILS.perks.join(" · ")}</span>
             
-            <div className="mt-6 flex w-full flex-col gap-4">
+            <div className="mt-6 flex w-full flex-col gap-3">
+              {/* Primary Conversion CTA */}
               <Button
                 href="/training/register"
                 size="lg"
@@ -164,25 +165,32 @@ export function Chapter7Training() {
                 <ArrowRight className="h-5 w-5" />
               </Button>
 
-              <Button
-                href="/training"
-                variant="outline"
-                size="lg"
-                className="w-full h-14 bg-cyan-500/10 border-2 border-cyan-400/60 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
-              >
-                <BookOpen className="h-5 w-5 text-cyan-400" />
-                View Full Curriculum
-              </Button>
+              {/* Secondary Icon-First Action Pair */}
+              <div className="flex w-full items-center gap-3">
+                <Button
+                  href="/training"
+                  variant="outline"
+                  size="lg"
+                  className="flex-1 h-12 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_15px_rgba(34,211,238,0.15)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  title="View Full Curriculum"
+                  aria-label="View Full Curriculum"
+                >
+                  <BookOpen className="h-4.5 w-4.5 text-cyan-400 shrink-0" />
+                  <span className="truncate">Curriculum</span>
+                </Button>
 
-              <Button
-                href={getWhatsAppLink(BOOTCAMP_WHATSAPP_MESSAGE)}
-                variant="secondary"
-                size="lg"
-                className="w-full h-14 bg-emerald-500/15 border-2 border-emerald-400/60 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
-              >
-                <MessageCircle className="h-5 w-5 text-emerald-400" />
-                Talk to an Expert
-              </Button>
+                <Button
+                  href={getWhatsAppLink(BOOTCAMP_WHATSAPP_MESSAGE)}
+                  variant="secondary"
+                  size="lg"
+                  className="flex-1 h-12 bg-emerald-500/15 border border-emerald-400/50 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  title="Talk to an Expert on WhatsApp"
+                  aria-label="Talk to an Expert on WhatsApp"
+                >
+                  <MessageCircle className="h-4.5 w-4.5 text-emerald-400 shrink-0" />
+                  <span className="truncate">Talk to Expert</span>
+                </Button>
+              </div>
             </div>
           </div>
         </Reveal>

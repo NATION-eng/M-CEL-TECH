@@ -45,34 +45,34 @@ export default async function RegistrationSuccessPage({
         </p>
 
         {full && (
-          <div className="mt-8 rounded-md border border-white/8 bg-bg-primary p-6 text-left shadow-card">
-            <dl className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <dt className="text-ink-muted/60">Programme</dt>
-                <dd className="font-semibold text-ink">{full.program.title}</dd>
+          <div className="mt-8 rounded-2xl border border-white/10 bg-bg-primary p-6 text-left shadow-card">
+            <dl className="space-y-4 text-sm">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-3">
+                <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted/60">Programme</dt>
+                <dd className="font-semibold text-ink sm:text-right">{full.program.title}</dd>
               </div>
-              <div className="flex justify-between">
-                <dt className="text-ink-muted/60">Session</dt>
-                <dd className="font-semibold text-ink">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-3">
+                <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted/60">Session</dt>
+                <dd className="font-semibold text-ink sm:text-right">
                   {full.cohort.name}
                   {full.cohort.startTime ? ` (${full.cohort.startTime} – ${full.cohort.endTime})` : ""}
                 </dd>
               </div>
-              <div className="flex justify-between">
-                <dt className="text-ink-muted/60">Amount</dt>
-                <dd className="font-semibold text-ink">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-3">
+                <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted/60">Amount Paid</dt>
+                <dd className="font-bold text-cyan-400 sm:text-right text-base">
                   {formatNaira(Number(full.payment?.amount ?? 0))}
                 </dd>
               </div>
               {full.receiptNumber && (
-                <div className="flex justify-between">
-                  <dt className="text-ink-muted/60">Receipt No.</dt>
-                  <dd className="font-mono text-xs font-semibold text-ink">{full.receiptNumber}</dd>
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-3">
+                  <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted/60">Receipt No.</dt>
+                  <dd className="font-mono text-xs font-semibold text-slate-200 sm:text-right">{full.receiptNumber}</dd>
                 </div>
               )}
-              <div className="flex justify-between">
-                <dt className="text-ink-muted/60">Registration No.</dt>
-                <dd className="font-mono text-xs font-semibold text-ink">{full.registrationNumber}</dd>
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                <dt className="text-xs font-bold uppercase tracking-wider text-ink-muted/60">Registration No.</dt>
+                <dd className="font-mono text-xs font-semibold text-slate-200 sm:text-right">{full.registrationNumber}</dd>
               </div>
             </dl>
           </div>

@@ -26,7 +26,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Training", href: "/training" },
-  { label: "Contact", href: "https://wa.me/2348116079309", external: true },
+  { label: "Contact", href: "/contact" },
 ];
 
 /** Section 6.6 — Services mega menu: icon + short description per item, not a plain dropdown list. */
@@ -70,6 +70,7 @@ export const FOOTER_LINKS = {
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Training", href: "/training" },
+    { label: "Contact Us", href: "/contact" },
   ],
   services: [
     { label: "Enterprise IT", href: "/services#enterprise-it" },

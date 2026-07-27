@@ -31,7 +31,7 @@ export function Navbar() {
           </motion.div>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
-            {NAV_LINKS.slice(0, -1).map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -41,15 +41,6 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor-text="Chat"
-              className="text-sm font-medium text-ink-muted transition-colors hover:text-ink"
-            >
-              Contact
-            </a>
           </nav>
 
           <div className="hidden lg:block">
@@ -81,7 +72,7 @@ export function Navbar() {
             className="glass mx-4 mt-3 overflow-hidden rounded-3xl border border-white/15 p-2 lg:hidden shadow-2xl"
           >
             <nav className="flex flex-col gap-1.5 p-5" aria-label="Mobile">
-              {NAV_LINKS.slice(0, -1).map((link) => (
+              {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -91,15 +82,6 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="rounded-2xl px-4 py-3.5 text-lg font-bold text-ink transition-colors hover:bg-cyan-500/10 hover:text-cyan-400"
-              >
-                Contact
-              </a>
 
               <div className="mt-4 flex flex-col gap-3 border-t border-white/15 pt-5">
                 <Button
