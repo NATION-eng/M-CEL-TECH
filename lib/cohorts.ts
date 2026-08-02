@@ -1,7 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 
-export const COHORT_MAX_PARTICIPANTS = 30;
+export const COHORT_MAX_PARTICIPANTS = 999999; // No practical limit — cohort is permanently open
 
 export const COHORTS = [
   { id: "evening-cohort", label: "Evening Class (Aug 5 – Aug 20, 2026)", time: "7:00 PM – 9:00 PM" },

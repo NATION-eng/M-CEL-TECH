@@ -30,7 +30,6 @@ export default async function RegisterPage({
 
   const program = await programService.getBySlug(PROGRAM_SLUG);
   const cohorts = (await cohortService.getActiveCohortsForProgram(program.id)).map(toCohortSummary);
-  const allFull = cohorts.length > 0 && cohorts.every((c) => c.isFull);
 
   const scheduleBadges = [
     { icon: CalendarClock, label: "Date: Aug 5 – Aug 20, 2026" },
@@ -75,12 +74,7 @@ export default async function RegisterPage({
               {statusMessage[status]}
             </p>
           )}
-          {allFull && (
-            <p className="mb-5 rounded-lg bg-state-error/10 px-4 py-3 text-sm text-state-error">
-              This cohort is currently full. Message us on WhatsApp to be notified when the
-              next round opens.
-            </p>
-          )}
+
           <RegistrationForm cohorts={cohorts} price={Number(program.price)} />
         </div>
       </Container>

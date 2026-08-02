@@ -40,7 +40,6 @@ export function RegistrationForm({
 }) {
   const [serverError, setServerError] = useState<string | null>(null);
   const cohort = cohorts[0];
-  const isFull = cohort ? cohort.isFull : false;
   // cohortId is always available synchronously — the hidden field is pre-populated
   // on first render, so Zod validation can never fail on it.
   const cohortId = cohort?.id ?? "";
@@ -143,7 +142,7 @@ export function RegistrationForm({
         type="submit"
         variant="primary"
         size="lg"
-        disabled={isSubmitting || isFull}
+        disabled={isSubmitting}
         className="mt-7 w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
       >
         {isSubmitting ? (
@@ -151,8 +150,6 @@ export function RegistrationForm({
             <Loader2 className="h-5 w-5 animate-spin" />
             Processing...
           </>
-        ) : isFull ? (
-          "This Cohort Is Full"
         ) : (
           <>
             <ShieldCheck className="h-5 w-5 text-white" />

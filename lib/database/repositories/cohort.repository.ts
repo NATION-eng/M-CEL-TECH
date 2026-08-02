@@ -19,12 +19,12 @@ function mockCohorts(programId: string): Cohort[] {
     {
       id: "00000000-0000-0000-0000-000000000001",
       programId,
-      name: "Evening Class",
+      name: "Evening Class (Aug 5 – Aug 20, 2026)",
       startDate: null,
       endDate: null,
       startTime: "7:00 PM",
       endTime: "9:00 PM",
-      capacity: 30,
+      capacity: 999999, // No cap — permanently open
       registeredCount: 0,
       status: "OPEN",
       location: null,
