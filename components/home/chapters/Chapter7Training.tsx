@@ -17,7 +17,7 @@ const RADIUS = 36; // kept well inside the box so wrapped labels never spill pas
 const CENTER = 50;
 
 const SCHEDULE_BADGES = [
-  { icon: CalendarClock, label: `${TRAINING_DETAILS.duration} Duration` },
+  { icon: CalendarClock, label: `Date: ${TRAINING_DETAILS.duration}` },
   { icon: Clock3, label: `${TRAINING_DETAILS.schedule} (Evening Class)` },
 ];
 

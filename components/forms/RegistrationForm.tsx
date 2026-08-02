@@ -97,7 +97,7 @@ export function RegistrationForm({
           <div className="mt-2.5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink">
             <span className="flex items-center gap-1.5">
               <CalendarClock className="h-4 w-4 text-accent-cyan" />
-              Duration: 2 Weeks
+              Date: Aug 5 – Aug 20, 2026
             </span>
             <span className="flex items-center gap-1.5">
               <Clock3 className="h-4 w-4 text-accent-cyan" />

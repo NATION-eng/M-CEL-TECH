@@ -25,7 +25,7 @@ async function main() {
       price: 15000,
       currency: "NGN",
       trainingMode: "HYBRID",
-      duration: "2 Weeks — Evening Class (7:00 PM – 9:00 PM)",
+      duration: "Aug 5 – Aug 20, 2026 — Evening Class (7:00 PM – 9:00 PM)",
       registrationOpen: true,
       certificateAvailable: true,
       featured: true,
@@ -39,7 +39,9 @@ async function main() {
     startTime: string;
     endTime: string;
     capacity: number;
-  }[] = [{ name: "Evening Class", startTime: "7:00 PM", endTime: "9:00 PM", capacity: 30 }];
+    startDate: string;
+    endDate: string;
+  }[] = [{ name: "Evening Class (Aug 5 – Aug 20, 2026)", startTime: "7:00 PM", endTime: "9:00 PM", capacity: 30, startDate: "2026-08-05", endDate: "2026-08-20" }];
 
   for (const cohort of cohorts) {
     const existing = await prisma.cohort.findFirst({

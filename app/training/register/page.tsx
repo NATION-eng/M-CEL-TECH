@@ -33,7 +33,7 @@ export default async function RegisterPage({
   const allFull = cohorts.length > 0 && cohorts.every((c) => c.isFull);
 
   const scheduleBadges = [
-    { icon: CalendarClock, label: "Duration: 2 Weeks" },
+    { icon: CalendarClock, label: "Date: Aug 5 – Aug 20, 2026" },
     { icon: Clock3, label: "Time: 7:00 PM – 9:00 PM" },
     { icon: Users2, label: "Evening Hybrid Class" },
   ];
@@ -47,8 +47,8 @@ export default async function RegisterPage({
             {program.title}
           </h1>
           <p className="mt-5 text-base leading-relaxed text-ink-muted/70">
-            Complete the form to reserve your seat in the upcoming 2-week intensive Evening
-            Class bootcamp.
+            Complete the form to reserve your seat in the upcoming intensive Evening
+            Class bootcamp (August 5 – August 20, 2026).
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2.5">

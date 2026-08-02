@@ -10,7 +10,7 @@ import { formatNaira } from "@/lib/utils";
 
 export function TrainingHero({ title, price }: { title: string; price: number }) {
   const badges = [
-    { icon: CalendarClock, label: `${TRAINING_DETAILS.duration} Duration` },
+    { icon: CalendarClock, label: `Date: ${TRAINING_DETAILS.duration}` },
     { icon: Clock3, label: `${TRAINING_DETAILS.schedule} (Evening Class)` },
     { icon: Award, label: "Certificate of Completion" },
     { icon: Hammer, label: "Hands-on Projects" },

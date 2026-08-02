@@ -78,7 +78,8 @@ export const TRAINING_HIGHLIGHTS: { icon: LucideIcon; title: string }[] = [
 export const TRAINING_DETAILS = {
   title: "AI Productivity & Digital Innovation Bootcamp",
   format: "Evening Hybrid Class",
-  duration: "2 Weeks",
+  duration: "August 5 – August 20, 2026",
+  dates: "5th August – 20th August 2026",
   schedule: "7:00 PM – 9:00 PM",
   price: 15000,
   priceLabel: "\u20a615,000",

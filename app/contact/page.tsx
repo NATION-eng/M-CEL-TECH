@@ -167,12 +167,8 @@ export default function ContactPage() {
                     <span className="font-bold text-white">8:00 AM – 6:00 PM</span>
                   </li>
                   <li className="flex justify-between border-b border-white/5 pb-2.5">
-                    <span className="text-slate-400">Saturday:</span>
-                    <span className="font-bold text-white">9:00 AM – 3:00 PM</span>
-                  </li>
-                  <li className="flex justify-between border-b border-white/5 pb-2.5">
-                    <span className="text-slate-400">Evening Bootcamp Classes:</span>
-                    <span className="font-bold text-cyan-300">7:00 PM – 9:00 PM</span>
+                    <span className="text-slate-400">Bootcamp Dates (Aug 5 – Aug 20, 2026):</span>
+                    <span className="font-bold text-cyan-300">7:00 PM – 9:00 PM (Evening)</span>
                   </li>
                   <li className="flex justify-between">
                     <span className="text-slate-400">Emergency IT Support:</span>

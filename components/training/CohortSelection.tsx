@@ -29,7 +29,7 @@ export async function CohortSelection() {
           <SectionHeading
             eyebrow="Training Schedule"
             title="Interactive Evening Schedule"
-            description="An intensive 2-week Evening Class designed for practical mastery, interactive building, and direct expert mentorship."
+            description="An intensive Evening Class bootcamp — August 5 to August 20, 2026 — designed for practical mastery, interactive building, and direct expert mentorship."
             align="center"
             className="mx-auto"
           />
@@ -49,7 +49,7 @@ export async function CohortSelection() {
               <h3 className="mt-5 text-xl font-semibold text-ink">{cohort.name}</h3>
               <p className="mt-1.5 flex items-center justify-center gap-1.5 text-sm text-ink-muted/60">
                 <CalendarClock className="h-4 w-4" />
-                2 Weeks
+                Aug 5 – Aug 20, 2026
                 {(cohort.startTime || cohort.endTime) && (
                   <>
                     {" · "}
