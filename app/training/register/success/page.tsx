@@ -79,6 +79,15 @@ export default async function RegistrationSuccessPage({
         )}
 
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          {full?.receiptNumber && (
+            <Button
+              href={`/verify?id=${full.receiptNumber}`}
+              variant="primary"
+              className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
+            >
+              Verify Credential
+            </Button>
+          )}
           <Button href="/" variant="outline">
             Back to Home
           </Button>

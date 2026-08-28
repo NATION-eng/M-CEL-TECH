@@ -26,6 +26,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Training", href: "/training" },
+  { label: "Verify Certificate", href: "/verify" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -60,6 +61,7 @@ export const TRAINING_MENU: TrainingMenuItem[] = [
   { label: "Curriculum", href: "/training#curriculum", icon: BookOpen },
   { label: "Cohorts", href: "/training#cohorts", icon: Users },
   { label: "Pricing", href: "/training#pricing", icon: Tag },
+  { label: "Verify Certificate", href: "/verify", icon: ShieldCheck },
   { label: "FAQ", href: "/training#faq", icon: HelpCircle },
   { label: "Register Now", href: "/training/register", icon: ClipboardCheck, emphasize: true },
 ];
@@ -70,6 +72,7 @@ export const FOOTER_LINKS = {
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Training", href: "/training" },
+    { label: "Verify Certificate", href: "/verify" },
     { label: "Contact Us", href: "/contact" },
   ],
   services: [

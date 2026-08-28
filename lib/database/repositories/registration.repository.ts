@@ -40,4 +40,24 @@ export const registrationRepository = {
       where: { id },
       include: { program: true, cohort: true, payment: true },
     }),
+
+  /** Finds a confirmed/completed registration for certificate verification. */
+  findCertificate: (query: string) => {
+    const trimmed = query.trim();
+    return prisma.registration.findFirst({
+      where: {
+        registrationStatus: CONFIRMED_STATUSES,
+        OR: [
+          { receiptNumber: { equals: trimmed, mode: "insensitive" } },
+          { registrationNumber: { equals: trimmed, mode: "insensitive" } },
+          { id: trimmed },
+          { email: { equals: trimmed, mode: "insensitive" } },
+        ],
+      },
+      include: {
+        program: true,
+        cohort: true,
+      },
+    });
+  },
 };

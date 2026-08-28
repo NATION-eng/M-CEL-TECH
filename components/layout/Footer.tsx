@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
+import { Phone, MessageCircle, Mail, MapPin, QrCode } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/layout/Logo";
 import { ConstellationCanvas } from "@/components/shared/ConstellationCanvas";
@@ -23,6 +24,40 @@ export function Footer() {
             </div>
             <p className="mt-4 text-sm leading-relaxed text-ink-muted">{SITE.description}</p>
 
+            {/* Quick Site QR Code Scan */}
+            <div className="mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-900/60 p-3 backdrop-blur-sm">
+              <a
+                href="/qr-code.svg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 rounded-lg bg-white p-1 transition-transform hover:scale-105"
+                title="Scan or download full site QR Code"
+              >
+                <Image
+                  src="/qr-code.svg"
+                  alt="M-CEL TECH Site QR Code"
+                  width={64}
+                  height={64}
+                  className="h-16 w-16"
+                />
+              </a>
+              <div className="text-xs">
+                <div className="flex items-center gap-1 font-bold text-cyan-400">
+                  <QrCode className="h-3.5 w-3.5" />
+                  <span>Scan to Visit</span>
+                </div>
+                <p className="mt-0.5 text-[11px] text-ink-muted/70">
+                  Point camera to open mceltech.com on mobile
+                </p>
+                <a
+                  href="/qr-code.svg"
+                  download="mceltech-qr-code.svg"
+                  className="mt-1 inline-block text-[10px] font-semibold text-accent-cyan underline hover:text-white"
+                >
+                  Download QR Code
+                </a>
+              </div>
+            </div>
           </div>
 
           <div>

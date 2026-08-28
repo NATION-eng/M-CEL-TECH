@@ -10,6 +10,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/verify-certificate",
+        destination: "/verify",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
