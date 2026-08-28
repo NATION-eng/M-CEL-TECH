@@ -48,8 +48,8 @@ const DEMO_CERTIFICATES: Record<string, VerifiedCertificate> = {
     issuer: "M-CEL TECH Academic & Professional Certification Board",
     issuerAddress: SITE.officeAddress,
     signatories: [
-      { name: "Engr. Michael Celestine", title: "Chief Executive Officer & Lead Technologist" },
-      { name: "Dr. Amanda Nkemdirim", title: "Director of Academic Standards & AI Training" },
+      { name: "NATION CHIMEKA", title: "PROGRAM LEAD" },
+      { name: "EPKOR JEPHTA", title: "PROGRAM INSTRUCTOR" },
     ],
     curriculumHighlights: [
       "Advanced Generative AI & Systematic Prompt Engineering",
@@ -78,8 +78,8 @@ const DEMO_CERTIFICATES: Record<string, VerifiedCertificate> = {
     issuer: "M-CEL TECH Academic & Professional Certification Board",
     issuerAddress: SITE.officeAddress,
     signatories: [
-      { name: "Engr. Michael Celestine", title: "Chief Executive Officer & Lead Technologist" },
-      { name: "Dr. Amanda Nkemdirim", title: "Director of Academic Standards & AI Training" },
+      { name: "NATION CHIMEKA", title: "PROGRAM LEAD" },
+      { name: "EPKOR JEPHTA", title: "PROGRAM INSTRUCTOR" },
     ],
     curriculumHighlights: [
       "AI Workflow Automation & Multi-Agent Frameworks",
@@ -107,8 +107,8 @@ const DEMO_CERTIFICATES: Record<string, VerifiedCertificate> = {
     issuer: "M-CEL TECH Academic & Professional Certification Board",
     issuerAddress: SITE.officeAddress,
     signatories: [
-      { name: "Engr. Michael Celestine", title: "Chief Executive Officer & Lead Technologist" },
-      { name: "Dr. Amanda Nkemdirim", title: "Director of Academic Standards & AI Training" },
+      { name: "NATION CHIMEKA", title: "PROGRAM LEAD" },
+      { name: "EPKOR JEPHTA", title: "PROGRAM INSTRUCTOR" },
     ],
     curriculumHighlights: [
       "Prompt Engineering & Context Design",
@@ -208,8 +208,8 @@ export async function verifyCertificateAction(
           issuer: "M-CEL TECH Academic & Professional Certification Board",
           issuerAddress: SITE.officeAddress,
           signatories: [
-            { name: "Engr. Michael Celestine", title: "Chief Executive Officer & Lead Technologist" },
-            { name: "Dr. Amanda Nkemdirim", title: "Director of Academic Standards & AI Training" },
+            { name: "NATION CHIMEKA", title: "PROGRAM LEAD" },
+            { name: "EPKOR JEPHTA", title: "PROGRAM INSTRUCTOR" },
           ],
           curriculumHighlights: [
             "Advanced Generative AI & Systematic Prompt Engineering",

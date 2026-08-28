@@ -127,15 +127,20 @@ export function CertificateVerifier({
   };
 
   const handlePrint = () => {
-    if (typeof window !== "undefined") {
-      window.print();
-    }
+    if (typeof window === "undefined") return;
+    // Defer the print dialog so the button click event finishes immediately (<16ms)
+    // and does NOT block the JavaScript main thread (eliminates INP issue)
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        window.print();
+      }, 60);
+    });
   };
 
   return (
     <div className="w-full">
       {/* Search Input Card */}
-      <div className="relative mx-auto max-w-3xl">
+      <div className="no-print relative mx-auto max-w-3xl">
         <div className="relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-slate-950/90 p-6 shadow-2xl backdrop-blur-xl md:p-8">
           {/* Subtle Cyber Grid & Lighting Effect */}
           <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-500/15 blur-3xl" />
@@ -235,7 +240,7 @@ export function CertificateVerifier({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mx-auto mt-8 max-w-xl rounded-3xl border border-red-500/30 bg-red-950/40 p-6 text-center backdrop-blur-xl shadow-2xl"
+            className="no-print mx-auto mt-8 max-w-xl rounded-3xl border border-red-500/30 bg-red-950/40 p-6 text-center backdrop-blur-xl shadow-2xl"
           >
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/20 text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
               <AlertCircle className="h-7 w-7" />
@@ -281,7 +286,7 @@ export function CertificateVerifier({
             className="mx-auto mt-10 max-w-4xl"
           >
             {/* Top Verification Status Bar */}
-            <div className="mb-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-950/60 via-slate-900/80 to-emerald-950/60 px-6 py-4 backdrop-blur-xl shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+            <div className="no-print mb-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-emerald-950/60 via-slate-900/80 to-emerald-950/60 px-6 py-4 backdrop-blur-xl shadow-[0_0_30px_rgba(16,185,129,0.15)]">
               <div className="flex items-center gap-3.5">
                 <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/20 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
                   <ShieldCheck className="h-7 w-7" />
@@ -515,12 +520,9 @@ export function CertificateVerifier({
                 {/* Signatory 1 */}
                 <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-white/10 pt-4 sm:pt-0 sm:pl-6">
                   <div className="font-serif italic text-base text-cyan-200 print:text-black tracking-wider">
-                    Michael Celestine
-                  </div>
-                  <div className="mt-1 text-xs font-bold text-white print:text-black">
                     {certificate.signatories[0]?.name}
                   </div>
-                  <div className="text-[10px] text-slate-400 print:text-gray-600">
+                  <div className="mt-1 text-xs font-bold text-white print:text-black">
                     {certificate.signatories[0]?.title}
                   </div>
                 </div>
@@ -528,12 +530,9 @@ export function CertificateVerifier({
                 {/* Signatory 2 & Official Seal */}
                 <div className="text-center sm:text-right border-t sm:border-t-0 sm:border-l border-white/10 pt-4 sm:pt-0 sm:pl-6">
                   <div className="font-serif italic text-base text-cyan-200 print:text-black tracking-wider">
-                    Amanda Nkemdirim
-                  </div>
-                  <div className="mt-1 text-xs font-bold text-white print:text-black">
                     {certificate.signatories[1]?.name}
                   </div>
-                  <div className="text-[10px] text-slate-400 print:text-gray-600">
+                  <div className="mt-1 text-xs font-bold text-white print:text-black">
                     {certificate.signatories[1]?.title}
                   </div>
                 </div>
@@ -548,7 +547,7 @@ export function CertificateVerifier({
             </div>
 
             {/* Post-Verification Action Box */}
-            <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/60 p-6 text-center backdrop-blur-xl shadow-xl">
+            <div className="no-print mt-8 rounded-3xl border border-white/10 bg-slate-900/60 p-6 text-center backdrop-blur-xl shadow-xl">
               <h4 className="text-base font-bold text-white">
                 Share or Export Your Credential
               </h4>

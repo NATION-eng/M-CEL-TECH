@@ -75,8 +75,8 @@ export default async function VerifyPage({
             />
           </Suspense>
 
-          {/* Detailed Verification Information & Guide Grid */}
-          <div className="mx-auto mt-20 max-w-5xl border-t border-white/10 pt-16">
+          {/* Detailed Verification Information & Guide Grid — hidden during print */}
+          <div className="no-print mx-auto mt-20 max-w-5xl border-t border-white/10 pt-16">
             <div className="text-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-400">
                 <Lock className="h-3.5 w-3.5" />
