@@ -126,16 +126,48 @@ export function CertificateVerifier({
     setTimeout(() => setCopied(false), 2000);
   };
 
+
   const handlePrint = () => {
     if (typeof window === "undefined") return;
-    // Defer the print dialog so the button click event finishes immediately (<16ms)
-    // and does NOT block the JavaScript main thread (eliminates INP issue)
     requestAnimationFrame(() => {
       setTimeout(() => {
+        // A4 dimensions at 96 dpi
+        const A4_WIDTH_PX  = 794;
+        const A4_HEIGHT_PX = 1122;
+        const el = document.getElementById("certificate-print-area") as HTMLElement | null;
+
+        if (el) {
+          // Measure the element's natural height (no scale applied)
+          el.style.transform = "";
+          const naturalH = el.scrollHeight;
+          // Calculate how much to shrink so it fits in one A4 page height
+          const scale = Math.min(1, A4_HEIGHT_PX / naturalH);
+          // Inject a temporary <style> that overrides the static CSS scale
+          const styleTag = document.createElement("style");
+          styleTag.id = "__cert-print-scale__";
+          styleTag.textContent = `
+            @media print {
+              #certificate-print-area {
+                transform: scale(${scale.toFixed(4)}) !important;
+                width: ${A4_WIDTH_PX}px !important;
+              }
+            }
+          `;
+          document.head.appendChild(styleTag);
+        }
+
         window.print();
+
+        // Clean up after the print dialog closes
+        window.addEventListener("afterprint", () => {
+          document.getElementById("__cert-print-scale__")?.remove();
+          if (el) el.style.transform = "";
+        }, { once: true });
       }, 60);
     });
   };
+
+
 
   return (
     <div className="w-full">
