@@ -345,39 +345,39 @@ export function CertificateVerifier({
             {/* The Master Certificate Verification Document */}
             <div
               id="certificate-print-area"
-              className="relative overflow-hidden rounded-3xl border-2 border-cyan-500/30 bg-gradient-to-b from-[#080d1a] via-[#0b1329] to-[#060a14] p-7 shadow-2xl backdrop-blur-2xl md:p-12 print:border print:border-black print:bg-white print:text-black"
+              className="relative overflow-hidden rounded-3xl border-2 border-cyan-500/30 bg-gradient-to-b from-[#080d1a] via-[#0b1329] to-[#060a14] p-7 shadow-2xl backdrop-blur-2xl md:p-12"
             >
               {/* Luxury Guilloche Security Background & Corner Ornaments */}
-              <div className="pointer-events-none absolute inset-3 rounded-2xl border border-dashed border-cyan-500/30 print:hidden" />
-              <div className="pointer-events-none absolute inset-5 rounded-xl border border-white/5 print:hidden" />
+              <div className="pointer-events-none absolute inset-3 rounded-2xl border border-dashed border-cyan-500/30" />
+              <div className="pointer-events-none absolute inset-5 rounded-xl border border-white/5" />
 
               {/* Watermark Crest */}
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03] select-none print:opacity-10">
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
                 <GraduationCap className="h-[450px] w-[450px] text-white" />
               </div>
 
               {/* Top Certificate Header */}
-              <div className="relative flex flex-col items-center justify-between gap-6 border-b border-cyan-500/20 pb-8 sm:flex-row print:border-b-2 print:border-gray-300">
+              <div className="relative flex flex-col items-center justify-between gap-6 border-b border-cyan-500/20 pb-8 sm:flex-row">
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 font-black text-2xl text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]">
                     M
                   </div>
                   <div>
-                    <h2 className="text-2xl font-black tracking-tight text-white print:text-black">
+                    <h2 className="text-2xl font-black tracking-tight text-white">
                       M-CEL TECH
                     </h2>
-                    <p className="text-xs font-bold uppercase tracking-widest text-cyan-400 print:text-gray-700">
+                    <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">
                       Academic & Professional Training Directorate
                     </p>
                   </div>
                 </div>
 
                 {/* Registration & Credential Stamp Badge */}
-                <div className="rounded-2xl border border-cyan-500/30 bg-slate-900/80 px-5 py-3 text-center sm:text-right print:bg-gray-100 print:border-gray-300">
-                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 print:text-gray-600">
+                <div className="rounded-2xl border border-cyan-500/30 bg-slate-900/80 px-5 py-3 text-center sm:text-right">
+                  <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                     Student Registration Number
                   </div>
-                  <div className="font-mono text-base font-black text-cyan-300 print:text-black">
+                  <div className="font-mono text-base font-black text-cyan-300">
                     {certificate.registrationNumber}
                   </div>
                   <div className="text-[10px] text-slate-400 font-mono mt-0.5">
@@ -388,44 +388,44 @@ export function CertificateVerifier({
 
               {/* Certificate Formal Title */}
               <div className="relative mt-10 text-center">
-                <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1 text-xs font-extrabold uppercase tracking-widest text-cyan-300 print:border-gray-400 print:text-black">
+                <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1 text-xs font-extrabold uppercase tracking-widest text-cyan-300">
                   <BadgeCheck className="h-4 w-4 text-cyan-400" />
                   <span>Certificate of Professional Completion & Excellence</span>
                 </div>
 
-                <div className="mt-6 text-xs font-bold uppercase tracking-widest text-slate-400 print:text-gray-600">
+                <div className="mt-6 text-xs font-bold uppercase tracking-widest text-slate-400">
                   This is to officially certify that
                 </div>
 
                 {/* Recipient Full Name */}
-                <h3 className="mt-2 text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-400 sm:text-4xl md:text-5xl print:text-black">
+                <h3 className="mt-2 text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-400 sm:text-4xl md:text-5xl">
                   {certificate.studentName}
                 </h3>
 
-                <p className="mx-auto mt-3 max-w-2xl text-xs leading-relaxed text-slate-300 sm:text-sm print:text-gray-700">
+                <p className="mx-auto mt-3 max-w-2xl text-xs leading-relaxed text-slate-300 sm:text-sm">
                   has successfully fulfilled all curriculum requirements, practical capstone projects, and rigorous technical evaluations for the professional programme:
                 </p>
               </div>
 
               {/* Programme Title Banner */}
-              <div className="relative mt-8 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-slate-900/90 via-cyan-950/30 to-slate-900/90 p-6 shadow-xl print:bg-gray-50 print:border-gray-300">
+              <div className="relative mt-8 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-slate-900/90 via-cyan-950/30 to-slate-900/90 p-6 shadow-xl">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 shadow-inner">
                     <Award className="h-7 w-7" />
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h4 className="text-xl font-black text-white sm:text-2xl print:text-black">
+                      <h4 className="text-xl font-black text-white sm:text-2xl">
                         {certificate.programTitle}
                       </h4>
                       {certificate.grade && (
-                        <span className="rounded-full border border-emerald-400/40 bg-emerald-500/20 px-2.5 py-0.5 text-xs font-bold text-emerald-300 print:text-black">
+                        <span className="rounded-full border border-emerald-400/40 bg-emerald-500/20 px-2.5 py-0.5 text-xs font-bold text-emerald-300">
                           {certificate.grade}
                         </span>
                       )}
                     </div>
                     {certificate.programDescription && (
-                      <p className="mt-2 text-xs leading-relaxed text-slate-300 print:text-gray-700">
+                      <p className="mt-2 text-xs leading-relaxed text-slate-300">
                         {certificate.programDescription}
                       </p>
                     )}
@@ -435,11 +435,11 @@ export function CertificateVerifier({
                 {/* Core Competencies Checklist */}
                 {certificate.curriculumHighlights &&
                   certificate.curriculumHighlights.length > 0 && (
-                    <div className="mt-5 border-t border-cyan-500/20 pt-4 print:border-gray-200">
-                      <span className="text-[11px] font-black uppercase tracking-wider text-cyan-300 print:text-black">
+                    <div className="mt-5 border-t border-cyan-500/20 pt-4">
+                      <span className="text-[11px] font-black uppercase tracking-wider text-cyan-300">
                         Demonstrated Competencies & Core Modules:
                       </span>
-                      <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs text-slate-300 print:text-gray-800">
+                      <ul className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs text-slate-300">
                         {certificate.curriculumHighlights.map((item, i) => (
                           <li key={i} className="flex items-center gap-2">
                             <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" />
@@ -452,43 +452,43 @@ export function CertificateVerifier({
               </div>
 
               {/* Metadata Details Matrix */}
-              <div className="relative mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4 text-left print:bg-gray-100 print:border-gray-300">
+              <div className="relative mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4 text-left">
                 <div className="border-r border-white/5 pr-2">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 print:text-gray-600">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Registration No.
                   </div>
-                  <div className="mt-1 font-mono text-xs font-bold text-cyan-300 print:text-black">
+                  <div className="mt-1 font-mono text-xs font-bold text-cyan-300">
                     {certificate.registrationNumber}
                   </div>
                 </div>
                 <div className="sm:border-r sm:border-white/5 sm:pr-2">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 print:text-gray-600">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Training Mode
                   </div>
-                  <div className="mt-1 text-xs font-semibold text-white print:text-black">
+                  <div className="mt-1 text-xs font-semibold text-white">
                     {certificate.trainingMode}
                   </div>
                 </div>
                 <div className="border-r border-white/5 pr-2">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 print:text-gray-600">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Cohort Session
                   </div>
-                  <div className="mt-1 text-xs font-semibold text-white print:text-black">
+                  <div className="mt-1 text-xs font-semibold text-white">
                     {certificate.cohortName}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 print:text-gray-600">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Date of Issuance
                   </div>
-                  <div className="mt-1 text-xs font-semibold text-white print:text-black">
-                    {certificate.issueDate}
+                  <div className="mt-1 text-xs font-semibold text-white">
+                    August 20, 2026
                   </div>
                 </div>
               </div>
 
               {/* Signatories & Holographic Cryptographic Seal */}
-              <div className="relative mt-10 grid grid-cols-1 gap-8 border-t border-cyan-500/20 pt-8 sm:grid-cols-3 items-center print:border-t-2 print:border-gray-300">
+              <div className="relative mt-10 grid grid-cols-1 gap-8 border-t border-cyan-500/20 pt-8 sm:grid-cols-3 items-center">
                 {/* QR Code & Mobile Verification */}
                 <div className="flex items-center gap-4">
                   {qrCodeDataUrl ? (
@@ -508,10 +508,10 @@ export function CertificateVerifier({
                     </div>
                   )}
                   <div>
-                    <span className="text-xs font-black uppercase tracking-wider text-cyan-400 print:text-black">
+                    <span className="text-xs font-black uppercase tracking-wider text-cyan-400">
                       Scan To Authenticate
                     </span>
-                    <p className="mt-1 text-[11px] text-slate-400 print:text-gray-600 max-w-[160px]">
+                    <p className="mt-1 text-[11px] text-slate-400 max-w-[160px]">
                       Point phone camera to verify this record live on mceltech.com
                     </p>
                   </div>
@@ -519,20 +519,20 @@ export function CertificateVerifier({
 
                 {/* Signatory 1 */}
                 <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-white/10 pt-4 sm:pt-0 sm:pl-6">
-                  <div className="font-serif italic text-base text-cyan-200 print:text-black tracking-wider">
+                  <div className="font-serif italic text-base text-cyan-200 tracking-wider">
                     {certificate.signatories[0]?.name}
                   </div>
-                  <div className="mt-1 text-xs font-bold text-white print:text-black">
+                  <div className="mt-1 text-xs font-bold text-white">
                     {certificate.signatories[0]?.title}
                   </div>
                 </div>
 
                 {/* Signatory 2 & Official Seal */}
                 <div className="text-center sm:text-right border-t sm:border-t-0 sm:border-l border-white/10 pt-4 sm:pt-0 sm:pl-6">
-                  <div className="font-serif italic text-base text-cyan-200 print:text-black tracking-wider">
+                  <div className="font-serif italic text-base text-cyan-200 tracking-wider">
                     {certificate.signatories[1]?.name}
                   </div>
-                  <div className="mt-1 text-xs font-bold text-white print:text-black">
+                  <div className="mt-1 text-xs font-bold text-white">
                     {certificate.signatories[1]?.title}
                   </div>
                 </div>
@@ -540,7 +540,7 @@ export function CertificateVerifier({
 
               {/* Cryptographic Hash Trail */}
               <div className="relative mt-8 border-t border-white/10 pt-4 text-center">
-                <p className="font-mono text-[9px] text-slate-500 print:text-gray-500 tracking-wider">
+                <p className="font-mono text-[9px] text-slate-500 tracking-wider">
                   CRYPTOGRAPHIC REGISTRY SIGNATURE: {certificate.verificationHash} • VERIFIED ISSUER: {certificate.issuer}
                 </p>
               </div>
