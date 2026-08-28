@@ -27,14 +27,17 @@ export function ConstellationCanvas({ density = 70 }: { density?: number }) {
     let rafId: number;
 
     function resize() {
-      const parent = canvas!.parentElement;
+      if (!canvas || !ctx) return;
+      const parent = canvas.parentElement;
       width = parent?.clientWidth ?? window.innerWidth;
       height = parent?.clientHeight ?? 400;
-      canvas!.width = width * window.devicePixelRatio;
-      canvas!.height = height * window.devicePixelRatio;
-      canvas!.style.width = `${width}px`;
-      canvas!.style.height = `${height}px`;
-      ctx!.scale(window.devicePixelRatio, window.devicePixelRatio);
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
 
       stars = Array.from({ length: density }, () => ({
         x: Math.random() * width,

@@ -39,6 +39,7 @@ export function Footer() {
                   width={64}
                   height={64}
                   className="h-16 w-16"
+                  unoptimized
                 />
               </a>
               <div className="text-xs">

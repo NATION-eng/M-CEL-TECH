@@ -28,15 +28,21 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     });
     lenisRef.current = lenis;
 
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
+    const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
-      lenis.destroy();
+      try {
+        gsap.ticker.remove(updateTicker);
+        lenis.destroy();
+      } catch (err) {
+        console.error("Lenis destroy error", err);
+      }
       lenisRef.current = null;
     };
   }, []);

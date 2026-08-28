@@ -16,15 +16,27 @@ export function LoadingScreen() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    if (sessionStorage.getItem("mcel-loaded")) {
-      setVisible(false);
-      return;
+    try {
+      if (typeof window !== "undefined" && window.sessionStorage?.getItem("mcel-loaded")) {
+        setVisible(false);
+        return;
+      }
+    } catch {
+      // Ignore storage access restrictions
     }
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     const minDisplay = prefersReducedMotion ? 200 : 1700;
 
     const timer = setTimeout(() => {
-      sessionStorage.setItem("mcel-loaded", "1");
+      try {
+        if (typeof window !== "undefined") {
+          window.sessionStorage?.setItem("mcel-loaded", "1");
+        }
+      } catch {
+        // Ignore storage access restrictions
+      }
       setVisible(false);
     }, minDisplay);
 
