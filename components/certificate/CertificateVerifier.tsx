@@ -3,7 +3,6 @@
 import { useState, useEffect, useTransition, useId } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ShieldCheck,
@@ -11,25 +10,11 @@ import {
   CheckCircle2,
   AlertCircle,
   QrCode,
-  Printer,
-  Copy,
-  Check,
-  Calendar,
   Award,
-  ExternalLink,
-  Building2,
-  Sparkles,
   HelpCircle,
-  ArrowRight,
-  BookOpen,
-  Share2,
-  FileCheck2,
   Lock,
   GraduationCap,
   BadgeCheck,
-  FileText,
-  Clock,
-  Info,
 } from "lucide-react";
 import {
   verifyCertificateAction,
@@ -37,6 +22,7 @@ import {
 } from "@/actions/certificate";
 import { generateQRCodeDataURL } from "@/lib/utils/qrcode";
 import { Button } from "@/components/ui/Button";
+
 
 interface CertificateVerifierProps {
   initialQuery?: string;
@@ -58,7 +44,6 @@ export function CertificateVerifier({
   const [error, setError] = useState<string | null>(initialError);
   const [isPending, startTransition] = useTransition();
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
 
   // If URL has `?id=` or `?ref=` or `?reg=` on load and initial was not passed, verify automatically
   useEffect(() => {
@@ -114,60 +99,6 @@ export function CertificateVerifier({
     e.preventDefault();
     performVerification(query);
   };
-
-  const handleCopyLink = () => {
-    if (!certificate) return;
-    const url =
-      typeof window !== "undefined"
-        ? `${window.location.origin}/verify?id=${encodeURIComponent(certificate.registrationNumber)}`
-        : certificate.verificationUrl;
-    navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-
-  const handlePrint = () => {
-    if (typeof window === "undefined") return;
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        // A4 dimensions at 96 dpi
-        const A4_WIDTH_PX  = 794;
-        const A4_HEIGHT_PX = 1122;
-        const el = document.getElementById("certificate-print-area") as HTMLElement | null;
-
-        if (el) {
-          // Measure the element's natural height (no scale applied)
-          el.style.transform = "";
-          const naturalH = el.scrollHeight;
-          // Calculate how much to shrink so it fits in one A4 page height
-          const scale = Math.min(1, A4_HEIGHT_PX / naturalH);
-          // Inject a temporary <style> that overrides the static CSS scale
-          const styleTag = document.createElement("style");
-          styleTag.id = "__cert-print-scale__";
-          styleTag.textContent = `
-            @media print {
-              #certificate-print-area {
-                transform: scale(${scale.toFixed(4)}) !important;
-                width: ${A4_WIDTH_PX}px !important;
-              }
-            }
-          `;
-          document.head.appendChild(styleTag);
-        }
-
-        window.print();
-
-        // Clean up after the print dialog closes
-        window.addEventListener("afterprint", () => {
-          document.getElementById("__cert-print-scale__")?.remove();
-          if (el) el.style.transform = "";
-        }, { once: true });
-      }, 60);
-    });
-  };
-
-
 
   return (
     <div className="w-full">
@@ -340,37 +271,6 @@ export function CertificateVerifier({
                     Registration No: <span className="font-mono font-bold text-white">{certificate.registrationNumber}</span> • Status: <span className="font-semibold text-emerald-400">Active & Valid</span>
                   </p>
                 </div>
-              </div>
-
-              {/* Action Toolbar */}
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-slate-800/90 px-4 py-2.5 text-xs font-bold text-slate-200 shadow-md transition-all hover:bg-slate-700 hover:text-white active:scale-95 cursor-pointer"
-                  title="Copy permanent verification link"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-4 w-4 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-4 w-4 text-cyan-400" />
-                      <span>Share Link</span>
-                    </>
-                  )}
-                </button>
-                <button
-                  type="button"
-                  onClick={handlePrint}
-                  className="flex items-center gap-1.5 rounded-xl border border-cyan-400/40 bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2.5 text-xs font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer"
-                  title="Print Official Certificate Verification Slip"
-                >
-                  <Printer className="h-4 w-4" />
-                  <span>Print Slip</span>
-                </button>
               </div>
             </div>
 
@@ -575,38 +475,6 @@ export function CertificateVerifier({
                 <p className="font-mono text-[9px] text-slate-500 tracking-wider">
                   CRYPTOGRAPHIC REGISTRY SIGNATURE: {certificate.verificationHash} • VERIFIED ISSUER: {certificate.issuer}
                 </p>
-              </div>
-            </div>
-
-            {/* Post-Verification Action Box */}
-            <div className="no-print mt-8 rounded-3xl border border-white/10 bg-slate-900/60 p-6 text-center backdrop-blur-xl shadow-xl">
-              <h4 className="text-base font-bold text-white">
-                Share or Export Your Credential
-              </h4>
-              <p className="mt-1 text-xs text-slate-400">
-                You can print this official slip for job applications, attach the link to your resume, or share it on LinkedIn.
-              </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <button
-                  type="button"
-                  onClick={handlePrint}
-                  className="flex items-center gap-2 rounded-xl bg-cyan-500/15 border border-cyan-400/30 px-5 py-2.5 text-xs font-bold text-cyan-300 hover:bg-cyan-500/25 transition-all cursor-pointer"
-                >
-                  <Printer className="h-4 w-4" />
-                  Print / Save as PDF
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  className="flex items-center gap-2 rounded-xl bg-slate-800 border border-white/15 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-700 transition-all cursor-pointer"
-                >
-                  <Copy className="h-4 w-4 text-cyan-400" />
-                  {copied ? "Link Copied!" : "Copy Verification URL"}
-                </button>
-                <Button href="/training" variant="primary" size="sm">
-                  <BookOpen className="h-4 w-4 mr-1.5" />
-                  Explore Next Training Level
-                </Button>
               </div>
             </div>
           </motion.div>
