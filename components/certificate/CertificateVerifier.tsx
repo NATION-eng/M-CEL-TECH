@@ -11,6 +11,7 @@ import {
   AlertCircle,
   QrCode,
   Award,
+  ArrowRight,
   HelpCircle,
   Lock,
   GraduationCap,
