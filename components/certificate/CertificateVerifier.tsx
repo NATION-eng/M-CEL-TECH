@@ -415,7 +415,7 @@ export function CertificateVerifier({
                     Date of Issuance
                   </div>
                   <div className="mt-1 text-xs font-semibold text-white">
-                    August 20, 2026
+                    September 30, 2026
                   </div>
                 </div>
               </div>

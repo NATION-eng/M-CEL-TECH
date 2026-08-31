@@ -47,7 +47,7 @@ export default async function RegisterPage({
           </h1>
           <p className="mt-5 text-base leading-relaxed text-ink-muted/70">
             Complete the form to reserve your seat in the upcoming intensive Evening
-            Class bootcamp (August 5 – August 20, 2026).
+            Class bootcamp (September 16 – September 30, 2026).
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2.5">

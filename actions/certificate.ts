@@ -38,9 +38,9 @@ const DEMO_CERTIFICATES: Record<string, VerifiedCertificate> = {
     programDescription:
       "Comprehensive mastery in applied artificial intelligence, prompt engineering, cinematic AI media creation, full-stack vibe coding, automated business systems, and agile technology project delivery.",
     trainingMode: "HYBRID (Online & On-Site Practical)",
-    cohortName: "Cohort 1 — Evening Session",
-    cohortDates: "August 5, 2026 – August 20, 2026",
-    issueDate: "August 20, 2026",
+    cohortName: "Cohort 2 — Evening Session",
+    cohortDates: "September 16, 2026 – September 30, 2026",
+    issueDate: "September 30, 2026",
     status: "VERIFIED",
     grade: "Distinction with Honors",
     verificationHash: "8F9B2A7E4C1D0E3F5A8B6C9D2E4F1A7B3C5D8E0F",
@@ -68,9 +68,9 @@ const DEMO_CERTIFICATES: Record<string, VerifiedCertificate> = {
     programDescription:
       "Advanced mastery of digital transformation workflows, autonomous agent orchestration, AI automation pipelines, and modern software productivity tooling.",
     trainingMode: "ONLINE INTERACTIVE",
-    cohortName: "Cohort 1 — Evening Session",
-    cohortDates: "August 5, 2026 – August 20, 2026",
-    issueDate: "August 20, 2026",
+    cohortName: "Cohort 2 — Evening Session",
+    cohortDates: "September 16, 2026 – September 30, 2026",
+    issueDate: "September 30, 2026",
     status: "VERIFIED",
     grade: "Distinction",
     verificationHash: "4E7A1C9B3D5E0F2A8B6C4D1E3F5A7B9C0D2E4F6A",
@@ -97,9 +97,9 @@ const DEMO_CERTIFICATES: Record<string, VerifiedCertificate> = {
     programDescription:
       "Intensive technical certification in prompt engineering, automated customer pipelines, and AI multimedia production.",
     trainingMode: "PHYSICAL IMMERSION",
-    cohortName: "Cohort 1 — Evening Session",
-    cohortDates: "August 5, 2026 – August 20, 2026",
-    issueDate: "August 20, 2026",
+    cohortName: "Cohort 2 — Evening Session",
+    cohortDates: "September 16, 2026 – September 30, 2026",
+    issueDate: "September 30, 2026",
     status: "VERIFIED",
     grade: "Distinction",
     verificationHash: "2B8C4D1E3F5A7B9C0D2E4F6A8B0C2D4E6F8A1C3E",
@@ -165,7 +165,7 @@ export async function verifyCertificateAction(
             month: "long",
             day: "numeric",
           })
-        : "August 20, 2026";
+        : "September 30, 2026";
 
       const cohortDatesFormatted =
         record.cohort.startDate && record.cohort.endDate
