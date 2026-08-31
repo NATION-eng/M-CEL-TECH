@@ -32,7 +32,7 @@ export default async function RegisterPage({
   const cohorts = (await cohortService.getActiveCohortsForProgram(program.id)).map(toCohortSummary);
 
   const scheduleBadges = [
-    { icon: CalendarClock, label: "Date: Aug 5 – Aug 20, 2026" },
+    { icon: CalendarClock, label: "Date: Sep 16 – Sep 30, 2026" },
     { icon: Clock3, label: "Time: 7:00 PM – 9:00 PM" },
     { icon: Users2, label: "Evening Hybrid Class" },
   ];
