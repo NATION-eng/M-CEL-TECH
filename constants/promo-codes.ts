@@ -1,4 +1,4 @@
-﻿export interface PromoCode {
+export interface PromoCode {
   code: string;
   discountAmount: number; // in Naira, e.g. 3000
   label: string;
@@ -26,6 +26,12 @@ export const PROMO_CODES: Record<string, PromoCode> = {
   },
   CAUTION: {
     code: "Caution",
+    discountAmount: 3000,
+    label: "₦3,000 Special Discount",
+    isActive: true,
+  },
+  DCONNECT: {
+    code: "dconnect",
     discountAmount: 3000,
     label: "₦3,000 Special Discount",
     isActive: true,
