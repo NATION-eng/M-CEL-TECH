@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -245,7 +245,7 @@ export function RegistrationForm({
                   handleApplyPromo();
                 }
               }}
-              placeholder="Enter code (e.g. aifuture)"
+              placeholder="ENTER PROMO CODE"
               className="h-11 flex-1 rounded-lg border border-white/15 bg-bg-secondary px-3.5 text-sm text-ink placeholder:text-ink-muted/40 uppercase tracking-wider focus-visible:border-accent"
             />
             <Button
