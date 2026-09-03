@@ -1,5 +1,5 @@
 import "server-only";
-import type { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/database/client";
 import { programRepository } from "@/lib/database/repositories/program.repository";
 import { cohortRepository } from "@/lib/database/repositories/cohort.repository";
