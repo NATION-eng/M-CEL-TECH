@@ -13,6 +13,7 @@ import { generateRegistrationNumber, generateReceiptNumber, generatePaymentRefer
 import { NotFoundError, ConflictError } from "@/lib/utils/errors";
 import { logger } from "@/lib/utils/logger";
 import { SITE } from "@/constants/site";
+import { validatePromoCode } from "@/constants/promo-codes";
 import type { CreateRegistrationInput } from "@/lib/validators/registration.validator";
 
 /**
@@ -56,6 +57,20 @@ export const registrationService = {
     const paymentReference = generatePaymentReference();
     let registration;
 
+    // Check if a promo code was supplied and calculate the final payable price
+    let discountAmount = 0;
+    let appliedPromoCode: string | null = null;
+    if (input.promoCode) {
+      const promoResult = validatePromoCode(input.promoCode);
+      if (promoResult.isValid) {
+        discountAmount = promoResult.discountAmount;
+        appliedPromoCode = promoResult.code;
+      }
+    }
+
+    const basePrice = Number(program.price);
+    const finalPrice = Math.max(0, basePrice - discountAmount);
+
     if (existingPending) {
       // Reuse and update the existing unconfirmed registration with fresh details and payment reference
       registration = await registrationRepository.update(existingPending.id, {
@@ -76,19 +91,19 @@ export const registrationService = {
         await paymentRepository.updateStatus(existingPayment.id, {
           paymentReference,
           status: "PENDING",
-          amount: program.price,
+          amount: new Prisma.Decimal(finalPrice),
           currency: program.currency,
         });
       } else {
         await paymentRepository.create({
           registration: { connect: { id: registration.id } },
-          amount: program.price,
+          amount: new Prisma.Decimal(finalPrice),
           currency: program.currency,
           paymentReference,
           status: "PENDING",
         });
       }
-      logger.info("RegistrationService", "Unconfirmed registration updated for retry", { registrationId: registration.id });
+      logger.info("RegistrationService", "Unconfirmed registration updated for retry", { registrationId: registration.id, finalPrice, appliedPromoCode });
     } else {
       // Create a new registration record
       const registrationNumber = await generateRegistrationNumber();
@@ -110,7 +125,7 @@ export const registrationService = {
 
       await paymentRepository.create({
         registration: { connect: { id: registration.id } },
-        amount: program.price,
+        amount: new Prisma.Decimal(finalPrice),
         currency: program.currency,
         paymentReference,
         status: "PENDING",
@@ -118,19 +133,33 @@ export const registrationService = {
 
       await auditLogRepository.create({
         event: "Registration Created",
-        description: `${input.fullName} registered for ${program.title} (${cohort.name})`,
+        description: `${input.fullName} registered for ${program.title} (${cohort.name})${appliedPromoCode ? ` with promo code ${appliedPromoCode} (-₦${discountAmount.toLocaleString()})` : ""}`,
         userType: "public",
-        metadata: { registrationId: registration.id, programId: program.id, cohortId: cohort.id } as Prisma.InputJsonValue,
+        metadata: {
+          registrationId: registration.id,
+          programId: program.id,
+          cohortId: cohort.id,
+          promoCode: appliedPromoCode,
+          discountAmount,
+          finalPrice,
+        } as Prisma.InputJsonValue,
       });
-      logger.info("RegistrationService", "New registration created", { registrationId: registration.id });
+      logger.info("RegistrationService", "New registration created", { registrationId: registration.id, finalPrice, appliedPromoCode });
     }
 
     const init = await paymentService.initializeTransaction({
       email: input.email,
-      amountKobo: Math.round(Number(program.price) * 100),
+      amountKobo: Math.round(finalPrice * 100),
       reference: paymentReference,
       callbackUrl: `${SITE.url}/api/payment/verify`,
-      metadata: { registrationId: registration.id, fullName: input.fullName, program: program.title },
+      metadata: {
+        registrationId: registration.id,
+        fullName: input.fullName,
+        program: program.title,
+        promoCode: appliedPromoCode,
+        discountAmount,
+        finalPrice,
+      },
     });
 
     return { registration, authorizationUrl: init.data.authorization_url };

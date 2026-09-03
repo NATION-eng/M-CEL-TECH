@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, ShieldCheck, CalendarClock, Clock3 } from "lucide-react";
+import { Loader2, ShieldCheck, CalendarClock, Clock3, Tag, Check, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { registerForBootcamp } from "@/actions/registration";
+import { registerForBootcamp, checkPromoCodeAction } from "@/actions/registration";
 import {
   registrationFormSchema,
   type RegistrationFormValues,
@@ -14,7 +14,7 @@ import { formatNaira } from "@/lib/utils";
 import type { CohortSummary } from "@/types/cohort";
 
 const fields: {
-  name: keyof Omit<RegistrationFormValues, "cohortId">;
+  name: keyof Omit<RegistrationFormValues, "cohortId" | "promoCode">;
   label: string;
   placeholder: string;
   type: string;
@@ -39,14 +39,26 @@ export function RegistrationForm({
   price: number;
 }) {
   const [serverError, setServerError] = useState<string | null>(null);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoError, setPromoError] = useState<string | null>(null);
+  const [isCheckingPromo, setIsCheckingPromo] = useState(false);
+  const [appliedPromo, setAppliedPromo] = useState<{
+    code: string;
+    discountAmount: number;
+    label: string;
+  } | null>(null);
+
   const cohort = cohorts[0];
-  // cohortId is always available synchronously — the hidden field is pre-populated
-  // on first render, so Zod validation can never fail on it.
   const cohortId = cohort?.id ?? "";
+
+  const finalPrice = appliedPromo
+    ? Math.max(0, price - appliedPromo.discountAmount)
+    : price;
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegistrationFormValues>({
     resolver: zodResolver(registrationFormSchema),
@@ -56,12 +68,54 @@ export function RegistrationForm({
       phone: "",
       organization: "",
       cohortId,
+      promoCode: "",
     },
   });
 
+  async function handleApplyPromo() {
+    if (!promoInput.trim()) {
+      setPromoError("Please enter a promo code.");
+      return;
+    }
+
+    setPromoError(null);
+    setIsCheckingPromo(true);
+
+    try {
+      const result = await checkPromoCodeAction(promoInput);
+      if (result.isValid) {
+        setAppliedPromo({
+          code: result.code,
+          discountAmount: result.discountAmount,
+          label: result.label,
+        });
+        setValue("promoCode", result.code);
+        setPromoError(null);
+      } else {
+        setPromoError(result.error);
+        setAppliedPromo(null);
+        setValue("promoCode", "");
+      }
+    } catch {
+      setPromoError("Could not validate promo code. Please try again.");
+    } finally {
+      setIsCheckingPromo(false);
+    }
+  }
+
+  function handleRemovePromo() {
+    setAppliedPromo(null);
+    setPromoInput("");
+    setPromoError(null);
+    setValue("promoCode", "");
+  }
+
   async function onSubmit(values: RegistrationFormValues) {
     setServerError(null);
-    const result = await registerForBootcamp(values);
+    const result = await registerForBootcamp({
+      ...values,
+      promoCode: appliedPromo?.code || values.promoCode || "",
+    });
 
     if (!result.success) {
       setServerError(result.error);
@@ -79,8 +133,17 @@ export function RegistrationForm({
     >
       <div className="flex items-center justify-between border-b border-white/10 pb-5">
         <div>
-          <p className="text-sm font-medium text-ink-muted/60">Registration Fee</p>
-          <p className="text-2xl font-bold text-ink">{formatNaira(price)}</p>
+          <p className="text-sm font-medium text-ink-muted/60">
+            {appliedPromo ? "Total Payable" : "Registration Fee"}
+          </p>
+          <div className="flex items-baseline gap-2.5">
+            <p className="text-2xl font-bold text-ink">{formatNaira(finalPrice)}</p>
+            {appliedPromo && (
+              <span className="text-sm text-ink-muted/50 line-through">
+                {formatNaira(price)}
+              </span>
+            )}
+          </div>
         </div>
         <span className="flex items-center gap-1.5 rounded-full bg-state-success/10 px-3 py-1.5 text-xs font-semibold text-state-success">
           <ShieldCheck className="h-3.5 w-3.5" />
@@ -108,6 +171,7 @@ export function RegistrationForm({
         </div>
       )}
       <input type="hidden" {...register("cohortId")} />
+      <input type="hidden" {...register("promoCode")} />
       {errors.cohortId && <p className="mt-2 text-sm text-state-error">{errors.cohortId.message}</p>}
 
       <div className="mt-6 flex flex-col gap-5">
@@ -134,6 +198,81 @@ export function RegistrationForm({
         ))}
       </div>
 
+      {/* Promo Code Section */}
+      <div className="mt-6 border-t border-white/10 pt-5">
+        <label className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-ink-muted/80">
+          <Tag className="h-3.5 w-3.5 text-accent-cyan" />
+          Have a Promo Code?
+        </label>
+
+        {appliedPromo ? (
+          <div className="flex items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3.5">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                <Check className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="text-xs font-bold text-emerald-300">
+                  Code &quot;{appliedPromo.code}&quot; Applied!
+                </p>
+                <p className="text-[11px] text-emerald-200/70">
+                  {appliedPromo.label} (-{formatNaira(appliedPromo.discountAmount)})
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleRemovePromo}
+              className="flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-400 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
+              title="Remove promo code"
+            >
+              <X className="h-3.5 w-3.5" />
+              Remove
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={promoInput}
+              onChange={(e) => {
+                setPromoInput(e.target.value);
+                if (promoError) setPromoError(null);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleApplyPromo();
+                }
+              }}
+              placeholder="Enter code (e.g. aifuture)"
+              className="h-11 flex-1 rounded-lg border border-white/15 bg-bg-secondary px-3.5 text-sm text-ink placeholder:text-ink-muted/40 uppercase tracking-wider focus-visible:border-accent"
+            />
+            <Button
+              type="button"
+              onClick={handleApplyPromo}
+              disabled={isCheckingPromo || !promoInput.trim()}
+              variant="outline"
+              size="sm"
+              className="h-11 shrink-0 px-4 font-bold border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/20 cursor-pointer"
+            >
+              {isCheckingPromo ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  <Sparkles className="h-3.5 w-3.5 mr-1 text-cyan-400" />
+                  Apply
+                </>
+              )}
+            </Button>
+          </div>
+        )}
+
+        {promoError && (
+          <p className="mt-2 text-xs text-state-error">{promoError}</p>
+        )}
+      </div>
+
       {serverError && (
         <p className="mt-5 rounded-lg bg-state-error/10 px-4 py-3 text-sm text-state-error">{serverError}</p>
       )}
@@ -153,7 +292,7 @@ export function RegistrationForm({
         ) : (
           <>
             <ShieldCheck className="h-5 w-5 text-white" />
-            Pay
+            Pay {formatNaira(finalPrice)}
           </>
         )}
       </Button>

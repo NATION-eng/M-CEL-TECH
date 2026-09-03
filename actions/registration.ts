@@ -6,6 +6,8 @@ import { logger } from "@/lib/utils/logger";
 import { AppError } from "@/lib/utils/errors";
 import type { ActionResult } from "@/types";
 
+import { validatePromoCode, type PromoValidationResult } from "@/constants/promo-codes";
+
 const PROGRAM_SLUG = "ai-productivity-digital-innovation-bootcamp";
 
 type RegisterInput = {
@@ -14,7 +16,15 @@ type RegisterInput = {
   phone: string;
   organization?: string;
   cohortId: string;
+  promoCode?: string;
 };
+
+/**
+ * Validates a promo code for real-time form feedback.
+ */
+export async function checkPromoCodeAction(code: string): Promise<PromoValidationResult> {
+  return validatePromoCode(code);
+}
 
 /**
  * Server action backing the registration form. This is a second entry
@@ -32,6 +42,7 @@ export async function registerForBootcamp(
     email: input.email,
     phone: input.phone,
     organization: input.organization,
+    promoCode: input.promoCode,
   });
 
   if (!parsed.success) {
