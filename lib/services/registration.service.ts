@@ -16,6 +16,7 @@ import { SITE } from "@/constants/site";
 import { validatePromoCode } from "@/constants/promo-codes";
 import { validateReferral } from "@/constants/referrals";
 import { referralRepository } from "@/lib/database/repositories/referral.repository";
+import { promoCodeRepository } from "@/lib/database/repositories/promo-code.repository";
 import type { CreateRegistrationInput } from "@/lib/validators/registration.validator";
 
 /**
@@ -66,7 +67,7 @@ export const registrationService = {
     let isFree = false;
 
     if (input.promoCode) {
-      const promoResult = validatePromoCode(input.promoCode);
+      const promoResult = await promoCodeRepository.validate(input.promoCode, input.email);
       if (promoResult.isValid) {
         finalPrice = promoResult.finalPrice;
         appliedPromoCode = promoResult.code;
@@ -195,6 +196,11 @@ export const registrationService = {
         metadata: { registrationId: registration.id, receiptNumber } as Prisma.InputJsonValue,
       });
 
+      // Burn single-use promo code immediately upon free registration
+      if (appliedPromoCode) {
+        await promoCodeRepository.redeem(appliedPromoCode, input.email);
+      }
+
       // Send confirmation email
       if (!confirmed.confirmationEmailSent) {
         const full = await registrationRepository.findById(confirmed.id);
@@ -305,6 +311,14 @@ export const registrationService = {
       description: `Payment confirmed for registration ${registration.registrationNumber}`,
       metadata: { registrationId: registration.id, receiptNumber } as Prisma.InputJsonValue,
     });
+
+    // Burn single-use promo code if one was applied
+    const usedPromo =
+      (verification.data.metadata?.promoCode as string) ||
+      (verification.data.metadata?.promo_code as string);
+    if (usedPromo) {
+      await promoCodeRepository.redeem(usedPromo, registration.email);
+    }
 
     // Send confirmation email outside the main flow — a delivery failure should
     // never roll back a successful payment record.

@@ -7,28 +7,28 @@ export interface PromoCode {
 }
 
 export const PROMO_CODES: Record<string, PromoCode> = {
-  "MCELTECH-FREE": {
-    code: "MCELTECH-FREE",
+  "FREE-8K2A-91": {
+    code: "FREE-8K2A-91",
     finalPrice: 0,
-    label: "Full Scholarship — Free Registration",
+    label: "Full Scholarship — Free Registration (Single-Use)",
     isActive: true,
   },
-  "MCELTECH-3K": {
-    code: "MCELTECH-3K",
+  "3K-9B1X-42": {
+    code: "3K-9B1X-42",
     finalPrice: 3000,
-    label: "Special Discount — Pay Only ₦3,000",
+    label: "Special Discount — Pay Only ₦3,000 (Single-Use)",
     isActive: true,
   },
-  "MCELTECH-5K": {
-    code: "MCELTECH-5K",
+  "5K-7M4P-63": {
+    code: "5K-7M4P-63",
     finalPrice: 5000,
-    label: "Special Discount — Pay Only ₦5,000",
+    label: "Special Discount — Pay Only ₦5,000 (Single-Use)",
     isActive: true,
   },
-  "MCELTECH-10K": {
-    code: "MCELTECH-10K",
+  "10K-2T8W-55": {
+    code: "10K-2T8W-55",
     finalPrice: 10000,
-    label: "Special Discount — Pay Only ₦10,000",
+    label: "Special Discount — Pay Only ₦10,000 (Single-Use)",
     isActive: true,
   },
 };

@@ -6,7 +6,8 @@ import { logger } from "@/lib/utils/logger";
 import { AppError } from "@/lib/utils/errors";
 import type { ActionResult } from "@/types";
 
-import { validatePromoCode, type PromoValidationResult } from "@/constants/promo-codes";
+import type { PromoValidationResult } from "@/constants/promo-codes";
+import { promoCodeRepository } from "@/lib/database/repositories/promo-code.repository";
 
 const PROGRAM_SLUG = "ai-productivity-digital-innovation-bootcamp";
 
@@ -23,8 +24,8 @@ type RegisterInput = {
 /**
  * Validates a promo code for real-time form feedback.
  */
-export async function checkPromoCodeAction(code: string): Promise<PromoValidationResult> {
-  return validatePromoCode(code);
+export async function checkPromoCodeAction(code: string, email?: string): Promise<PromoValidationResult> {
+  return promoCodeRepository.validate(code, email);
 }
 
 /**
