@@ -15,6 +15,7 @@ import { logger } from "@/lib/utils/logger";
 import { SITE } from "@/constants/site";
 import { validatePromoCode } from "@/constants/promo-codes";
 import { validateReferral } from "@/constants/referrals";
+import { referralRepository } from "@/lib/database/repositories/referral.repository";
 import type { CreateRegistrationInput } from "@/lib/validators/registration.validator";
 
 /**
@@ -73,8 +74,19 @@ export const registrationService = {
       }
     }
 
-    // Resolve referral code → store the canonical handle or null
-    const referredBy = validateReferral(input.referralCode) ?? null;
+    // Resolve referral code: check database partner table first, fall back to static handles
+    let referredBy: string | null = null;
+    let referrerId: string | null = null;
+
+    if (input.referralCode) {
+      const partner = await referralRepository.findByCode(input.referralCode);
+      if (partner) {
+        referredBy = partner.code;
+        referrerId = partner.id;
+      } else {
+        referredBy = validateReferral(input.referralCode) ?? null;
+      }
+    }
 
     if (existingPending) {
       // Reuse and update the existing unconfirmed registration with fresh details and payment reference
@@ -87,6 +99,7 @@ export const registrationService = {
         state: input.state || null,
         occupation: input.occupation || null,
         organization: input.organization || null,
+        ...(referrerId ? { referrer: { connect: { id: referrerId } } } : {}),
         ...(referredBy ? { referredBy } : {}),
         paymentReference,
         registrationStatus: "PAYMENT_PENDING",
@@ -109,7 +122,7 @@ export const registrationService = {
           status: "PENDING",
         });
       }
-      logger.info("RegistrationService", "Unconfirmed registration updated for retry", { registrationId: registration.id, finalPrice, appliedPromoCode, referredBy });
+      logger.info("RegistrationService", "Unconfirmed registration updated for retry", { registrationId: registration.id, finalPrice, appliedPromoCode, referredBy, referrerId });
     } else {
       // Create a new registration record
       const registrationNumber = await generateRegistrationNumber();
@@ -125,6 +138,7 @@ export const registrationService = {
         state: input.state || null,
         occupation: input.occupation || null,
         organization: input.organization || null,
+        ...(referrerId ? { referrer: { connect: { id: referrerId } } } : {}),
         ...(referredBy ? { referredBy } : {}),
         paymentReference,
         registrationStatus: "PAYMENT_PENDING",
@@ -149,9 +163,10 @@ export const registrationService = {
           promoCode: appliedPromoCode,
           finalPrice,
           referredBy,
+          referrerId,
         } as Prisma.InputJsonValue,
       });
-      logger.info("RegistrationService", "New registration created", { registrationId: registration.id, finalPrice, appliedPromoCode, referredBy });
+      logger.info("RegistrationService", "New registration created", { registrationId: registration.id, finalPrice, appliedPromoCode, referredBy, referrerId });
     }
 
     // ── FREE REGISTRATION PATH ──────────────────────────────────────────────
@@ -217,6 +232,7 @@ export const registrationService = {
         promoCode: appliedPromoCode,
         finalPrice,
         referredBy,
+        referrerId,
       },
     });
 
