@@ -146,6 +146,7 @@ model Registration {
   receiptNumber         String?            @unique @map("receipt_number") @db.VarChar(50)
   paymentReference      String             @unique @map("payment_reference") @db.VarChar(100)
   confirmationEmailSent Boolean            @default(false) @map("confirmation_email_sent")
+  referredBy            String?            @map("referred_by") @db.VarChar(100)
 
   payment   Payment?
   emailLogs EmailLog[]
@@ -158,6 +159,7 @@ model Registration {
   @@index([cohortId])
   @@index([paymentReference])
   @@index([receiptNumber])
+  @@index([referredBy])
   @@map("registrations")
 }
 

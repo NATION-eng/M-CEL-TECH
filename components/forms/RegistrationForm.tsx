@@ -14,7 +14,7 @@ import { formatNaira } from "@/lib/utils";
 import type { CohortSummary } from "@/types/cohort";
 
 const fields: {
-  name: keyof Omit<RegistrationFormValues, "cohortId" | "promoCode">;
+  name: keyof Omit<RegistrationFormValues, "cohortId" | "promoCode" | "referralCode">;
   label: string;
   placeholder: string;
   type: string;
@@ -33,10 +33,12 @@ const fields: {
 export function RegistrationForm({
   cohorts,
   price,
+  referralCode,
 }: {
   cohorts: CohortSummary[];
   initialCohortId?: string;
   price: number;
+  referralCode?: string;
 }) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [promoInput, setPromoInput] = useState("");
@@ -44,16 +46,15 @@ export function RegistrationForm({
   const [isCheckingPromo, setIsCheckingPromo] = useState(false);
   const [appliedPromo, setAppliedPromo] = useState<{
     code: string;
-    discountAmount: number;
+    finalPrice: number;
     label: string;
+    isFree: boolean;
   } | null>(null);
 
   const cohort = cohorts[0];
   const cohortId = cohort?.id ?? "";
 
-  const finalPrice = appliedPromo
-    ? Math.max(0, price - appliedPromo.discountAmount)
-    : price;
+  const finalPrice = appliedPromo ? appliedPromo.finalPrice : price;
 
   const {
     register,
@@ -69,6 +70,7 @@ export function RegistrationForm({
       organization: "",
       cohortId,
       promoCode: "",
+      referralCode: referralCode || "",
     },
   });
 
@@ -86,8 +88,9 @@ export function RegistrationForm({
       if (result.isValid) {
         setAppliedPromo({
           code: result.code,
-          discountAmount: result.discountAmount,
+          finalPrice: result.finalPrice,
           label: result.label,
+          isFree: result.isFree,
         });
         setValue("promoCode", result.code);
         setPromoError(null);
@@ -115,6 +118,7 @@ export function RegistrationForm({
     const result = await registerForBootcamp({
       ...values,
       promoCode: appliedPromo?.code || values.promoCode || "",
+      referralCode: referralCode || values.referralCode || "",
     });
 
     if (!result.success) {
@@ -122,7 +126,14 @@ export function RegistrationForm({
       return;
     }
 
-    window.location.href = result.data.authorizationUrl;
+    if (result.data.isFree) {
+      window.location.href = "/training/register/success";
+      return;
+    }
+
+    if (result.data.authorizationUrl) {
+      window.location.href = result.data.authorizationUrl;
+    }
   }
 
   return (
@@ -172,6 +183,7 @@ export function RegistrationForm({
       )}
       <input type="hidden" {...register("cohortId")} />
       <input type="hidden" {...register("promoCode")} />
+      <input type="hidden" {...register("referralCode")} />
       {errors.cohortId && <p className="mt-2 text-sm text-state-error">{errors.cohortId.message}</p>}
 
       <div className="mt-6 flex flex-col gap-5">
@@ -216,7 +228,10 @@ export function RegistrationForm({
                   Code &quot;{appliedPromo.code}&quot; Applied!
                 </p>
                 <p className="text-[11px] text-emerald-200/70">
-                  {appliedPromo.label} (-{formatNaira(appliedPromo.discountAmount)})
+                  {appliedPromo.label}
+                  {appliedPromo.isFree
+                    ? " (100% OFF)"
+                    : ` (-${formatNaira(price - appliedPromo.finalPrice)})`}
                 </p>
               </div>
             </div>
@@ -289,6 +304,11 @@ export function RegistrationForm({
             <Loader2 className="h-5 w-5 animate-spin" />
             Processing...
           </>
+        ) : appliedPromo?.isFree ? (
+          <>
+            <Check className="h-5 w-5 text-white" />
+            Complete Free Registration
+          </>
         ) : (
           <>
             <ShieldCheck className="h-5 w-5 text-white" />
@@ -298,8 +318,9 @@ export function RegistrationForm({
       </Button>
 
       <p className="mt-4 text-center text-xs text-ink-muted/50">
-        You&apos;ll be redirected to Paystack to complete payment securely. Your seat is
-        confirmed automatically once payment succeeds.
+        {appliedPromo?.isFree
+          ? "Your seat will be confirmed immediately upon completion. No payment is required."
+          : "You'll be redirected to Paystack to complete payment securely. Your seat is confirmed automatically once payment succeeds."}
       </p>
     </form>
   );

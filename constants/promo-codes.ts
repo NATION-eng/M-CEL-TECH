@@ -1,39 +1,34 @@
 export interface PromoCode {
   code: string;
-  discountAmount: number; // in Naira, e.g. 3000
+  /** The amount the registrant actually pays in Naira (0 = free) */
+  finalPrice: number;
   label: string;
   isActive: boolean;
 }
 
 export const PROMO_CODES: Record<string, PromoCode> = {
-  AIFUTURE: {
-    code: "aifuture",
-    discountAmount: 3000,
-    label: "₦3,000 Special Discount",
+  "MCELTECH-FREE": {
+    code: "MCELTECH-FREE",
+    finalPrice: 0,
+    label: "Full Scholarship — Free Registration",
     isActive: true,
   },
-  MAVSALPHA: {
-    code: "Mavsalpha",
-    discountAmount: 3000,
-    label: "₦3,000 Special Discount",
+  "MCELTECH-3K": {
+    code: "MCELTECH-3K",
+    finalPrice: 3000,
+    label: "Special Discount — Pay Only ₦3,000",
     isActive: true,
   },
-  JAHO007: {
-    code: "Jaho007",
-    discountAmount: 3000,
-    label: "₦3,000 Special Discount",
+  "MCELTECH-5K": {
+    code: "MCELTECH-5K",
+    finalPrice: 5000,
+    label: "Special Discount — Pay Only ₦5,000",
     isActive: true,
   },
-  CAUTION: {
-    code: "Caution",
-    discountAmount: 3000,
-    label: "₦3,000 Special Discount",
-    isActive: true,
-  },
-  DCONNECT: {
-    code: "dconnect",
-    discountAmount: 3000,
-    label: "₦3,000 Special Discount",
+  "MCELTECH-10K": {
+    code: "MCELTECH-10K",
+    finalPrice: 10000,
+    label: "Special Discount — Pay Only ₦10,000",
     isActive: true,
   },
 };
@@ -42,12 +37,13 @@ export type PromoValidationResult =
   | {
       isValid: true;
       code: string;
-      discountAmount: number;
+      finalPrice: number;
       label: string;
+      isFree: boolean;
     }
   | {
       isValid: false;
-      discountAmount: 0;
+      finalPrice: null;
       error: string;
     };
 
@@ -55,7 +51,7 @@ export function validatePromoCode(rawCode?: string | null): PromoValidationResul
   if (!rawCode || !rawCode.trim()) {
     return {
       isValid: false,
-      discountAmount: 0,
+      finalPrice: null,
       error: "Please enter a promo code.",
     };
   }
@@ -67,14 +63,16 @@ export function validatePromoCode(rawCode?: string | null): PromoValidationResul
     return {
       isValid: true,
       code: found.code,
-      discountAmount: found.discountAmount,
+      finalPrice: found.finalPrice,
       label: found.label,
+      isFree: found.finalPrice === 0,
     };
   }
 
   return {
     isValid: false,
-    discountAmount: 0,
+    finalPrice: null,
     error: `Promo code "${rawCode.trim()}" is invalid or not active.`,
   };
 }
+

@@ -23,6 +23,7 @@ export const createRegistrationSchema = z.object({
   occupation: z.string().trim().max(120).optional().or(z.literal("")),
   organization: z.string().trim().max(150, "Organization name is too long.").optional().or(z.literal("")),
   promoCode: z.string().trim().max(50).optional().or(z.literal("")),
+  referralCode: z.string().trim().max(100).optional().or(z.literal("")),
 });
 
 export type CreateRegistrationInput = z.infer<typeof createRegistrationSchema>;
@@ -44,6 +45,7 @@ export const registrationFormSchema = z.object({
     .regex(/^[0-9+()\-\s]+$/, "Use digits only, e.g. +234 800 000 0000."),
   organization: z.string().trim().max(150, "Organization name is too long.").optional().or(z.literal("")),
   promoCode: z.string().trim().max(50).optional().or(z.literal("")),
+  referralCode: z.string().trim().max(100).optional().or(z.literal("")),
 });
 
 export type RegistrationFormValues = z.infer<typeof registrationFormSchema>;

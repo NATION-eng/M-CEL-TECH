@@ -14,6 +14,7 @@ import { NotFoundError, ConflictError } from "@/lib/utils/errors";
 import { logger } from "@/lib/utils/logger";
 import { SITE } from "@/constants/site";
 import { validatePromoCode } from "@/constants/promo-codes";
+import { validateReferral } from "@/constants/referrals";
 import type { CreateRegistrationInput } from "@/lib/validators/registration.validator";
 
 /**
@@ -57,19 +58,23 @@ export const registrationService = {
     const paymentReference = generatePaymentReference();
     let registration;
 
-    // Check if a promo code was supplied and calculate the final payable price
-    let discountAmount = 0;
+    // Resolve promo code → determine the final payable price
+    const basePrice = Number(program.price);
+    let finalPrice = basePrice;
     let appliedPromoCode: string | null = null;
+    let isFree = false;
+
     if (input.promoCode) {
       const promoResult = validatePromoCode(input.promoCode);
       if (promoResult.isValid) {
-        discountAmount = promoResult.discountAmount;
+        finalPrice = promoResult.finalPrice;
         appliedPromoCode = promoResult.code;
+        isFree = promoResult.isFree;
       }
     }
 
-    const basePrice = Number(program.price);
-    const finalPrice = Math.max(0, basePrice - discountAmount);
+    // Resolve referral code → store the canonical handle or null
+    const referredBy = validateReferral(input.referralCode) ?? null;
 
     if (existingPending) {
       // Reuse and update the existing unconfirmed registration with fresh details and payment reference
@@ -82,6 +87,7 @@ export const registrationService = {
         state: input.state || null,
         occupation: input.occupation || null,
         organization: input.organization || null,
+        ...(referredBy ? { referredBy } : {}),
         paymentReference,
         registrationStatus: "PAYMENT_PENDING",
       });
@@ -103,7 +109,7 @@ export const registrationService = {
           status: "PENDING",
         });
       }
-      logger.info("RegistrationService", "Unconfirmed registration updated for retry", { registrationId: registration.id, finalPrice, appliedPromoCode });
+      logger.info("RegistrationService", "Unconfirmed registration updated for retry", { registrationId: registration.id, finalPrice, appliedPromoCode, referredBy });
     } else {
       // Create a new registration record
       const registrationNumber = await generateRegistrationNumber();
@@ -119,6 +125,7 @@ export const registrationService = {
         state: input.state || null,
         occupation: input.occupation || null,
         organization: input.organization || null,
+        ...(referredBy ? { referredBy } : {}),
         paymentReference,
         registrationStatus: "PAYMENT_PENDING",
       });
@@ -133,20 +140,71 @@ export const registrationService = {
 
       await auditLogRepository.create({
         event: "Registration Created",
-        description: `${input.fullName} registered for ${program.title} (${cohort.name})${appliedPromoCode ? ` with promo code ${appliedPromoCode} (-₦${discountAmount.toLocaleString()})` : ""}`,
+        description: `${input.fullName} registered for ${program.title} (${cohort.name})${appliedPromoCode ? ` with promo code ${appliedPromoCode} (pays ₦${finalPrice.toLocaleString()})` : ""}${referredBy ? ` — referred by ${referredBy}` : ""}`,
         userType: "public",
         metadata: {
           registrationId: registration.id,
           programId: program.id,
           cohortId: cohort.id,
           promoCode: appliedPromoCode,
-          discountAmount,
           finalPrice,
+          referredBy,
         } as Prisma.InputJsonValue,
       });
-      logger.info("RegistrationService", "New registration created", { registrationId: registration.id, finalPrice, appliedPromoCode });
+      logger.info("RegistrationService", "New registration created", { registrationId: registration.id, finalPrice, appliedPromoCode, referredBy });
     }
 
+    // ── FREE REGISTRATION PATH ──────────────────────────────────────────────
+    // Paystack cannot process a ₦0 transaction. Auto-confirm immediately.
+    if (isFree) {
+      const receiptNumber = await generateReceiptNumber();
+      const confirmed = await registrationRepository.updateStatus(registration.id, {
+        registrationStatus: "CONFIRMED",
+        receiptNumber,
+      });
+
+      await paymentRepository.updateStatus(
+        (await paymentRepository.findByRegistrationId(registration.id))!.id,
+        { status: "SUCCESS", paidAt: new Date() }
+      );
+
+      await cohortRepository.incrementRegisteredCount(registration.cohortId);
+      const cohort2 = await cohortRepository.findById(registration.cohortId);
+      if (cohort2 && cohort2.registeredCount >= cohort2.capacity && cohort2.status === "OPEN") {
+        await cohortRepository.markStatus(cohort2.id, "FULL");
+      }
+
+      await auditLogRepository.create({
+        event: "Free Registration Confirmed",
+        description: `${input.fullName} registered for free using promo code ${appliedPromoCode}`,
+        metadata: { registrationId: registration.id, receiptNumber } as Prisma.InputJsonValue,
+      });
+
+      // Send confirmation email
+      if (!confirmed.confirmationEmailSent) {
+        const full = await registrationRepository.findById(confirmed.id);
+        if (full?.payment) {
+          try {
+            await emailService.sendRegistrationConfirmation({
+              registrationId: full.id,
+              to: full.email,
+              fullName: full.fullName,
+              programTitle: full.program.title,
+              cohortLabel: `${full.cohort.name}${full.cohort.startTime ? ` (${full.cohort.startTime} – ${full.cohort.endTime})` : ""}`,
+              amountNaira: 0,
+              receiptNumber: full.receiptNumber ?? "",
+            });
+            await registrationRepository.updateStatus(full.id, { confirmationEmailSent: true });
+          } catch (err) {
+            logger.error("RegistrationService", "Free registration confirmation email failed", { error: err, registrationId: full.id });
+          }
+        }
+      }
+
+      return { registration: confirmed, authorizationUrl: null, isFree: true };
+    }
+
+    // ── PAID REGISTRATION PATH ─────────────────────────────────────────────
     const init = await paymentService.initializeTransaction({
       email: input.email,
       amountKobo: Math.round(finalPrice * 100),
@@ -157,13 +215,14 @@ export const registrationService = {
         fullName: input.fullName,
         program: program.title,
         promoCode: appliedPromoCode,
-        discountAmount,
         finalPrice,
+        referredBy,
       },
     });
 
-    return { registration, authorizationUrl: init.data.authorization_url };
+    return { registration, authorizationUrl: init.data.authorization_url, isFree: false };
   },
+
 
   /**
    * The authoritative payment-confirmation flow. Called from both the

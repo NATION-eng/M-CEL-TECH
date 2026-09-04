@@ -17,6 +17,7 @@ type RegisterInput = {
   organization?: string;
   cohortId: string;
   promoCode?: string;
+  referralCode?: string;
 };
 
 /**
@@ -34,7 +35,7 @@ export async function checkPromoCodeAction(code: string): Promise<PromoValidatio
  */
 export async function registerForBootcamp(
   input: RegisterInput
-): Promise<ActionResult<{ authorizationUrl: string }>> {
+): Promise<ActionResult<{ authorizationUrl: string | null; isFree: boolean }>> {
   const parsed = createRegistrationSchema.safeParse({
     programSlug: PROGRAM_SLUG,
     cohortId: input.cohortId,
@@ -43,6 +44,7 @@ export async function registerForBootcamp(
     phone: input.phone,
     organization: input.organization,
     promoCode: input.promoCode,
+    referralCode: input.referralCode,
   });
 
   if (!parsed.success) {
@@ -50,8 +52,8 @@ export async function registerForBootcamp(
   }
 
   try {
-    const { authorizationUrl } = await registrationService.registerAndInitializePayment(parsed.data);
-    return { success: true, data: { authorizationUrl } };
+    const result = await registrationService.registerAndInitializePayment(parsed.data);
+    return { success: true, data: { authorizationUrl: result.authorizationUrl, isFree: result.isFree } };
   } catch (err) {
     if (err instanceof AppError) {
       return { success: false, error: err.message };

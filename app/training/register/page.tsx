@@ -19,9 +19,9 @@ export const dynamic = "force-dynamic";
 export default async function RegisterPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; ref?: string }>;
 }) {
-  const { status } = await searchParams;
+  const { status, ref } = await searchParams;
   const statusMessage: Record<string, string> = {
     failed: "Your last payment attempt was not successful. Please try again.",
     error: "Something went wrong verifying your payment. Please try again or contact us.",
@@ -75,7 +75,7 @@ export default async function RegisterPage({
             </p>
           )}
 
-          <RegistrationForm cohorts={cohorts} price={Number(program.price)} />
+          <RegistrationForm cohorts={cohorts} price={Number(program.price)} referralCode={ref} />
         </div>
       </Container>
     </section>
