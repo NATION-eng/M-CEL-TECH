@@ -38,40 +38,37 @@ export default async function RegisterPage({
   ];
 
   return (
-    <section className="bg-bg-secondary py-10 sm:py-16 md:py-24">
-      <Container className="grid gap-8 sm:gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-16">
+    <section className="bg-bg-secondary py-16 md:py-24">
+      <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-16">
         <div>
           <span className="section-eyebrow">Secure Registration</span>
-          <h1 className="mt-4 text-2xl font-bold leading-tight text-ink sm:text-3xl md:text-4xl">
+          <h1 className="mt-5 text-3xl font-bold leading-tight text-ink md:text-4xl">
             {program.title}
           </h1>
-          <p className="mt-3 sm:mt-5 text-sm sm:text-base leading-relaxed text-ink-muted/70">
+          <p className="mt-5 text-base leading-relaxed text-ink-muted/70">
             Complete the form to reserve your seat in the upcoming intensive Evening
             Class bootcamp (September 16 – September 30, 2026).
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-2 sm:gap-2.5">
+          <div className="mt-6 flex flex-wrap gap-2.5">
             {scheduleBadges.map(({ icon: Icon, label }) => (
               <span
                 key={label}
-                className="glass flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-ink"
+                className="glass flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-ink"
               >
-                <Icon className="h-3.5 w-3.5 text-accent-cyan shrink-0" />
+                <Icon className="h-3.5 w-3.5 text-accent-cyan" />
                 {label}
               </span>
             ))}
           </div>
 
-          {/* Course Outline: displayed on the left column on desktop (lg+) */}
-          <div className="hidden lg:block mt-8">
-            <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted/60">
-              Course Outline — Tap a Module for Details
-            </p>
-            <CourseOutlineList />
-          </div>
+          <p className="mt-8 text-xs font-semibold uppercase tracking-wider text-ink-muted/60">
+            Course Outline — Tap a Module for Details
+          </p>
+          <CourseOutlineList />
         </div>
 
-        <div className="w-full min-w-0">
+        <div>
           {status && statusMessage[status] && (
             <p className="mb-5 rounded-lg bg-state-error/10 px-4 py-3 text-sm text-state-error">
               {statusMessage[status]}
@@ -79,14 +76,6 @@ export default async function RegisterPage({
           )}
 
           <RegistrationForm cohorts={cohorts} price={Number(program.price)} referralCode={ref} />
-
-          {/* Course Outline: placed right after form on mobile for clean hierarchy */}
-          <div className="block lg:hidden mt-8 border-t border-white/10 pt-6">
-            <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted/60">
-              Course Outline — Tap a Module for Details
-            </p>
-            <CourseOutlineList />
-          </div>
         </div>
       </Container>
     </section>
