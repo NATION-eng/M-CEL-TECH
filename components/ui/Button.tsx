@@ -10,7 +10,7 @@ type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 const baseStyles =
-  "relative inline-flex items-center justify-center gap-2.5 rounded-full font-extrabold tracking-wide transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none";
+  "relative inline-flex items-center justify-center gap-2.5 rounded-full font-extrabold tracking-wide transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none whitespace-nowrap";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
