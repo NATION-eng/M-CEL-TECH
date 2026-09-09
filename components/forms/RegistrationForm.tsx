@@ -140,9 +140,9 @@ export function RegistrationForm({
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="rounded-md border border-white/8 bg-bg-primary p-7 shadow-card md:p-9"
+      className="w-full max-w-full rounded-md border border-white/8 bg-bg-primary p-5 sm:p-7 md:p-9 shadow-card overflow-hidden"
     >
-      <div className="flex items-center justify-between border-b border-white/10 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
         <div>
           <p className="text-sm font-medium text-ink-muted/60">
             {appliedPromo ? "Total Payable" : "Registration Fee"}
@@ -156,8 +156,8 @@ export function RegistrationForm({
             )}
           </div>
         </div>
-        <span className="flex items-center gap-1.5 rounded-full bg-state-success/10 px-3 py-1.5 text-xs font-semibold text-state-success">
-          <ShieldCheck className="h-3.5 w-3.5" />
+        <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-state-success/10 px-3 py-1.5 text-xs font-semibold text-state-success">
+          <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
           Secured by Paystack
         </span>
       </div>
@@ -261,7 +261,7 @@ export function RegistrationForm({
                 }
               }}
               placeholder="ENTER PROMO CODE"
-              className="h-11 flex-1 rounded-lg border border-white/15 bg-bg-secondary px-3.5 text-sm text-ink placeholder:text-ink-muted/40 uppercase tracking-wider focus-visible:border-accent"
+              className="h-11 flex-1 min-w-0 rounded-lg border border-white/15 bg-bg-secondary px-3.5 text-xs sm:text-sm text-ink placeholder:text-ink-muted/40 uppercase tracking-wider focus-visible:border-accent"
             />
             <Button
               type="button"
@@ -269,13 +269,13 @@ export function RegistrationForm({
               disabled={isCheckingPromo || !promoInput.trim()}
               variant="outline"
               size="sm"
-              className="h-11 shrink-0 px-4 font-bold border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/20 cursor-pointer"
+              className="h-11 shrink-0 px-3.5 sm:px-4 font-bold border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/20 cursor-pointer"
             >
               {isCheckingPromo ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin shrink-0" />
               ) : (
                 <>
-                  <Sparkles className="h-3.5 w-3.5 mr-1 text-cyan-400" />
+                  <Sparkles className="h-3.5 w-3.5 mr-1 text-cyan-400 shrink-0" />
                   Apply
                 </>
               )}
@@ -297,22 +297,22 @@ export function RegistrationForm({
         variant="primary"
         size="lg"
         disabled={isSubmitting}
-        className="mt-7 w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+        className="mt-7 w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-base sm:text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 px-4 sm:px-8 cursor-pointer max-w-full"
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="h-5 w-5 animate-spin" />
-            Processing...
+            <Loader2 className="h-5 w-5 animate-spin shrink-0" />
+            <span>Processing...</span>
           </>
         ) : appliedPromo?.isFree ? (
           <>
-            <Check className="h-5 w-5 text-white" />
-            Complete Free Registration
+            <Check className="h-5 w-5 text-white shrink-0" />
+            <span className="truncate">Complete Free Registration</span>
           </>
         ) : (
           <>
-            <ShieldCheck className="h-5 w-5 text-white" />
-            Pay {formatNaira(finalPrice)}
+            <ShieldCheck className="h-5 w-5 text-white shrink-0" />
+            <span>Pay {formatNaira(finalPrice)}</span>
           </>
         )}
       </Button>

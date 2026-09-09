@@ -38,25 +38,25 @@ export default async function RegisterPage({
   ];
 
   return (
-    <section className="bg-bg-secondary py-16 md:py-24">
-      <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-16">
-        <div>
+    <section className="bg-bg-secondary py-12 md:py-24 w-full overflow-x-hidden">
+      <Container className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start lg:gap-16 w-full max-w-full">
+        <div className="w-full min-w-0 max-w-full">
           <span className="section-eyebrow">Secure Registration</span>
-          <h1 className="mt-5 text-3xl font-bold leading-tight text-ink md:text-4xl">
+          <h1 className="mt-5 text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-ink break-words">
             {program.title}
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-ink-muted/70">
+          <p className="mt-5 text-sm sm:text-base leading-relaxed text-ink-muted/70">
             Complete the form to reserve your seat in the upcoming intensive Evening
             Class bootcamp (September 16 – September 30, 2026).
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-2.5">
+          <div className="mt-6 flex flex-wrap gap-2">
             {scheduleBadges.map(({ icon: Icon, label }) => (
               <span
                 key={label}
-                className="glass flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-ink"
+                className="glass flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-ink shrink-0"
               >
-                <Icon className="h-3.5 w-3.5 text-accent-cyan" />
+                <Icon className="h-3.5 w-3.5 text-accent-cyan shrink-0" />
                 {label}
               </span>
             ))}
@@ -68,7 +68,7 @@ export default async function RegisterPage({
           <CourseOutlineList />
         </div>
 
-        <div>
+        <div className="w-full min-w-0 max-w-full">
           {status && statusMessage[status] && (
             <p className="mb-5 rounded-lg bg-state-error/10 px-4 py-3 text-sm text-state-error">
               {statusMessage[status]}

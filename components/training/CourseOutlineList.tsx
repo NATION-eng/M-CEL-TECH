@@ -26,7 +26,7 @@ export function CourseOutlineList() {
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent-cyan">
                 <Icon className="h-4 w-4" />
               </span>
-              <span className="flex-1 text-sm font-medium text-ink/90">
+              <span className="flex-1 min-w-0 text-sm font-medium text-ink/90 break-words">
                 Module {String(i + 1).padStart(2, "0")}: {title}
               </span>
               <ChevronDown

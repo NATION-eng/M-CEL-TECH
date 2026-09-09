@@ -11,12 +11,15 @@
     background-color: #050816;
     /* Lenis takes over scrolling; native smooth-scroll would double up. */
     scroll-behavior: auto;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-bg-primary text-ink font-body antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     /* Prevent any child from causing horizontal overflow on mobile */
+    max-width: 100%;
     overflow-x: hidden;
   }
 
