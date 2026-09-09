@@ -140,40 +140,40 @@ export function RegistrationForm({
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="rounded-md border border-white/8 bg-bg-primary p-7 shadow-card md:p-9"
+      className="w-full rounded-2xl border border-white/10 bg-bg-primary p-4 sm:p-7 md:p-9 shadow-card"
     >
-      <div className="flex items-center justify-between border-b border-white/10 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
         <div>
-          <p className="text-sm font-medium text-ink-muted/60">
+          <p className="text-xs sm:text-sm font-medium text-ink-muted/60">
             {appliedPromo ? "Total Payable" : "Registration Fee"}
           </p>
-          <div className="flex items-baseline gap-2.5">
-            <p className="text-2xl font-bold text-ink">{formatNaira(finalPrice)}</p>
+          <div className="flex items-baseline gap-2">
+            <p className="text-xl sm:text-2xl font-bold text-ink">{formatNaira(finalPrice)}</p>
             {appliedPromo && (
-              <span className="text-sm text-ink-muted/50 line-through">
+              <span className="text-xs sm:text-sm text-ink-muted/50 line-through">
                 {formatNaira(price)}
               </span>
             )}
           </div>
         </div>
-        <span className="flex items-center gap-1.5 rounded-full bg-state-success/10 px-3 py-1.5 text-xs font-semibold text-state-success">
+        <span className="shrink-0 flex items-center gap-1.5 rounded-full bg-state-success/10 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-state-success">
           <ShieldCheck className="h-3.5 w-3.5" />
           Secured by Paystack
         </span>
       </div>
 
       {cohort && (
-        <div className="mt-6 rounded-lg border border-white/10 bg-white/5 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted/60">
+        <div className="mt-5 rounded-lg border border-white/10 bg-white/5 p-3.5 sm:p-4">
+          <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-ink-muted/60">
             Training Schedule
           </p>
-          <div className="mt-2.5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink">
+          <div className="mt-2 flex flex-col sm:flex-row sm:flex-wrap gap-x-5 gap-y-1.5 text-xs sm:text-sm text-ink">
             <span className="flex items-center gap-1.5">
-              <CalendarClock className="h-4 w-4 text-accent-cyan" />
+              <CalendarClock className="h-3.5 w-3.5 text-accent-cyan shrink-0" />
               Date: Sep 16 – Sep 30, 2026
             </span>
             <span className="flex items-center gap-1.5">
-              <Clock3 className="h-4 w-4 text-accent-cyan" />
+              <Clock3 className="h-3.5 w-3.5 text-accent-cyan shrink-0" />
               {cohort.startTime && cohort.endTime
                 ? `${cohort.startTime} – ${cohort.endTime}`
                 : "7:00 PM – 9:00 PM"}
@@ -218,16 +218,16 @@ export function RegistrationForm({
         </label>
 
         {appliedPromo ? (
-          <div className="flex items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3.5">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
-                <Check className="h-4 w-4" />
+          <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 sm:p-3.5">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </span>
-              <div>
-                <p className="text-xs font-bold text-emerald-300">
+              <div className="min-w-0">
+                <p className="text-xs font-bold text-emerald-300 truncate">
                   Code &quot;{appliedPromo.code}&quot; Applied!
                 </p>
-                <p className="text-[11px] text-emerald-200/70">
+                <p className="text-[11px] text-emerald-200/70 leading-tight">
                   {appliedPromo.label}
                   {appliedPromo.isFree
                     ? " (100% OFF)"
@@ -238,7 +238,7 @@ export function RegistrationForm({
             <button
               type="button"
               onClick={handleRemovePromo}
-              className="flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-400 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
+              className="flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-slate-400 transition-colors hover:bg-white/10 hover:text-white cursor-pointer shrink-0"
               title="Remove promo code"
             >
               <X className="h-3.5 w-3.5" />
@@ -261,7 +261,7 @@ export function RegistrationForm({
                 }
               }}
               placeholder="ENTER PROMO CODE"
-              className="h-11 flex-1 rounded-lg border border-white/15 bg-bg-secondary px-3.5 text-sm text-ink placeholder:text-ink-muted/40 uppercase tracking-wider focus-visible:border-accent"
+              className="h-11 flex-1 min-w-0 rounded-lg border border-white/15 bg-bg-secondary px-3 text-xs sm:text-sm text-ink placeholder:text-ink-muted/40 uppercase tracking-wider focus-visible:border-accent"
             />
             <Button
               type="button"
@@ -269,7 +269,7 @@ export function RegistrationForm({
               disabled={isCheckingPromo || !promoInput.trim()}
               variant="outline"
               size="sm"
-              className="h-11 shrink-0 px-4 font-bold border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/20 cursor-pointer"
+              className="h-11 shrink-0 px-3.5 sm:px-4 font-bold border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/20 cursor-pointer text-xs sm:text-sm"
             >
               {isCheckingPromo ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -297,21 +297,21 @@ export function RegistrationForm({
         variant="primary"
         size="lg"
         disabled={isSubmitting}
-        className="mt-7 w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+        className="mt-6 sm:mt-7 w-full h-13 sm:h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-sm sm:text-base md:text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer px-4"
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="h-5 w-5 animate-spin" />
+            <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin shrink-0" />
             Processing...
           </>
         ) : appliedPromo?.isFree ? (
           <>
-            <Check className="h-5 w-5 text-white" />
+            <Check className="h-4 w-4 sm:h-5 sm:w-5 text-white shrink-0" />
             Complete Free Registration
           </>
         ) : (
           <>
-            <ShieldCheck className="h-5 w-5 text-white" />
+            <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5 text-white shrink-0" />
             Pay {formatNaira(finalPrice)}
           </>
         )}
