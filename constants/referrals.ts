@@ -9,6 +9,7 @@ export const REFERRAL_HANDLES = new Set([
   "hama",
   "alloysius",
   "bandit0",
+  "dark9t",
 ]);
 
 /**
