@@ -241,7 +241,7 @@ export const TRAINING_FAQS: { question: string; answer: string }[] = [
   },
   {
     question: "What should I bring?",
-    answer: "A laptop, a stable internet connection, and a willingness to build hands-on.",
+    answer: "Any device you have available to you, a stable internet connection, and a willingness to build hands-on.",
   },
   {
     question: "Will sessions be recorded?",

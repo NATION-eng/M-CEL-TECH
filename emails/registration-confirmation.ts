@@ -87,7 +87,7 @@ export function renderRegistrationConfirmationEmail({
           <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:#CBD5E1;">
             <li>Keep this email and your Receipt Number (<strong>${receiptNumber}</strong>) for your records.</li>
             <li>Our training team will reach out via WhatsApp / Email with onboarding materials and session access details prior to day one.</li>
-            <li>Make sure to have a working laptop and internet connection ready for hands-on exercises.</li>
+            <li>Make sure to have any device you have available to you and a stable internet connection ready for hands-on exercises.</li>
           </ul>
         </div>
 
