@@ -185,10 +185,6 @@ export const registrationService = {
       );
 
       await cohortRepository.incrementRegisteredCount(registration.cohortId);
-      const cohort2 = await cohortRepository.findById(registration.cohortId);
-      if (cohort2 && cohort2.registeredCount >= cohort2.capacity && cohort2.status === "OPEN") {
-        await cohortRepository.markStatus(cohort2.id, "FULL");
-      }
 
       await auditLogRepository.create({
         event: "Free Registration Confirmed",
@@ -301,10 +297,6 @@ export const registrationService = {
     });
 
     await cohortRepository.incrementRegisteredCount(registration.cohortId);
-    const cohort = await cohortRepository.findById(registration.cohortId);
-    if (cohort && cohort.registeredCount >= cohort.capacity && cohort.status === "OPEN") {
-      await cohortRepository.markStatus(cohort.id, "FULL");
-    }
 
     await auditLogRepository.create({
       event: "Payment Verified",

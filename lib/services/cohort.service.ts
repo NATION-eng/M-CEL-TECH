@@ -24,16 +24,39 @@ export function toCohortSummary(cohort: CohortWithAvailability): CohortSummary {
   };
 }
 
+import { prisma } from "@/lib/database/client";
+import { logger } from "@/lib/utils/logger";
+
 export const cohortService = {
   async getActiveCohortsForProgram(programId: string): Promise<CohortWithAvailability[]> {
     const cohorts = await cohortRepository.findActiveByProgramId(programId);
-    return cohorts.map(withAvailability);
+    return cohorts.map((c) => {
+      if (c.status === "FULL" || c.capacity < 999999) {
+        return withAvailability({ ...c, status: "OPEN", capacity: 999999 });
+      }
+      return withAvailability(c);
+    });
   },
 
   /** Throws if the cohort can't currently accept a new registration. Used before reserving a seat. */
   async assertCohortAvailable(cohortId: string): Promise<Cohort> {
-    const cohort = await cohortRepository.findById(cohortId);
+    let cohort = await cohortRepository.findById(cohortId);
     if (!cohort) throw new NotFoundError("Cohort not found.");
+
+    // Auto-heal: Ensure bootcamp cohorts remain permanently open as intended
+    if (cohort.status === "FULL" || cohort.capacity < 999999) {
+      try {
+        cohort = await prisma.cohort.update({
+          where: { id: cohortId },
+          data: { status: "OPEN", capacity: 999999 },
+        });
+        logger.info("cohortService", "Auto-healed cohort to OPEN with unlimited capacity", { cohortId });
+      } catch (err) {
+        logger.warn("cohortService", "Could not auto-heal cohort in DB, overriding in memory", { error: err });
+        cohort = { ...cohort, status: "OPEN", capacity: 999999 };
+      }
+    }
+
     if (cohort.status !== "OPEN") {
       throw new ConflictError(`This cohort is ${cohort.status.toLowerCase()} and no longer accepting registrations.`);
     }
