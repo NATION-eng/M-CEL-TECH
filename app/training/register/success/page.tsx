@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, MessageCircle } from "lucide-react";
+import { CheckCircle2, MessageCircle, ShieldCheck, Home } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { registrationRepository } from "@/lib/database/repositories/registration.repository";
@@ -28,7 +28,7 @@ export default async function RegistrationSuccessPage({
   const confirmed = full?.registrationStatus === "CONFIRMED";
 
   return (
-    <section className="flex min-h-[70vh] items-center bg-bg-secondary py-20">
+    <section className="flex min-h-[70vh] items-center bg-bg-secondary py-12 md:py-16">
       <Container className="mx-auto max-w-lg text-center">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-state-success/10 text-state-success">
           <CheckCircle2 className="h-8 w-8" />
@@ -78,26 +78,36 @@ export default async function RegistrationSuccessPage({
           </div>
         )}
 
-        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-          {full?.registrationNumber && (
-            <Button
-              href={`/verify?id=${full.registrationNumber}`}
-              variant="primary"
-              className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
-            >
-              Verify Certificate
-            </Button>
-          )}
-          <Button href="/" variant="outline">
-            Back to Home
-          </Button>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <Button
             href={getWhatsAppLink(
               `${DEFAULT_WHATSAPP_MESSAGE} My registration reference is ${ref ?? ""}.`
             )}
+            variant="primary"
+            className="h-12 px-6 font-bold shadow-[0_0_20px_rgba(34,211,238,0.35)] flex items-center gap-2"
           >
             <MessageCircle className="h-4 w-4" />
-            Chat With Us
+            Chat on WhatsApp
+          </Button>
+
+          {full?.registrationNumber && (
+            <Button
+              href={`/verify?id=${full.registrationNumber}`}
+              variant="secondary"
+              className="h-12 px-6 font-semibold border border-white/15 bg-white/5 text-ink hover:border-cyan-400/50 hover:bg-white/10 shadow-none flex items-center gap-2"
+            >
+              <ShieldCheck className="h-4 w-4 text-accent-cyan" />
+              Verify Certificate
+            </Button>
+          )}
+
+          <Button
+            href="/"
+            variant="secondary"
+            className="h-12 px-6 font-semibold border border-white/15 bg-white/5 text-ink-muted hover:text-white hover:border-white/30 hover:bg-white/10 shadow-none flex items-center gap-2"
+          >
+            <Home className="h-4 w-4" />
+            Back to Home
           </Button>
         </div>
       </Container>
