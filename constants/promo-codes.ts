@@ -10,7 +10,7 @@ export const PROMO_CODES: Record<string, PromoCode> = {
   "FREE-8K2A-91": {
     code: "FREE-8K2A-91",
     finalPrice: 0,
-    label: "Full Scholarship — Free Registration (Single-Use)",
+    label: "Full Scholarship — Free Registration",
     isActive: true,
   },
   "3K-9B1X-42": {
