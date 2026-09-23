@@ -33,21 +33,45 @@ export function CustomCursor() {
     setEnabled(true);
     document.body.classList.add("custom-cursor-active");
 
+    let rafId: number | null = null;
+    let lastTextInput = false;
+    let lastHovering = false;
+    let lastLabel: string | null = null;
+
     function handleMove(e: MouseEvent) {
       x.set(e.clientX);
       y.set(e.clientY);
 
-      const targetEl = e.target as HTMLElement;
-      const isTextInput = !!targetEl?.closest<HTMLElement>(TEXT_INPUT_SELECTOR);
-      const interactiveTarget = targetEl?.closest<HTMLElement>(INTERACTIVE_SELECTOR);
+      if (rafId !== null) return;
 
-      setTextMode(isTextInput);
-      setHovering(!isTextInput && !!interactiveTarget);
-      setLabel(isTextInput ? null : interactiveTarget?.getAttribute("data-cursor-text") ?? null);
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const targetEl = e.target as HTMLElement | null;
+        if (!targetEl) return;
+
+        const isTextInput = !!targetEl.closest?.(TEXT_INPUT_SELECTOR);
+        const interactiveTarget = isTextInput ? null : targetEl.closest?.(INTERACTIVE_SELECTOR);
+        const nextHovering = !isTextInput && !!interactiveTarget;
+        const nextLabel = isTextInput ? null : (interactiveTarget?.getAttribute("data-cursor-text") ?? null);
+
+        if (isTextInput !== lastTextInput) {
+          lastTextInput = isTextInput;
+          setTextMode(isTextInput);
+        }
+        if (nextHovering !== lastHovering) {
+          lastHovering = nextHovering;
+          setHovering(nextHovering);
+        }
+        if (nextLabel !== lastLabel) {
+          lastLabel = nextLabel;
+          setLabel(nextLabel);
+        }
+      });
     }
 
     window.addEventListener("mousemove", handleMove, { passive: true });
     return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", handleMove);
       document.body.classList.remove("custom-cursor-active");
     };

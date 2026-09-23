@@ -10,7 +10,14 @@ export function useScrolled(threshold = 24): boolean {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > threshold);
+    let prev = window.scrollY > threshold;
+    const onScroll = () => {
+      const next = window.scrollY > threshold;
+      if (next !== prev) {
+        prev = next;
+        setScrolled(next);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

@@ -35,8 +35,8 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                data-cursor-text="View"
-                className="text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+                prefetch={true}
+                className="text-sm font-medium text-ink-muted transition-colors hover:text-ink cursor-pointer"
               >
                 {link.label}
               </Link>
@@ -76,8 +76,9 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  prefetch={true}
                   onClick={() => setOpen(false)}
-                  className="rounded-2xl px-4 py-3.5 text-lg font-bold text-ink transition-colors hover:bg-cyan-500/10 hover:text-cyan-400"
+                  className="rounded-2xl px-4 py-3.5 text-lg font-bold text-ink transition-colors hover:bg-cyan-500/10 hover:text-cyan-400 cursor-pointer"
                 >
                   {link.label}
                 </Link>
