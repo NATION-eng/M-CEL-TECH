@@ -6,7 +6,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mceltech.com",
 
   // ─── Official Company Emails ───────────────────────────────────────
-  contactEmail: "contact@mceltech.com",
+  contactEmail: "mceltechhub@gmail.com",
   supportEmail: "support@mceltech.com",
   customerCareEmail: "customercare@mceltech.com",
   complainEmail: "complain@mceltech.com",
