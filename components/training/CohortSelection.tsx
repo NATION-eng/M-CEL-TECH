@@ -52,9 +52,8 @@ export async function CohortSelection() {
                 )}
               </p>
 
-              {/* Always open — no cap, no "spots left" counter */}
-              <span className="mt-4 rounded-full bg-state-success/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-state-success">
-                Enrolment Open
+              <span className="mt-4 rounded-full bg-state-error/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-state-error">
+                Enrolment Closed
               </span>
 
               <div className="mt-6 w-full">
