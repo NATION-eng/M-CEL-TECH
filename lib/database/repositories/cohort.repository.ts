@@ -19,7 +19,7 @@ function mockCohorts(programId: string): Cohort[] {
     {
       id: "00000000-0000-0000-0000-000000000001",
       programId,
-      name: "Evening Class (Sep 16 – Sep 30, 2026)",
+      name: "Evening Class (Jan 11 – Jan 30, 2027)",
       startDate: null,
       endDate: null,
       startTime: "7:00 PM",

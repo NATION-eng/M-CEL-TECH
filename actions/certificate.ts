@@ -165,7 +165,7 @@ export async function verifyCertificateAction(
             month: "long",
             day: "numeric",
           })
-        : "September 30, 2026";
+        : "January 30, 2027";
 
       const cohortDatesFormatted =
         record.cohort.startDate && record.cohort.endDate

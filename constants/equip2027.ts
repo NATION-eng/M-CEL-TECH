@@ -4,8 +4,7 @@ export const EQUIP_2027 = {
   name: "EQUIP 2027 CSR Subsidized Scholarship",
   year: 2027,
   subsidizedFeePerSlot: 10000, // ₦10,000
-  standardPriceMin: 15000,    // ₦15,000
-  standardPriceMax: 25000,    // ₦25,000
+  standardPrice: 20000,       // ₦20,000 (50% Discount)
   kickoffDate: "January 11, 2027",
 
   // ── Approved Conferences ───────────────────────────────────────────────
@@ -97,16 +96,18 @@ export function calculateEquipPayable(slots: number = 1): number {
 }
 
 /**
- * Calculates savings compared to standard pricing.
+ * Calculates savings compared to standard pricing (50% discount).
  */
 export function calculateEquipSavings(slots: number = 1): {
-  minSaved: number;
-  maxSaved: number;
+  savedAmount: number;
+  discountPercentage: number;
+  standardTotal: number;
 } {
   const safeSlots = Math.max(1, Math.floor(slots || 1));
   return {
-    minSaved: safeSlots * (EQUIP_2027.standardPriceMin - EQUIP_2027.subsidizedFeePerSlot),
-    maxSaved: safeSlots * (EQUIP_2027.standardPriceMax - EQUIP_2027.subsidizedFeePerSlot),
+    savedAmount: safeSlots * (EQUIP_2027.standardPrice - EQUIP_2027.subsidizedFeePerSlot),
+    discountPercentage: 50,
+    standardTotal: safeSlots * EQUIP_2027.standardPrice,
   };
 }
 

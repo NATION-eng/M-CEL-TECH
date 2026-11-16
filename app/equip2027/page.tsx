@@ -67,7 +67,7 @@ export default function Equip2027Page() {
                 Subsidized CSR Rate / Seat
               </div>
               <p className="mt-2 text-xs text-slate-400">
-                Standard price ₦15,000 – ₦25,000. Subsidized grant covers up to 60%.
+                Standard price ₦20,000 (50% Subsidized CSR Scholarship Grant).
               </p>
             </div>
 

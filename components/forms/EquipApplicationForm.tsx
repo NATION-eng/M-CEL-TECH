@@ -159,7 +159,7 @@ export function EquipApplicationForm() {
             <div>
               <span className="text-base font-bold text-white">Subsidized Total</span>
               <p className="text-xs text-emerald-400">
-                You save ₦{(submissionResult.slots * 5000).toLocaleString()} – ₦{(submissionResult.slots * 15000).toLocaleString()} CSR Grant
+                You save ₦{(submissionResult.slots * 10000).toLocaleString()} (50% CSR Grant · Std ₦20,000/seat)
               </p>
             </div>
             <span className="text-2xl font-black text-cyan-300">
@@ -258,7 +258,7 @@ export function EquipApplicationForm() {
               ₦{(20000 * effectiveSlots).toLocaleString()}
             </span>
             <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-xs font-bold text-emerald-400">
-              Save {formatNaira(savings.minSaved)}
+              50% OFF · Save {formatNaira(savings.savedAmount)}
             </span>
           </div>
           <p className="mt-1 text-xs text-slate-400">

@@ -22,8 +22,7 @@ export type EquipOfferEmailParams = {
 export function renderEquipOfferEmail(params: EquipOfferEmailParams): string {
   const savings = calculateEquipSavings(params.slots);
   const formattedAmount = formatNaira(params.amountNaira);
-  const formattedMinSaved = formatNaira(savings.minSaved);
-  const formattedMaxSaved = formatNaira(savings.maxSaved);
+  const formattedSaved = formatNaira(savings.savedAmount);
   const year = new Date().getFullYear();
 
   return `
@@ -90,7 +89,7 @@ export function renderEquipOfferEmail(params: EquipOfferEmailParams): string {
             </tr>
             <tr>
               <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);color:#94A3B8;">Standard Value</td>
-              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;color:#94A3B8;text-decoration:line-through;">₦${(15000 * params.slots).toLocaleString()} – ₦${(25000 * params.slots).toLocaleString()}</td>
+              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;color:#94A3B8;text-decoration:line-through;">₦${(20000 * params.slots).toLocaleString()}</td>
             </tr>
             <tr>
               <td style="padding:12px 0 6px;color:#94A3B8;font-size:15px;font-weight:700;">Subsidized Payable Fee</td>
@@ -98,7 +97,7 @@ export function renderEquipOfferEmail(params: EquipOfferEmailParams): string {
             </tr>
             <tr>
               <td colspan="2" style="padding-top:4px;font-size:12px;color:#10B981;text-align:right;font-weight:600;">
-                ✓ Subsidized CSR Grant Applied (You save ${formattedMinSaved} to ${formattedMaxSaved})
+                ✓ 50% Subsidized CSR Grant Applied (You save ${formattedSaved})
               </td>
             </tr>
           </table>

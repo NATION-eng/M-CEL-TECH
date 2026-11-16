@@ -32,7 +32,7 @@ export default async function RegisterPage({
   const cohorts = (await cohortService.getActiveCohortsForProgram(program.id)).map(toCohortSummary);
 
   const scheduleBadges = [
-    { icon: CalendarClock, label: "Date: Sep 16 – Sep 30, 2026" },
+    { icon: CalendarClock, label: "Date: Jan 11 – Jan 30, 2027" },
     { icon: Clock3, label: "Time: 7:00 PM – 9:00 PM" },
     { icon: Users2, label: "Evening Hybrid Class" },
   ];
@@ -47,7 +47,7 @@ export default async function RegisterPage({
           </h1>
           <p className="mt-5 text-sm sm:text-base leading-relaxed text-ink-muted/70">
             Complete the form to reserve your seat in the upcoming intensive Evening
-            Class bootcamp (September 16 – September 30, 2026).
+            Class bootcamp (January 11 – January 30, 2027).
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2">

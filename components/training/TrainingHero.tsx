@@ -11,10 +11,10 @@ import { formatNaira } from "@/lib/utils";
 export function TrainingHero({ title, price }: { title: string; price: number }) {
   const badges = [
     { icon: CalendarClock, label: `Date: ${TRAINING_DETAILS.duration}` },
-    { icon: Clock3, label: `${TRAINING_DETAILS.schedule} (Evening Class)` },
+    { icon: Clock3, label: TRAINING_DETAILS.schedule },
     { icon: Award, label: "Certificate of Completion" },
     { icon: Hammer, label: "Hands-on Projects" },
-    { icon: Tag, label: formatNaira(price) },
+    { icon: Tag, label: formatNaira(10000) },
   ];
 
   return (
@@ -50,8 +50,8 @@ export function TrainingHero({ title, price }: { title: string; price: number })
           </div>
 
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <Button href="/training/register" size="lg">
-              Register Now
+            <Button href="/equip2027" size="lg">
+              Apply for EQUIP 2027 (₦10k)
               <ArrowRight className="h-4 w-4" />
             </Button>
             <Button href="#overview" variant="outline" size="lg">

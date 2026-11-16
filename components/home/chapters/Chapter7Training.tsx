@@ -18,7 +18,7 @@ const CENTER = 50;
 
 const SCHEDULE_BADGES = [
   { icon: CalendarClock, label: `Date: ${TRAINING_DETAILS.duration}` },
-  { icon: Clock3, label: `${TRAINING_DETAILS.schedule} (Evening Class)` },
+  { icon: Clock3, label: "Evening Online (7–9 PM) & Physical Sprint" },
 ];
 
 /** Chapter 7 — mood shift into deep aurora violet, AI-brain centerpiece, modules orbiting it, pricing glowing below. */
@@ -148,39 +148,51 @@ export function Chapter7Training() {
 
         <Reveal delay={0.25}>
           <div className="glass-panel mx-auto mt-8 flex max-w-xl flex-col items-center gap-4 p-6 sm:p-10 text-center shadow-glow-violet border border-white/15 rounded-3xl">
-            <span className="text-sm font-semibold text-slate-300 sm:text-base">{TRAINING_DETAILS.title}</span>
-            <span className="font-mono text-3xl sm:text-4xl md:text-5xl font-black text-gradient-electric">
-              {formatNaira(TRAINING_DETAILS.price)}
+            <span className="text-sm font-semibold text-slate-300 sm:text-base">
+              EQUIP 2027: AI Productivity & Digital Innovation
             </span>
-            <span className="text-sm font-medium text-slate-400">{TRAINING_DETAILS.cohortNote} · {TRAINING_DETAILS.perks.join(" · ")}</span>
+            <div className="flex items-baseline justify-center gap-3">
+              <span className="font-mono text-3xl sm:text-4xl md:text-5xl font-black text-gradient-electric">
+                {formatNaira(10000)}
+              </span>
+              <span className="text-base text-slate-400 line-through">
+                ₦20,000
+              </span>
+              <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-xs font-bold text-emerald-400">
+                50% OFF
+              </span>
+            </div>
+            <span className="text-sm font-medium text-slate-400">
+              50% Subsidized CSR Grant · Online & Physical Tracks · Certificate
+            </span>
             
             <div className="mt-6 flex w-full flex-col gap-3">
-              {/* Primary Conversion CTA */}
+              {/* Primary Conversion CTA to EQUIP 2027 */}
               <Button
-                href="/training/register"
+                href="/equip2027"
                 size="lg"
                 className="w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
               >
-                Register Now
+                Apply for EQUIP 2027 (₦10,000)
                 <ArrowRight className="h-5 w-5" />
               </Button>
 
-              {/* Secondary Icon-Only on Mobile, Icon + Text on Desktop */}
+              {/* Secondary Buttons */}
               <div className="flex w-full items-center justify-center gap-3">
                 <Button
-                  href="/training"
+                  href="/equip2027"
                   variant="outline"
                   size="lg"
                   className="flex-1 h-12 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.15)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  title="View Full Curriculum"
-                  aria-label="View Full Curriculum"
+                  title="View Tracks & Details"
+                  aria-label="View Tracks & Details"
                 >
                   <BookOpen className="h-5 w-5 text-cyan-400 shrink-0" />
-                  <span className="hidden sm:inline text-xs font-extrabold uppercase tracking-wider">Curriculum</span>
+                  <span className="hidden sm:inline text-xs font-extrabold uppercase tracking-wider">Tracks & Details</span>
                 </Button>
 
                 <Button
-                  href={getWhatsAppLink(BOOTCAMP_WHATSAPP_MESSAGE)}
+                  href={getWhatsAppLink("Hello M-CEL TECH, I would like to know more about the EQUIP 2027 CSR Subsidized Scholarship.")}
                   variant="secondary"
                   size="lg"
                   className="flex-1 h-12 bg-emerald-500/15 border border-emerald-400/50 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.15)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"

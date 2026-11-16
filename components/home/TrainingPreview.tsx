@@ -44,8 +44,8 @@ export function TrainingPreview() {
               <Button href="/training" variant="outline" size="lg">
                 View Training
               </Button>
-              <Button href="/training/register" size="lg">
-                Register Now
+              <Button href="/equip2027" size="lg">
+                Apply for EQUIP 2027 (₦10k)
               </Button>
             </div>
           </Reveal>

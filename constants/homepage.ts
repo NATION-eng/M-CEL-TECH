@@ -76,13 +76,14 @@ export const TRAINING_HIGHLIGHTS: { icon: LucideIcon; title: string }[] = [
 ];
 
 export const TRAINING_DETAILS = {
-  title: "AI Productivity & Digital Innovation Bootcamp",
-  format: "Evening Hybrid Class",
-  duration: "September 16 – September 30, 2026",
-  dates: "16th September – 30th September 2026",
-  schedule: "7:00 PM – 9:00 PM",
-  price: 15000,
-  priceLabel: "\u20a615,000",
-  cohortNote: "Single Cohort",
+  title: "EQUIP 2027: AI Productivity & Digital Innovation",
+  format: "Online Evening & Physical Sprint Tracks",
+  duration: "January 11 – January 30, 2027",
+  dates: "11th January – 30th January 2027",
+  schedule: "7:00 PM – 9:00 PM (Online Track)",
+  price: 10000,
+  standardPrice: 20000,
+  priceLabel: "\u20a610,000",
+  cohortNote: "50% Subsidized CSR Grant",
   perks: ["Certificate", "Practical Projects"],
 };
