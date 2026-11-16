@@ -22,8 +22,8 @@ export function RegistrationCTA() {
             Secure your place in the upcoming 2-week Evening Class. Limited spaces available.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href="/training/register" size="lg">
-              Register Now
+            <Button href="/equip2027" size="lg">
+              Apply for EQUIP 2027 (₦10k)
               <ArrowRight className="h-4 w-4" />
             </Button>
             <Button href={getWhatsAppLink(BOOTCAMP_WHATSAPP_MESSAGE)} variant="outline" size="lg">
