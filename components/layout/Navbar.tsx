@@ -86,20 +86,20 @@ export function Navbar() {
 
               <div className="mt-4 flex flex-col gap-3 border-t border-white/15 pt-5">
                 <Button
-                  href="/training/register"
+                  href="/equip2027"
                   variant="primary"
                   size="lg"
-                  className="w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-base font-black uppercase tracking-wider rounded-full shadow-[0_0_25px_rgba(34,211,238,0.4)] flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full min-h-12 py-3.5 px-4 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-base font-black uppercase tracking-wider rounded-full shadow-[0_0_25px_rgba(34,211,238,0.4)] flex items-center justify-center gap-2 cursor-pointer"
                   onClick={() => setOpen(false)}
                 >
-                  Register Now
+                  EQUIP 2027
                   <ArrowRight className="h-5 w-5" />
                 </Button>
                 <Button
                   href={whatsappLink}
                   variant="secondary"
                   size="lg"
-                  className="w-full h-14 border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-base font-bold rounded-full flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full min-h-12 py-3.5 px-4 border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-base font-bold rounded-full flex items-center justify-center gap-2 cursor-pointer"
                   onClick={() => setOpen(false)}
                 >
                   <MessageCircle className="h-5 w-5 text-emerald-400" />

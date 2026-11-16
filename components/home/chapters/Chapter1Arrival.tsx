@@ -81,11 +81,11 @@ export function Chapter1Arrival() {
               className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-3.5"
             >
               <Button
-                href="/training/register"
+                href="/equip2027"
                 size="lg"
                 className="w-full sm:w-auto px-6 sm:px-7 md:px-5 lg:px-8 text-sm sm:text-base md:text-sm lg:text-base"
               >
-                Register Now
+                EQUIP 2027
                 <ArrowRight className="h-4 w-4 shrink-0" />
               </Button>
               <Button

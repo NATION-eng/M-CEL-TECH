@@ -65,8 +65,7 @@ export const TRAINING_MENU: TrainingMenuItem[] = [
   { label: "Pricing", href: "/training#pricing", icon: Tag },
   { label: "Verify Certificate", href: "/verify", icon: ShieldCheck },
   { label: "FAQ", href: "/training#faq", icon: HelpCircle },
-  { label: "EQUIP 2027 (₦10k)", href: "/equip2027", icon: Sparkles, emphasize: true },
-  { label: "Register Now", href: "/training/register", icon: ClipboardCheck },
+  { label: "EQUIP 2027", href: "/equip2027", icon: Sparkles, emphasize: true },
 ];
 
 export const FOOTER_LINKS = {

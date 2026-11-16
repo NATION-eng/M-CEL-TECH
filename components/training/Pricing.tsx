@@ -39,7 +39,7 @@ export function Pricing({ title = "EQUIP 2027 CSR Subsidized Scholarship", price
               </ul>
 
               <Button href="/equip2027" size="lg" className="mt-7 w-full">
-                Register Now
+                EQUIP 2027
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
