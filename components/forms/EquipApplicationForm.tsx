@@ -72,19 +72,37 @@ export function EquipApplicationForm() {
 
   async function onSubmit(data: EquipApplicationInput) {
     setServerError(null);
-    const result = await submitEquipApplicationAction({
-      ...data,
-      slots: effectiveSlots,
-    });
+    try {
+      const result = await submitEquipApplicationAction({
+        ...data,
+        slots: effectiveSlots,
+      });
 
-    if (!result.success) {
-      setServerError(result.error);
-      return;
+      if (!result.success) {
+        setServerError(result.error);
+        return;
+      }
+
+      setSubmissionResult(result.data);
+      // Navigate to confirmation page with reference code
+      window.location.href = `/equip2027/success?ref=${encodeURIComponent(result.data.referenceCode)}`;
+    } catch (err: any) {
+      setServerError(err?.message || "Failed to submit application. Please try again.");
     }
+  }
 
-    setSubmissionResult(result.data);
-    // Smooth scroll to top of card
-    window.scrollTo({ top: 300, behavior: "smooth" });
+  function onInvalid(formErrors: any) {
+    const errorKeys = Object.keys(formErrors);
+    if (errorKeys.length > 0) {
+      const firstMessage = formErrors[errorKeys[0]]?.message;
+      setServerError(
+        typeof firstMessage === "string"
+          ? firstMessage
+          : "Please complete all required fields marked with an asterisk (*)."
+      );
+      const el = document.getElementById("form-error-banner");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }
 
   function handleCopyReference(ref: string) {
@@ -241,7 +259,7 @@ export function EquipApplicationForm() {
   // ── Form View ───────────────────────────────────────────────────────
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onInvalid)}
       noValidate
       className="w-full max-w-3xl mx-auto rounded-2xl border border-white/10 bg-slate-950/80 p-5 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl"
     >
@@ -273,8 +291,9 @@ export function EquipApplicationForm() {
       </div>
 
       {serverError && (
-        <div className="mt-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
-          {serverError}
+        <div id="form-error-banner" className="mt-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300 flex items-start gap-2.5">
+          <span className="shrink-0 font-bold">⚠️</span>
+          <span>{serverError}</span>
         </div>
       )}
 
@@ -530,9 +549,10 @@ export function EquipApplicationForm() {
       {/* Submit Section */}
       <div className="mt-8 border-t border-white/10 pt-6">
         <Button
+          type="submit"
           variant="primary"
           size="lg"
-          className="w-full"
+          className="w-full cursor-pointer"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

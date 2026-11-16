@@ -16,20 +16,30 @@ export function setEmailProvider(customProvider: EmailProvider) {
 }
 
 async function dispatch(params: { to: string; subject: string; html: string; registrationId?: string }) {
-  const log = await emailLogRepository.create({
-    email: params.to,
-    subject: params.subject,
-    provider: "resend",
-    status: "PENDING",
-    ...(params.registrationId ? { registration: { connect: { id: params.registrationId } } } : {}),
-  });
+  let logId: string | null = null;
+  try {
+    const log = await emailLogRepository.create({
+      email: params.to,
+      subject: params.subject,
+      provider: "resend",
+      status: "PENDING",
+      ...(params.registrationId ? { registration: { connect: { id: params.registrationId } } } : {}),
+    });
+    logId = log.id;
+  } catch (err) {
+    logger.warn("EmailService", "Failed to write email log to DB, proceeding with dispatch", { error: err });
+  }
 
   try {
     const result = await provider.send(params);
-    await emailLogRepository.markSent(log.id, result.id);
+    if (logId) {
+      await emailLogRepository.markSent(logId, result.id).catch(() => {});
+    }
     logger.info("EmailService", "Email sent", { to: params.to, subject: params.subject });
   } catch (err) {
-    await emailLogRepository.markFailed(log.id, err instanceof Error ? err.message : "Unknown error");
+    if (logId) {
+      await emailLogRepository.markFailed(logId, err instanceof Error ? err.message : "Unknown error").catch(() => {});
+    }
     logger.error("EmailService", "Email failed", { to: params.to, error: err });
     throw err;
   }

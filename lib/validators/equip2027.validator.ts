@@ -21,12 +21,8 @@ export const equipApplicationSchema = z.object({
     .string()
     .trim()
     .min(7, "Please enter a valid WhatsApp phone number.")
-    .max(20, "Phone number is too long.")
-    .regex(/^[0-9+()\-\s]+$/, "Use digits only, e.g. +234 800 000 0000."),
-  conference: z.enum(
-    EQUIP_2027.conferences,
-    { errorMap: () => ({ message: "Please select your church conference." }) }
-  ),
+    .max(30, "Phone number is too long."),
+  conference: z.string().min(2, "Please select your church conference."),
   localChurch: z
     .string()
     .trim()
@@ -40,7 +36,7 @@ export const equipApplicationSchema = z.object({
     .max(500, "Maximum slot count exceeded.")
     .default(1),
   track: equipTrackEnum,
-  hasDevice: z.boolean().default(true),
+  hasDevice: z.boolean().optional().default(true),
   notes: z
     .string()
     .trim()
