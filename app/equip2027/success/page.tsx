@@ -19,9 +19,10 @@ export const metadata: Metadata = {
 export default async function EquipSuccessPage({
   searchParams,
 }: {
-  searchParams: { ref?: string };
+  searchParams: Promise<{ ref?: string }>;
 }) {
-  const ref = searchParams.ref?.trim();
+  const resolvedParams = await searchParams;
+  const ref = resolvedParams?.ref?.trim();
   const application = ref ? await equipApplicationRepository.findByReference(ref) : null;
 
   const whatsappLink = application
