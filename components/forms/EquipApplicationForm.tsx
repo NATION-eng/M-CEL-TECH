@@ -544,8 +544,9 @@ export function EquipApplicationForm() {
             `Submit Application & Claim ₦10,000 Offer (${formatNaira(payableAmount)}) →`
           )}
         </Button>
-        <p className="mt-3 text-center text-xs text-slate-400">
-          🔒 Secure Application: No immediate charge. You will instantly receive an official offer letter with bank transfer & online payment options.
+        <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-slate-400">
+          <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
+          <span>Secure Application: No immediate charge. You will instantly receive an official offer letter with bank transfer & online payment options.</span>
         </p>
       </div>
     </form>

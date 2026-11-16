@@ -1,4 +1,4 @@
-import { CalendarClock, Clock3 } from "lucide-react";
+import { CalendarClock, Clock3, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/shared/Reveal";
@@ -65,8 +65,9 @@ export async function CohortSelection() {
                   Apply for EQUIP 2027 (₦10k) →
                 </Button>
               </div>
-              <p className="mt-3 text-xs text-cyan-300 font-semibold">
-                ✨ Subsidized CSR Scholarship • Kickoff Jan 11, 2027
+              <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-cyan-300 font-semibold">
+                <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+                Subsidized CSR Scholarship • Kickoff Jan 11, 2027
               </p>
             </div>
           </div>
