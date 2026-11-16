@@ -235,7 +235,7 @@ export default function Equip2027Page() {
               <div className="rounded-xl border border-white/10 bg-slate-900/60 p-5">
                 <h4 className="font-bold text-white">What payment methods are supported?</h4>
                 <p className="mt-2 text-slate-300 leading-relaxed text-xs sm:text-sm">
-                  We accept online payments via Paystack (card, bank transfer, USSD) and direct wire transfers to our official corporate account at Moniepoint Microfinance Bank (Account: 8116079309, M-CEL TECH INTEGRATED SERVICES).
+                  We accept online payments via Paystack (card, bank transfer, USSD) and direct wire transfers to our official corporate account at Wema Bank (Account: 0128003905, M-CEL TECH HUB).
                 </p>
               </div>
             </div>

@@ -68,14 +68,9 @@ export const EQUIP_2027 = {
 
   // ── Corporate Bank Account for Wire/Direct Transfer ───────────────────
   corporateBank: {
-    bankName: "Moniepoint Microfinance Bank",
-    accountName: "M-CEL TECH INTEGRATED SERVICES",
-    accountNumber: "8116079309",
-    secondaryAccount: {
-      bankName: "First Bank of Nigeria",
-      accountName: "M-CEL TECH INTEGRATED SERVICES",
-      accountNumber: "2041237136",
-    },
+    bankName: "Wema Bank",
+    accountName: "M-CEL TECH HUB",
+    accountNumber: "0128003905",
     narrationPrefix: "EQUIP2027",
   },
 
@@ -112,33 +107,37 @@ export function calculateEquipSavings(slots: number = 1): {
 }
 
 /**
- * Generates the EXACT WhatsApp outreach copy specified for Step 2 follow-up cadence.
+ * Generates the WhatsApp copy sent by the applicant to M-CEL TECH for Step 2 follow-up cadence.
  */
 export function generateEquipWhatsAppOutreachMessage(params: {
   fullName: string;
   conference: string;
   localChurch: string;
   trackLabel?: string;
+  referenceCode?: string;
 }): string {
   const track = params.trackLabel || "Track 1: Evening Online vs Track 2: Physical Sprint";
-  return `Hello ${params.fullName}! 👋 
-this M-CEL TECH Enrollment Team.
-We received your application for the EQUIP 2027 CSR Subsidized Scholarship under the ${params.conference} Conference (${params.localChurch}). 
+  const refText = params.referenceCode ? ` (Ref: ${params.referenceCode})` : "";
+  return `Hello M-CEL TECH Enrollment Team! 👋 
+My name is ${params.fullName}. I submitted my application for the EQUIP 2027 CSR Subsidized Scholarship${refText} under the ${params.conference} Conference (${params.localChurch}). 
+
 I'm reaching out to:
-1. Confirm you received your official ₦10,000 subsidized scholarship offer email.
-2. Check if you have any questions about your preferred track (${track}).
-3. Ensure you have your laptop/device ready for hands-on sessions.
-Let me know if you need help with payment instructions or require our corporate bank account details!`;
+1. Confirm you received my application and official ₦10,000 subsidized scholarship offer email.
+2. Check on my preferred track (${track}).
+3. Ensure I have my laptop/device ready for hands-on sessions.
+
+Let me know if you need help with payment confirmation or require any further details from me!`;
 }
 
 /**
- * Generates the wa.me link for an applicant or admin to chat directly.
+ * Generates the wa.me link for an applicant to chat directly with M-CEL TECH Enrollment Team.
  */
 export function getEquipWhatsAppLink(params: {
   fullName: string;
   conference: string;
   localChurch: string;
   trackLabel?: string;
+  referenceCode?: string;
 }): string {
   const message = generateEquipWhatsAppOutreachMessage(params);
   return `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(message)}`;

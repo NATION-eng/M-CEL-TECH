@@ -118,19 +118,21 @@ export async function submitEquipApplicationAction(
     };
   }
 
-  // 2. Build WhatsApp Outreach message and wa.me link using the user's corrected template
+  // 2. Build WhatsApp Outreach message and wa.me link tailored from the applicant to M-CEL TECH
   const whatsappMessage = generateEquipWhatsAppOutreachMessage({
     fullName: data.fullName,
     conference: data.conference,
     localChurch: data.localChurch,
-    trackLabel: trackObj ? trackObj.shortLabel : "Track 1 vs Track 2",
+    trackLabel: trackObj ? trackObj.shortLabel : "Track 1: Evening Online vs Track 2: Physical Sprint",
+    referenceCode,
   });
 
   const whatsappLink = getEquipWhatsAppLink({
     fullName: data.fullName,
     conference: data.conference,
     localChurch: data.localChurch,
-    trackLabel: trackObj ? trackObj.shortLabel : "Track 1 vs Track 2",
+    trackLabel: trackObj ? trackObj.shortLabel : "Track 1: Evening Online vs Track 2: Physical Sprint",
+    referenceCode,
   });
 
   // 3. Attempt to initialize Paystack transaction (optional instant online payment link)

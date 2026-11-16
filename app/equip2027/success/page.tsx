@@ -30,8 +30,13 @@ export default async function EquipSuccessPage({
         fullName: application.fullName,
         conference: application.conference,
         localChurch: application.localChurch,
+        referenceCode: application.referenceCode,
+        trackLabel:
+          application.track === "ONLINE_EVENING"
+            ? "Track 1: Evening Online"
+            : "Track 2: Physical Sprint",
       })
-    : `https://wa.me/${EQUIP_2027.corporateBank.accountNumber}`;
+    : `https://wa.me/${SITE.whatsappNumber}`;
 
   return (
     <>
