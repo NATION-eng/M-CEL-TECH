@@ -4,7 +4,7 @@ export const EQUIP_2027 = {
   name: "EQUIP 2027 CSR Subsidized Scholarship",
   year: 2027,
   subsidizedFeePerSlot: 10000, // ₦10,000
-  standardPrice: 20000,       // ₦20,000 (50% Discount)
+  standardPrice: 45000,       // ₦45,000 Standard (₦35,000 Subsidized Grant)
   kickoffDate: "January 11, 2027",
 
   // ── Approved Conferences ───────────────────────────────────────────────
@@ -91,7 +91,7 @@ export function calculateEquipPayable(slots: number = 1): number {
 }
 
 /**
- * Calculates savings compared to standard pricing (50% discount).
+ * Calculates savings compared to standard pricing (₦45,000 standard vs ₦10,000 subsidized).
  */
 export function calculateEquipSavings(slots: number = 1): {
   savedAmount: number;
@@ -99,10 +99,13 @@ export function calculateEquipSavings(slots: number = 1): {
   standardTotal: number;
 } {
   const safeSlots = Math.max(1, Math.floor(slots || 1));
+  const standardTotal = safeSlots * EQUIP_2027.standardPrice;
+  const savedAmount = safeSlots * (EQUIP_2027.standardPrice - EQUIP_2027.subsidizedFeePerSlot);
+  const discountPercentage = Math.round((savedAmount / standardTotal) * 100);
   return {
-    savedAmount: safeSlots * (EQUIP_2027.standardPrice - EQUIP_2027.subsidizedFeePerSlot),
-    discountPercentage: 50,
-    standardTotal: safeSlots * EQUIP_2027.standardPrice,
+    savedAmount,
+    discountPercentage,
+    standardTotal,
   };
 }
 
@@ -116,15 +119,13 @@ export function generateEquipWhatsAppOutreachMessage(params: {
   trackLabel?: string;
   referenceCode?: string;
 }): string {
-  const track = params.trackLabel || "Track 1: Evening Online vs Track 2: Physical Sprint";
   const refText = params.referenceCode ? ` (Ref: ${params.referenceCode})` : "";
   return `Hello M-CEL TECH Enrollment Team! 👋
 My name is ${params.fullName}. I just applied for the EQUIP 2027 CSR Subsidized Scholarship${refText} under the ${params.conference} Conference (${params.localChurch}).
 
 I am reaching out to:
 1. Confirm that I received my official ₦10,000 subsidized scholarship offer email.
-2. Confirm my spot for my preferred track (${track}).
-3. Confirm that my laptop/device is ready for the hands-on sessions.
+2. Confirm my registration details under my conference.
 
 Please guide me on the next steps to complete my payment and confirm my enrollment. Thank you!`;
 }

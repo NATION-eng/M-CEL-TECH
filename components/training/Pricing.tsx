@@ -18,14 +18,14 @@ export function Pricing({ title = "EQUIP 2027 CSR Subsidized Scholarship", price
           <div className="mx-auto mt-12 max-w-md overflow-hidden rounded-2xl border border-cyan-400/30 bg-bg-secondary shadow-card">
             <div className="bg-bg-primary px-8 py-7 text-center text-white border-b border-white/10">
               <span className="inline-block rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-xs font-bold text-emerald-400 mb-2">
-                50% CSR Subsidized Grant
+                Subsidized CSR Grant · Save ₦35,000
               </span>
               <p className="text-sm font-semibold text-cyan-300">EQUIP 2027 CSR Subsidized Scholarship</p>
               <div className="mt-2 flex items-baseline justify-center gap-2.5">
                 <span className="text-4xl font-extrabold text-white">{formatNaira(10000)}</span>
-                <span className="text-lg text-slate-400 line-through">₦20,000</span>
+                <span className="text-lg text-slate-400 line-through">₦45,000</span>
               </div>
-              <p className="mt-1 text-xs text-slate-400">Subsidized per seat · Full programme · Kickoff Jan 11, 2027</p>
+              <p className="mt-1 text-xs text-slate-400">Subsidized per seat · Standard ₦45,000 · Kickoff Jan 11, 2027</p>
             </div>
 
             <div className="p-8">

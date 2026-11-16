@@ -35,7 +35,7 @@ export const equipApplicationSchema = z.object({
     .min(1, "At least 1 slot is required.")
     .max(500, "Maximum slot count exceeded.")
     .default(1),
-  track: equipTrackEnum,
+  track: equipTrackEnum.optional().default("ONLINE_EVENING"),
   hasDevice: z.boolean().optional().default(true),
   notes: z
     .string()

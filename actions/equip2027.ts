@@ -76,8 +76,8 @@ export async function submitEquipApplicationAction(
   const amountNaira = calculateEquipPayable(slots);
   const referenceCode = generateEquipReference(data.conference);
 
-  const trackObj = EQUIP_2027.tracks.find((t) => t.id === data.track);
-  const trackLabel = trackObj ? trackObj.fullTitle : data.track;
+  const assignedTrack = data.track || "ONLINE_EVENING";
+  const trackLabel = "Assigned by Conference Leadership";
 
   // 1. Persist application
   let record: EquipApplicationRecord;
@@ -91,7 +91,7 @@ export async function submitEquipApplicationAction(
       localChurch: data.localChurch,
       category: data.category,
       slots,
-      track: data.track,
+      track: assignedTrack,
       hasDevice: data.hasDevice ?? true,
       notes: data.notes,
       amountNaira,
@@ -108,7 +108,7 @@ export async function submitEquipApplicationAction(
       localChurch: data.localChurch,
       category: data.category,
       slots,
-      track: data.track,
+      track: assignedTrack,
       hasDevice: data.hasDevice ?? true,
       notes: data.notes,
       amountNaira,
@@ -123,7 +123,6 @@ export async function submitEquipApplicationAction(
     fullName: data.fullName,
     conference: data.conference,
     localChurch: data.localChurch,
-    trackLabel: trackObj ? trackObj.shortLabel : "Track 1: Evening Online vs Track 2: Physical Sprint",
     referenceCode,
   });
 
@@ -131,7 +130,6 @@ export async function submitEquipApplicationAction(
     fullName: data.fullName,
     conference: data.conference,
     localChurch: data.localChurch,
-    trackLabel: trackObj ? trackObj.shortLabel : "Track 1: Evening Online vs Track 2: Physical Sprint",
     referenceCode,
   });
 

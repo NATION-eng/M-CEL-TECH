@@ -82,8 +82,8 @@ export const TRAINING_DETAILS = {
   dates: "11th January – 30th January 2027",
   schedule: "7:00 PM – 9:00 PM (Online Track)",
   price: 10000,
-  standardPrice: 20000,
+  standardPrice: 45000,
   priceLabel: "\u20a610,000",
-  cohortNote: "50% Subsidized CSR Grant",
+  cohortNote: "Subsidized CSR Grant · Save ₦35,000",
   perks: ["Certificate", "Practical Projects"],
 };

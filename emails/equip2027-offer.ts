@@ -80,8 +80,8 @@ export function renderEquipOfferEmail(params: EquipOfferEmailParams): string {
               <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;font-weight:600;color:#FFFFFF;">${params.conference} • ${params.localChurch}</td>
             </tr>
             <tr>
-              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);color:#94A3B8;">Selected Track</td>
-              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;font-weight:600;color:#FFFFFF;">${params.trackLabel}</td>
+              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);color:#94A3B8;">Learning Track</td>
+              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;font-weight:600;color:#FFFFFF;">Assigned by Conference Leadership</td>
             </tr>
             <tr>
               <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);color:#94A3B8;">Allocated Slots</td>
@@ -89,7 +89,7 @@ export function renderEquipOfferEmail(params: EquipOfferEmailParams): string {
             </tr>
             <tr>
               <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);color:#94A3B8;">Standard Value</td>
-              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;color:#94A3B8;text-decoration:line-through;">₦${(20000 * params.slots).toLocaleString()}</td>
+              <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-align:right;color:#94A3B8;text-decoration:line-through;">₦${(45000 * params.slots).toLocaleString()}</td>
             </tr>
             <tr>
               <td style="padding:12px 0 6px;color:#94A3B8;font-size:15px;font-weight:700;">Subsidized Payable Fee</td>
@@ -97,7 +97,7 @@ export function renderEquipOfferEmail(params: EquipOfferEmailParams): string {
             </tr>
             <tr>
               <td colspan="2" style="padding-top:4px;font-size:12px;color:#10B981;text-align:right;font-weight:600;">
-                ✓ 50% Subsidized CSR Grant Applied (You save ${formattedSaved})
+                ✓ Subsidized CSR Grant Applied (You save ${formattedSaved})
               </td>
             </tr>
           </table>

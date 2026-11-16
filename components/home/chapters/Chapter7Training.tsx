@@ -156,14 +156,14 @@ export function Chapter7Training() {
                 {formatNaira(10000)}
               </span>
               <span className="text-base text-slate-400 line-through">
-                ₦20,000
+                ₦45,000
               </span>
               <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-xs font-bold text-emerald-400">
-                50% OFF
+                SAVE ₦35,000
               </span>
             </div>
             <span className="text-sm font-medium text-slate-400">
-              50% Subsidized CSR Grant · Online & Physical Tracks · Certificate
+              ₦10,000 Subsidized CSR Grant · Standard ₦45,000 · Certificate
             </span>
             
             <div className="mt-6 flex w-full flex-col gap-3">

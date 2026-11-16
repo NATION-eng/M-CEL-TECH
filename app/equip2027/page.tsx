@@ -67,7 +67,7 @@ export default function Equip2027Page() {
                 Subsidized CSR Rate / Seat
               </div>
               <p className="mt-2 text-xs text-slate-400">
-                Standard price ₦20,000 (50% Subsidized CSR Scholarship Grant).
+                Standard price ₦45,000 (Subsidized CSR Scholarship Grant · Save ₦35,000).
               </p>
             </div>
 
@@ -109,48 +109,6 @@ export default function Equip2027Page() {
                 Churches and pastors can sponsor delegates with simplified bulk seat allocation.
               </p>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Tracks Breakdown Section */}
-      <section className="bg-bg-secondary py-16 md:py-20 border-b border-white/8">
-        <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="section-eyebrow">Choose Your Track</span>
-            <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold text-white">
-              Two Learning Formats Designed for Maximum Flexibility
-            </h2>
-            <p className="mt-3 text-sm text-slate-400">
-              Both tracks follow the same rigorous hands-on curriculum, interactive lab exercises, and verifiable graduation credential.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {EQUIP_2027.tracks.map((track) => (
-              <div
-                key={track.id}
-                className="rounded-3xl border border-white/10 bg-slate-900/80 p-8 shadow-card flex flex-col justify-between"
-              >
-                <div>
-                  <div className="inline-flex rounded-full bg-cyan-500/10 border border-cyan-400/30 px-3 py-1 text-xs font-bold text-cyan-300 mb-4">
-                    {track.shortLabel}
-                  </div>
-                  <h3 className="text-xl font-bold text-white">{track.fullTitle}</h3>
-                  <div className="mt-2 text-sm font-semibold text-cyan-400 flex items-center gap-1.5">
-                    <Calendar className="h-4 w-4" />
-                    {track.duration}
-                  </div>
-                  <p className="mt-4 text-sm text-slate-300 leading-relaxed">
-                    {track.description}
-                  </p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                  <span>Format: <strong>{track.mode}</strong></span>
-                  <span className="text-emerald-400 font-semibold">₦10,000 / seat</span>
-                </div>
-              </div>
-            ))}
           </div>
         </Container>
       </section>
