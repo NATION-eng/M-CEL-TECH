@@ -107,7 +107,7 @@ export function calculateEquipSavings(slots: number = 1): {
 }
 
 /**
- * Generates the WhatsApp copy sent by the applicant to M-CEL TECH for Step 2 follow-up cadence.
+ * Generates the WhatsApp message sent by the student to M-CEL TECH Enrollment Team.
  */
 export function generateEquipWhatsAppOutreachMessage(params: {
   fullName: string;
@@ -118,15 +118,15 @@ export function generateEquipWhatsAppOutreachMessage(params: {
 }): string {
   const track = params.trackLabel || "Track 1: Evening Online vs Track 2: Physical Sprint";
   const refText = params.referenceCode ? ` (Ref: ${params.referenceCode})` : "";
-  return `Hello M-CEL TECH Enrollment Team! 👋 
-My name is ${params.fullName}. I submitted my application for the EQUIP 2027 CSR Subsidized Scholarship${refText} under the ${params.conference} Conference (${params.localChurch}). 
+  return `Hello M-CEL TECH Enrollment Team! 👋
+My name is ${params.fullName}. I just applied for the EQUIP 2027 CSR Subsidized Scholarship${refText} under the ${params.conference} Conference (${params.localChurch}).
 
-I'm reaching out to:
-1. Confirm you received my application and official ₦10,000 subsidized scholarship offer email.
-2. Check on my preferred track (${track}).
-3. Ensure I have my laptop/device ready for hands-on sessions.
+I am reaching out to:
+1. Confirm that I received my official ₦10,000 subsidized scholarship offer email.
+2. Confirm my spot for my preferred track (${track}).
+3. Confirm that my laptop/device is ready for the hands-on sessions.
 
-Let me know if you need help with payment confirmation or require any further details from me!`;
+Please guide me on the next steps to complete my payment and confirm my enrollment. Thank you!`;
 }
 
 /**
