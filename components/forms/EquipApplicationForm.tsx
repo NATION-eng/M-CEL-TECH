@@ -92,9 +92,9 @@ export function EquipApplicationForm() {
   }
 
   function onInvalid(formErrors: any) {
-    const errorKeys = Object.keys(formErrors);
-    if (errorKeys.length > 0) {
-      const firstMessage = formErrors[errorKeys[0]]?.message;
+    const errorList = Object.values(formErrors) as Array<{ message?: string } | undefined>;
+    if (errorList.length > 0) {
+      const firstMessage = errorList[0]?.message;
       setServerError(
         typeof firstMessage === "string"
           ? firstMessage
