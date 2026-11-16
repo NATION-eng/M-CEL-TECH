@@ -56,15 +56,18 @@ export async function CohortSelection() {
                 Enrolment Closed
               </span>
 
-              <div className="mt-6 w-full">
+              <div className="mt-6 w-full flex flex-col gap-3">
                 <Button
-                  href="/training/register"
+                  href="/equip2027"
                   size="lg"
                   className="w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-base font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Register Now
+                  Apply for EQUIP 2027 (₦10k) →
                 </Button>
               </div>
+              <p className="mt-3 text-xs text-cyan-300 font-semibold">
+                ✨ Subsidized CSR Scholarship • Kickoff Jan 11, 2027
+              </p>
             </div>
           </div>
         </Reveal>

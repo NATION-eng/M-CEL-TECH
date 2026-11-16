@@ -298,3 +298,57 @@ model AuditLog {
   @@index([event])
   @@map("audit_logs")
 }
+
+// ─────────────────────────────────────────────────────────────────────────
+// equip_applications — EQUIP 2027 CSR Subsidized Scholarship Applications
+// ─────────────────────────────────────────────────────────────────────────
+
+enum EquipCategory {
+  TEENAGER
+  UNIVERSITY_STUDENT
+  WORKING_ADULT
+  SPONSOR
+}
+
+enum EquipTrack {
+  ONLINE_EVENING
+  PHYSICAL_SPRINT
+}
+
+enum EquipCadenceStep {
+  STEP1_OFFER_SENT
+  STEP2_WHATSAPP_CONTACTED
+  STEP3_VERIFIED_REMINDED
+  STEP4_PAYMENT_CONFIRMED
+  CANCELLED
+}
+
+model EquipApplication {
+  id               String           @id @default(uuid())
+  referenceCode    String           @unique @map("reference_code")
+  fullName         String           @map("full_name")
+  email            String
+  phone            String
+  conference       String
+  localChurch      String           @map("local_church")
+  category         EquipCategory
+  slots            Int              @default(1)
+  track            EquipTrack
+  hasDevice        Boolean          @default(true) @map("has_device")
+  notes            String?
+  amountNaira      Int              @default(10000) @map("amount_naira")
+  status           EquipCadenceStep @default(STEP1_OFFER_SENT)
+  paidAt           DateTime?        @map("paid_at")
+  paymentReference String?          @unique @map("payment_reference")
+  paymentMethod    String?          @map("payment_method")
+  whatsappNotes    String?          @map("whatsapp_notes")
+
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+
+  @@index([email])
+  @@index([conference])
+  @@index([status])
+  @@map("equip_applications")
+}
+

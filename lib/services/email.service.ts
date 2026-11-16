@@ -4,6 +4,7 @@ import type { EmailProvider } from "@/lib/services/email/email-provider";
 import { emailLogRepository } from "@/lib/database/repositories/email-log.repository";
 import { renderRegistrationConfirmationEmail } from "@/emails/registration-confirmation";
 import { renderAdminNotificationEmail } from "@/emails/admin-notification";
+import { renderEquipOfferEmail, type EquipOfferEmailParams } from "@/emails/equip2027-offer";
 import { logger } from "@/lib/utils/logger";
 import { formatNaira } from "@/lib/utils";
 
@@ -93,4 +94,13 @@ export const emailService = {
       html: renderAdminNotificationEmail({ message: params.message }),
     });
   },
+
+  async sendEquipOfferEmail(params: EquipOfferEmailParams) {
+    await dispatch({
+      to: params.email,
+      subject: `EQUIP 2027 CSR Scholarship Offer — ${params.referenceCode}`,
+      html: renderEquipOfferEmail(params),
+    });
+  },
 };
+
