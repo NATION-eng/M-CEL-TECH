@@ -23,7 +23,7 @@ export function RegistrationCTA() {
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <Button href="/equip2027" size="lg">
-              Apply for EQUIP 2027 (₦10k)
+              Apply for EQUIP 2027
               <ArrowRight className="h-4 w-4" />
             </Button>
             <Button href={getWhatsAppLink(BOOTCAMP_WHATSAPP_MESSAGE)} variant="outline" size="lg">

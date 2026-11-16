@@ -18,6 +18,7 @@ import {
   Mail,
   Phone,
   BookOpen,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import {
@@ -234,20 +235,21 @@ export function EquipApplicationForm() {
             href={submissionResult.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2.5 rounded-full bg-emerald-600 px-6 py-4 text-center text-sm sm:text-base font-extrabold text-white shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all hover:bg-emerald-500 hover:shadow-[0_0_35px_rgba(16,185,129,0.6)]"
+            className="flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3.5 text-center text-sm sm:text-base font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all hover:bg-emerald-500 active:scale-[0.98]"
           >
-            <MessageSquare className="h-5 w-5" />
-            Connect with Enrollment Team on WhatsApp →
+            <MessageSquare className="h-4.5 w-4.5 shrink-0" />
+            <span>Chat on WhatsApp</span>
+            <ArrowRight className="h-4 w-4 shrink-0" />
           </a>
 
           {/* Paystack Online Payment (if available) */}
           {submissionResult.paymentUrl && (
             <a
               href={submissionResult.paymentUrl}
-              className="flex items-center justify-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-6 py-3.5 text-center text-sm font-bold text-cyan-300 transition-colors hover:bg-cyan-500/20"
+              className="flex items-center justify-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 px-5 py-3 text-center text-xs sm:text-sm font-bold text-cyan-300 transition-colors hover:bg-cyan-500/20 active:scale-[0.98]"
             >
-              <ExternalLink className="h-4 w-4" />
-              Pay Subsidized Fee Online via Paystack ({formatNaira(submissionResult.amountNaira)})
+              <ExternalLink className="h-4 w-4 shrink-0" />
+              <span>Pay Online ({formatNaira(submissionResult.amountNaira)})</span>
             </a>
           )}
         </div>
@@ -555,21 +557,24 @@ export function EquipApplicationForm() {
           type="submit"
           variant="primary"
           size="lg"
-          className="w-full cursor-pointer"
+          className="w-full cursor-pointer min-h-12 py-3.5 px-4 text-sm sm:text-base font-extrabold"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <>
-              <Loader2 className="h-5 w-5 animate-spin" />
-              Processing Application & Reserving CSR Offer...
-            </>
+            <span className="flex items-center justify-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin shrink-0" />
+              <span>Submitting Application...</span>
+            </span>
           ) : (
-            `Submit Application & Claim ₦10,000 Offer (${formatNaira(payableAmount)}) →`
+            <span className="flex items-center justify-center gap-2">
+              <span>Submit Application ({formatNaira(payableAmount)})</span>
+              <ArrowRight className="h-4 w-4 shrink-0" />
+            </span>
           )}
         </Button>
         <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-slate-400">
           <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
-          <span>Secure Application: No immediate charge. You will instantly receive an official offer letter with bank transfer & online payment options.</span>
+          <span>Secure Application · Instant offer letter & corporate payment details.</span>
         </p>
       </div>
     </form>

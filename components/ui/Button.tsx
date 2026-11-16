@@ -10,7 +10,7 @@ type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 const baseStyles =
-  "relative inline-flex items-center justify-center gap-2.5 rounded-full font-extrabold tracking-wide transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none whitespace-nowrap";
+  "relative inline-flex items-center justify-center gap-2 rounded-full font-extrabold tracking-wide transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none text-center leading-snug";
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
@@ -24,9 +24,9 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "h-11 px-5 text-xs sm:text-sm",
-  md: "h-13 px-7 text-sm sm:text-base",
-  lg: "h-14 px-8 text-base sm:text-lg",
+  sm: "min-h-10 py-2 px-4 text-xs sm:text-sm",
+  md: "min-h-11 sm:min-h-12 py-2.5 px-5 sm:px-6 text-xs sm:text-sm md:text-base",
+  lg: "min-h-12 sm:min-h-14 py-3 sm:py-3.5 px-5 sm:px-8 text-sm sm:text-base md:text-lg",
 };
 
 type CommonProps = {

@@ -171,36 +171,36 @@ export function Chapter7Training() {
               <Button
                 href="/equip2027"
                 size="lg"
-                className="w-full h-14 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-lg font-black uppercase tracking-wider rounded-full shadow-[0_0_30px_rgba(34,211,238,0.5)] border border-cyan-300/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.75)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+                className="w-full min-h-12 py-3.5 px-4 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white text-sm sm:text-base font-extrabold uppercase tracking-wide rounded-full shadow-[0_0_25px_rgba(34,211,238,0.45)] border border-cyan-300/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.75)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                Apply for EQUIP 2027 (₦10,000)
-                <ArrowRight className="h-5 w-5" />
+                <span>Apply for EQUIP 2027</span>
+                <ArrowRight className="h-4 w-4 shrink-0" />
               </Button>
 
               {/* Secondary Buttons */}
-              <div className="flex w-full items-center justify-center gap-3">
+              <div className="flex w-full items-center justify-center gap-2 sm:gap-3">
                 <Button
                   href="/equip2027"
                   variant="outline"
-                  size="lg"
-                  className="flex-1 h-12 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.15)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  size="md"
+                  className="flex-1 min-h-10 py-2.5 px-3 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.15)] active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer text-xs font-bold"
                   title="View Tracks & Details"
                   aria-label="View Tracks & Details"
                 >
-                  <BookOpen className="h-5 w-5 text-cyan-400 shrink-0" />
-                  <span className="hidden sm:inline text-xs font-extrabold uppercase tracking-wider">Tracks & Details</span>
+                  <BookOpen className="h-4 w-4 text-cyan-400 shrink-0" />
+                  <span>Tracks & Details</span>
                 </Button>
 
                 <Button
                   href={getWhatsAppLink("Hello M-CEL TECH, I would like to know more about the EQUIP 2027 CSR Subsidized Scholarship.")}
                   variant="secondary"
-                  size="lg"
-                  className="flex-1 h-12 bg-emerald-500/15 border border-emerald-400/50 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.15)] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  size="md"
+                  className="flex-1 min-h-10 py-2.5 px-3 bg-emerald-500/15 border border-emerald-400/50 text-emerald-300 hover:bg-emerald-500/25 hover:border-emerald-400 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.15)] active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer text-xs font-bold"
                   title="Talk to an Expert on WhatsApp"
                   aria-label="Talk to an Expert on WhatsApp"
                 >
-                  <MessageCircle className="h-5 w-5 text-emerald-400 shrink-0" />
-                  <span className="hidden sm:inline text-xs font-extrabold uppercase tracking-wider">Expert Chat</span>
+                  <MessageCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <span>WhatsApp</span>
                 </Button>
               </div>
             </div>

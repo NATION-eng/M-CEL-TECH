@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, MessageSquare, Building2, Copy, ArrowLeft, Mail } from "lucide-react";
+import { CheckCircle2, MessageSquare, Building2, Copy, ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
 import { equipApplicationRepository } from "@/lib/database/repositories/equip-application.repository";
@@ -155,18 +155,19 @@ export default async function EquipSuccessPage({
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2.5 rounded-full bg-emerald-600 px-6 py-4 text-center text-sm sm:text-base font-extrabold text-white shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all hover:bg-emerald-500"
+                className="flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3.5 text-center text-sm sm:text-base font-bold text-white shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all hover:bg-emerald-500 active:scale-[0.98]"
               >
-                <MessageSquare className="h-5 w-5" />
-                Connect with Enrollment Team on WhatsApp →
+                <MessageSquare className="h-4.5 w-4.5 shrink-0" />
+                <span>Chat on WhatsApp</span>
+                <ArrowRight className="h-4 w-4 shrink-0" />
               </a>
 
               <Link
                 href="/equip2027"
-                className="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-center text-xs font-semibold text-slate-300 hover:bg-white/10"
+                className="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2.5 text-center text-xs font-semibold text-slate-300 hover:bg-white/10"
               >
-                <ArrowLeft className="h-4 w-4" />
-                Return to EQUIP 2027 Portal
+                <ArrowLeft className="h-4 w-4 shrink-0" />
+                <span>Back to Portal</span>
               </Link>
             </div>
           </div>
