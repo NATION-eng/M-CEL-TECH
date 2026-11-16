@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, MessageSquare, Building2, Copy, ArrowLeft } from "lucide-react";
+import { CheckCircle2, MessageSquare, Building2, Copy, ArrowLeft, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/shared/PageHero";
 import { equipApplicationRepository } from "@/lib/database/repositories/equip-application.repository";
@@ -54,9 +54,13 @@ export default async function EquipSuccessPage({
               <h2 className="mt-2 text-2xl sm:text-3xl font-extrabold text-white">
                 Application Successfully Logged
               </h2>
-              <p className="mt-2 text-sm text-slate-300">
-                Keep your reference code safe. Our enrollment coordinator is available on WhatsApp to assist with questions.
+              <p className="mt-2 text-sm sm:text-base text-slate-300">
+                Please check your email inbox{application?.email ? ` (${application.email})` : ""} — we have reached out to you on your mail with your official ₦10,000 scholarship offer letter and payment instructions!
               </p>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-xl bg-cyan-500/10 border border-cyan-400/30 px-3.5 py-1.5 text-xs font-semibold text-cyan-300">
+                <Mail className="h-4 w-4 text-cyan-400 shrink-0" />
+                Check your inbox & spam/promotions folder
+              </div>
             </div>
 
             {application ? (

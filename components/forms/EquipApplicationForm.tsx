@@ -133,9 +133,12 @@ export function EquipApplicationForm() {
             Application Received, {submissionResult.fullName}!
           </h2>
           <p className="mt-2 text-sm sm:text-base text-slate-300">
-            Your official ₦10,000 subsidized scholarship offer has been reserved and sent to{" "}
-            <span className="font-semibold text-cyan-300">{submissionResult.email}</span>.
+            Please check your email inbox (<strong>{submissionResult.email}</strong>) — we have reached out to you on your mail with your official ₦10,000 subsidized scholarship offer and corporate payment details!
           </p>
+          <div className="mt-3 inline-flex items-center gap-2 rounded-xl bg-cyan-500/10 border border-cyan-400/30 px-3.5 py-1.5 text-xs font-semibold text-cyan-300">
+            <Mail className="h-4 w-4 text-cyan-400 shrink-0" />
+            Check your inbox & spam/promotions folder
+          </div>
         </div>
 
         {/* Reference Code Card */}
