@@ -9,6 +9,7 @@ import {
   getEquipWhatsAppLink,
   generateEquipWhatsAppOutreachMessage,
 } from "@/constants/equip2027";
+import { SITE } from "@/constants/site";
 import { formatNaira } from "@/lib/utils";
 
 export const metadata: Metadata = {
